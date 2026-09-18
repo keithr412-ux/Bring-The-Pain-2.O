@@ -155,6 +155,51 @@
   .bmi-readout .bmi-cat{font-size:13px;font-weight:600;color:var(--chalk);margin-top:6px;}
   .bmi-readout .bmi-hint{font-size:12px;color:var(--chalk-dim);margin-top:8px;}
 
+
+  /* Log sub-tabs, calendar, workout editor, and completion */
+  .log-subtabs{display:flex;gap:6px;margin:-4px 0 16px;border-bottom:1px solid var(--line);}
+  .log-subtab{flex:1;background:transparent;color:var(--chalk-dim);padding:9px 4px;font-family:'Oswald',sans-serif;font-size:12.5px;font-weight:600;letter-spacing:.25px;border-bottom:2px solid transparent;}
+  .log-subtab.active{color:var(--plate);border-bottom-color:var(--plate);}
+  .log-subpanel{display:none;}
+  .log-subpanel.active{display:block;}
+  .calendar-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .calendar-title{font-family:'Oswald',sans-serif;font-size:17px;font-weight:600;color:var(--chalk);}
+  .calendar-nav{display:flex;gap:6px;}
+  .calendar-nav button{background:var(--surface-2);color:var(--chalk);border:1px solid var(--line);border-radius:3px;width:32px;height:30px;font-weight:700;}
+  .calendar-nav button:hover{color:var(--plate);border-color:var(--plate);}
+  .calendar-weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+  .calendar-weekdays div{text-align:center;color:var(--chalk-dim);font-size:10px;font-weight:600;padding:4px 0;}
+  .calendar-day{position:relative;min-height:42px;background:var(--bg);border:1px solid var(--line);border-radius:3px;color:var(--chalk-dim);padding:5px;font-size:11px;text-align:left;}
+  .calendar-day.empty{background:transparent;border-color:transparent;}
+  .calendar-day.has-workout{color:var(--chalk);cursor:pointer;}
+  .calendar-day.has-workout:hover{border-color:var(--plate);}
+  .calendar-day.selected{border-color:var(--plate);outline:1px solid var(--plate);}
+  .calendar-day.today{font-weight:700;}
+  .calendar-day .day-num{font-family:'Oswald',sans-serif;font-size:13px;}
+  .calendar-day .day-dot{display:block;width:6px;height:6px;background:var(--plate);border-radius:50%;margin:6px auto 0;}
+  .calendar-day .day-count{display:block;text-align:center;font-size:9px;color:var(--plate);margin-top:2px;}
+  .calendar-summary{margin-top:12px;padding:10px 12px;background:var(--surface-2);border-radius:3px;font-size:12.5px;color:var(--chalk-dim);}
+  .calendar-summary strong{color:var(--chalk);}
+  .workout-editor{display:flex;flex-direction:column;gap:10px;}
+  .exercise-editor{background:var(--surface-2);border-radius:3px;padding:12px;}
+  .exercise-editor-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;}
+  .exercise-editor-name{font-weight:600;font-size:14px;color:var(--chalk);}
+  .exercise-editor-meta{font-size:11px;color:var(--chalk-dim);}
+  .set-editor{display:grid;grid-template-columns:34px 1fr 1fr auto;gap:6px;align-items:center;margin-top:6px;}
+  .set-label{font-family:'Oswald',sans-serif;color:var(--chalk-dim);font-size:12px;text-align:center;}
+  .set-editor input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:3px;color:var(--chalk);padding:8px;font-size:12px;text-align:center;}
+  .set-editor input:focus{outline:none;border-color:var(--plate);}
+  .small-btn{background:var(--bg);color:var(--chalk);border:1px solid var(--line);border-radius:3px;padding:7px 9px;font-size:11px;font-weight:600;}
+  .small-btn:hover{color:var(--plate);border-color:var(--plate);}
+  .small-btn.danger:hover{color:var(--rust);border-color:var(--rust);}
+  .editor-actions{display:flex;gap:6px;margin-top:9px;}
+  .editor-actions button{flex:1;}
+  .complete-status{background:var(--surface-2);border-radius:3px;padding:14px;margin-bottom:12px;}
+  .complete-status .status-title{font-family:'Oswald',sans-serif;font-size:16px;color:var(--chalk);margin-bottom:6px;}
+  .complete-status .status-line{font-size:12.5px;color:var(--chalk-dim);margin:3px 0;}
+  .complete-status .status-line.ok{color:var(--plate);}
+  .complete-status .status-line.warn{color:var(--rust);}
+  .completion-stamp{font-size:11.5px;color:var(--chalk-dim);margin-top:10px;}
   .footer-note{text-align:center;font-size:12px;color:var(--chalk-dim);margin-top:24px;}
 
   .share-preview{background:var(--surface-2);border-radius:3px;padding:16px;margin-bottom:14px;white-space:pre-line;font-size:13.5px;line-height:1.6;color:var(--chalk);}
@@ -197,6 +242,13 @@
   </div>
 
   <div class="tab-panel active" id="tab-log">
+    <div class="log-subtabs">
+      <button class="log-subtab active" data-logtab="workout">Workout</button>
+      <button class="log-subtab" data-logtab="calendar">Calendar</button>
+      <button class="log-subtab" data-logtab="complete">Complete</button>
+    </div>
+
+    <div class="log-subpanel active" id="log-subtab-workout">
     <div class="card" id="planTodayCard" style="display:none;">
       <h2>Today's plan</h2>
       <div class="plan-today-title" id="planTodayTitle"></div>
@@ -252,6 +304,12 @@
     </div>
 
     <div class="card">
+      <h2>Update workout</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Update reps, weight, or the number of sets while you are working out. Changes save automatically.</div>
+      <div id="workoutEditor" class="workout-editor"></div>
+    </div>
+
+    <div class="card">
       <h2>Today's totals</h2>
       <div class="totals-grid">
         <div class="total-tile"><div class="tnum" id="totalMiles">0</div><div class="tlbl">Miles run</div></div>
@@ -264,6 +322,38 @@
     <div class="card">
       <h2>History</h2>
       <div id="historyList"></div>
+    </div>
+    </div>
+
+    <div class="log-subpanel" id="log-subtab-calendar">
+      <div class="card">
+        <div class="calendar-head">
+          <div class="calendar-title" id="calendarTitle"></div>
+          <div class="calendar-nav">
+            <button id="calendarPrevBtn" title="Previous month">‹</button>
+            <button id="calendarTodayBtn" title="Current month">Today</button>
+            <button id="calendarNextBtn" title="Next month">›</button>
+          </div>
+        </div>
+        <div class="calendar-weekdays">
+          <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+        </div>
+        <div class="calendar-grid" id="workoutCalendar"></div>
+        <div class="calendar-summary" id="calendarSummary">Select a workout day to review the log.</div>
+      </div>
+    </div>
+
+    <div class="log-subpanel" id="log-subtab-complete">
+      <div class="card">
+        <h2>Complete workout</h2>
+        <div class="complete-status" id="completeStatus"></div>
+        <button class="add-btn" id="completeWorkoutBtn">Complete workout</button>
+        <div class="parse-status" id="completeMessage"></div>
+      </div>
+      <div class="card">
+        <h2>Completed workouts</h2>
+        <div id="completionHistory"></div>
+      </div>
     </div>
   </div>
 
@@ -286,7 +376,7 @@
         <button class="cancel-edit-btn" id="planLinkSaveBtn">Save link</button>
       </div>
       <div class="paste-import">
-        <textarea id="planPasteText" placeholder="Or paste the workout's text here (copied from a link or your notes) — e.g. &quot;Bench press 3x8 135lb&quot; or &quot;Run 2 miles 18:00&quot;, one exercise per line"></textarea>
+        <textarea id="planPasteText" placeholder="Paste the workout's text here (copied from a link or your notes) — e.g. &quot;Bench press 3x8 135lb&quot; or &quot;Run 2 miles 18:00&quot;, one exercise per line"></textarea>
         <button class="add-btn" id="planParseBtn" style="margin-top:0;">Auto-fill exercises from text</button>
         <div class="parse-status" id="planParseStatus"></div>
       </div>
@@ -405,7 +495,7 @@ const appStorage = {
     }catch(e){ return null; }
   }
 };
-const KEYS = { entries:'entries', plan:'plan', weight:'bodyweight', planNames:'planNames', sessionTimer:'sessionTimer', planLinks:'planLinks', planRounds:'planRounds', steps:'steps', height:'height', profile:'profile' };
+const KEYS = { entries:'entries', plan:'plan', weight:'bodyweight', planNames:'planNames', sessionTimer:'sessionTimer', planLinks:'planLinks', planRounds:'planRounds', steps:'steps', height:'height', profile:'profile', completions:'completions' };
 let entries = [];
 let plan = {};      // { Sun:[...], Mon:[...], ... }
 let planNames = {}; // { Sun:'Rest', Mon:'Push Day', ... }
@@ -416,6 +506,9 @@ let stepsLog = [];  // [{id,date,steps}]
 let height = { feet: null, inches: null };
 let profile = { age: null, gender: '' };
 let editingPlanIndex = null;
+let completions = [];
+let calendarView = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+let selectedCalendarDate = todayStr();
 const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 let selectedPlanDay = DAY_NAMES[new Date().getDay()];
 
@@ -434,6 +527,7 @@ async function loadAll(){
   try{ const r = await appStorage.get(KEYS.steps); stepsLog = r ? JSON.parse(r.value) : []; }catch(e){ stepsLog = []; }
   try{ const r = await appStorage.get(KEYS.height); height = r ? JSON.parse(r.value) : { feet: null, inches: null }; }catch(e){ height = { feet: null, inches: null }; }
   try{ const r = await appStorage.get(KEYS.profile); profile = r ? JSON.parse(r.value) : { age: null, gender: '' }; }catch(e){ profile = { age: null, gender: '' }; }
+  try{ const r = await appStorage.get(KEYS.completions); completions = r ? JSON.parse(r.value) : []; }catch(e){ completions = []; }
   try{
     const r = await appStorage.get(KEYS.sessionTimer);
     sessionTimer = r ? JSON.parse(r.value) : null;
@@ -453,6 +547,7 @@ async function saveWeights(){ try{ await appStorage.set(KEYS.weight, JSON.string
 async function saveSteps(){ try{ await appStorage.set(KEYS.steps, JSON.stringify(stepsLog)); }catch(e){} }
 async function saveHeight(){ try{ await appStorage.set(KEYS.height, JSON.stringify(height)); }catch(e){} }
 async function saveProfile(){ try{ await appStorage.set(KEYS.profile, JSON.stringify(profile)); }catch(e){} }
+async function saveCompletions(){ try{ await appStorage.set(KEYS.completions, JSON.stringify(completions)); }catch(e){} }
 async function saveSessionTimer(){ try{ await appStorage.set(KEYS.sessionTimer, JSON.stringify(sessionTimer)); }catch(e){} }
 
 /* ---------- helpers ---------- */
@@ -648,7 +743,10 @@ function addEntry(){
   saveEntries(); renderLogTab();
   document.getElementById('exerciseInput').focus();
 }
-function deleteEntry(id){ entries = entries.filter(e => e.id !== id); saveEntries(); renderLogTab(); }
+function deleteEntry(id){
+  entries = entries.filter(e => e.id !== id);
+  saveEntries(); renderLogTab();
+}
 function computeStreak(){
   const days = [...new Set(entries.map(e => e.date))].sort().reverse();
   if(days.length === 0) return 0;
@@ -660,7 +758,7 @@ function computeStreak(){
   }
   return streak;
 }
-function entryHTML(e){
+function entryHTML(e, options={}){
   let detail;
   if(e.type === 'cardio'){
     const unitLabel = e.unit === 'mi' ? 'mi' : 'm';
@@ -669,7 +767,8 @@ function entryHTML(e){
     const weightPart = e.weight ? `${e.weight} lb × ` : '';
     detail = `${weightPart}${e.reps} reps`;
   }
-  return `<div class="entry"><div class="info"><div class="ex-name">${escapeHTML(e.exercise)}</div><div class="ex-detail">${detail}</div></div><button class="del" data-del="${e.id}">×</button></div>`;
+  const editBtn = options.editable ? `<button class="small-btn" data-edit-entry="${e.id}">Edit</button>` : '';
+  return `<div class="entry"><div class="info"><div class="ex-name">${escapeHTML(e.exercise)}</div><div class="ex-detail">${detail}</div></div><div style="display:flex;gap:5px;align-items:center;">${editBtn}<button class="del" data-del="${e.id}">×</button></div></div>`;
 }
 function renderLogTab(){
   document.getElementById('todayLabel').textContent = new Date().toLocaleDateString('en-US', {weekday:'long', month:'short', day:'numeric'});
@@ -683,7 +782,7 @@ function renderLogTab(){
   document.getElementById('statStreak').textContent = computeStreak();
 
   const todayList = document.getElementById('todayList');
-  todayList.innerHTML = todayEntries.length ? todayEntries.map(entryHTML).join('') : '<div class="empty">No sets logged yet today. Add your first one above.</div>';
+  todayList.innerHTML = todayEntries.length ? todayEntries.map(e => entryHTML(e, {editable:true})).join('') : '<div class="empty">No sets logged yet today. Add your first one above.</div>';
 
   const historyList = document.getElementById('historyList');
   const pastEntries = entries.filter(e => e.date !== today);
@@ -699,9 +798,15 @@ function renderLogTab(){
   document.querySelectorAll('#todayList [data-del], #historyList [data-del]').forEach(btn => {
     btn.addEventListener('click', () => deleteEntry(btn.getAttribute('data-del')));
   });
+  document.querySelectorAll('#todayList [data-edit-entry]').forEach(btn => {
+    btn.addEventListener('click', () => editSingleEntry(btn.getAttribute('data-edit-entry')));
+  });
 
   renderTodaysTotals(todayEntries);
   renderTodayPlanCard();
+  renderWorkoutEditor();
+  renderCalendar();
+  renderCompleteTab();
 }
 function renderTodaysTotals(todayEntries){
   let miles = 0, weightLifted = 0, reps = 0, sets = 0;
@@ -783,243 +888,253 @@ function planItemDetail(item){
   return parts.length ? parts.join(' · ') : 'No target set';
 }
 
-/* ---------- plan tab ---------- */
-function renderDayPicker(){
-  const wrap = document.getElementById('dayPicker');
-  wrap.innerHTML = DAY_NAMES.map(d => {
-    const tag = planNames[d] ? `<span class="day-plan-tag">${escapeHTML(planNames[d])}</span>` : '';
-    return `<button class="day-btn ${d===selectedPlanDay?'active':''}" data-day="${d}">${d}${tag}</button>`;
-  }).join('');
-  wrap.querySelectorAll('.day-btn').forEach(btn => {
-    btn.addEventListener('click', () => { selectedPlanDay = btn.dataset.day; cancelPlanEdit(); renderPlanTab(); });
-  });
-}
-function renderPlanExerciseList(){
-  const list = plan[selectedPlanDay] || [];
-  const wrap = document.getElementById('planExerciseList');
-  wrap.innerHTML = list.length
-    ? list.map((item, i) => `
-        <div class="plan-item ${i===editingPlanIndex?'editing':''}" data-plan-edit="${i}">
-          <div class="item-main">
-            <div class="ex-name">${escapeHTML(item.name)}</div>
-            <div class="ex-detail">${planItemDetail(item)}</div>
-          </div>
-          <div class="item-actions">
-            <button class="reorder-btn" data-move-up="${i}" ${i===0?'disabled':''}>↑</button>
-            <button class="reorder-btn" data-move-down="${i}" ${i===list.length-1?'disabled':''}>↓</button>
-            <button class="del" data-plan-del="${i}">×</button>
-          </div>
-        </div>
-      `).join('')
-    : '<div class="empty">No exercises planned for this day yet.</div>';
-
-  wrap.querySelectorAll('[data-move-up]').forEach(btn => {
-    btn.addEventListener('click', (ev) => { ev.stopPropagation(); movePlanItem(Number(btn.getAttribute('data-move-up')), -1); });
-  });
-  wrap.querySelectorAll('[data-move-down]').forEach(btn => {
-    btn.addEventListener('click', (ev) => { ev.stopPropagation(); movePlanItem(Number(btn.getAttribute('data-move-down')), 1); });
-  });
-  wrap.querySelectorAll('[data-plan-del]').forEach(btn => {
-    btn.addEventListener('click', (ev) => {
-      ev.stopPropagation();
-      const idx = Number(btn.getAttribute('data-plan-del'));
-      plan[selectedPlanDay].splice(idx, 1);
-      if(editingPlanIndex === idx) cancelPlanEdit();
-      savePlan(); renderPlanTab(); renderTodayPlanCard();
-    });
-  });
-  wrap.querySelectorAll('[data-plan-edit]').forEach(el => {
-    el.addEventListener('click', () => {
-      const idx = Number(el.getAttribute('data-plan-edit'));
-      startPlanEdit(idx);
-    });
-  });
-}
-function movePlanItem(idx, direction){
-  const list = plan[selectedPlanDay];
-  const target = idx + direction;
-  if(target < 0 || target >= list.length) return;
-  [list[idx], list[target]] = [list[target], list[idx]];
-  if(editingPlanIndex === idx) editingPlanIndex = target;
-  else if(editingPlanIndex === target) editingPlanIndex = idx;
-  savePlan(); renderPlanExerciseList(); renderTodayPlanCard();
-}
-function startPlanEdit(idx){
-  editingPlanIndex = idx;
-  const item = plan[selectedPlanDay][idx];
-  const type = item.type || (item.runMinutes ? 'cardio' : (item.weight ? 'strength' : 'reps'));
-  document.getElementById('planExerciseInput').value = item.name || '';
-  document.getElementById('planTypeInput').value = type;
-  document.getElementById('planWeightInput').value = item.weight || '';
-  document.getElementById('planRepsInput').value = item.reps || '';
-  document.getElementById('planRunInput').value = item.runMinutes || '';
-  document.getElementById('planRestInput').value = item.restSeconds || '';
-  updatePlanFieldVisibility(type);
-  document.getElementById('planAddBtn').textContent = 'Save changes';
-  document.getElementById('planCancelBtn').style.display = 'block';
-  renderPlanExerciseList();
-  document.getElementById('planExerciseInput').focus();
-}
-function cancelPlanEdit(){
-  editingPlanIndex = null;
-  document.getElementById('planExerciseInput').value = '';
-  document.getElementById('planWeightInput').value = '';
-  document.getElementById('planRepsInput').value = '';
-  document.getElementById('planRunInput').value = '';
-  document.getElementById('planRestInput').value = '';
-  document.getElementById('planTypeInput').value = 'strength';
-  updatePlanFieldVisibility('strength');
-  document.getElementById('planAddBtn').textContent = 'Add to plan';
-  document.getElementById('planCancelBtn').style.display = 'none';
-  renderPlanExerciseList();
-}
-function updatePlanFieldVisibility(type){
-  document.querySelector('[data-field="weight"]').style.display = type === 'strength' ? '' : 'none';
-  document.querySelector('[data-field="reps"]').style.display = (type === 'strength' || type === 'reps') ? '' : 'none';
-  document.querySelector('[data-field="run"]').style.display = type === 'cardio' ? '' : 'none';
-}
-document.getElementById('planTypeInput').addEventListener('change', (ev) => updatePlanFieldVisibility(ev.target.value));
-updatePlanFieldVisibility('strength');
-document.getElementById('planCancelBtn').addEventListener('click', cancelPlanEdit);
-function renderPlanTab(){
-  renderDayPicker();
-  renderPlanExerciseList();
-  document.getElementById('planNameInput').value = planNames[selectedPlanDay] || '';
-  document.getElementById('planRoundsInput').value = planRounds[selectedPlanDay] || '';
-  document.getElementById('planLinkInput').value = '';
-  renderSavedLinkRow();
-}
-document.getElementById('planRoundsInput').addEventListener('input', (ev) => {
-  const val = Number(ev.target.value);
-  if(val && val > 1) planRounds[selectedPlanDay] = val;
-  else delete planRounds[selectedPlanDay];
-  savePlanRounds();
-  renderTodayPlanCard();
-});
-function renderSavedLinkRow(){
-  const url = planLinks[selectedPlanDay];
-  const row = document.getElementById('savedLinkRow');
-  if(!url){ row.style.display = 'none'; return; }
-  row.style.display = 'flex';
-  const anchor = document.getElementById('savedLinkAnchor');
-  anchor.href = url;
-  anchor.textContent = url.replace(/^https?:\/\//i, '');
-}
-document.getElementById('planLinkSaveBtn').addEventListener('click', () => {
-  const input = document.getElementById('planLinkInput');
-  const url = normalizeUrl(input.value);
-  if(!url) return;
-  planLinks[selectedPlanDay] = url;
-  input.value = '';
-  savePlanLinks();
-  renderSavedLinkRow();
-  renderTodayPlanCard();
-});
-document.getElementById('savedLinkDelBtn').addEventListener('click', () => {
-  delete planLinks[selectedPlanDay];
-  savePlanLinks();
-  renderSavedLinkRow();
-  renderTodayPlanCard();
-});
-document.getElementById('planNameInput').addEventListener('input', (ev) => {
-  const val = ev.target.value.trim();
-  if(val) planNames[selectedPlanDay] = val;
-  else delete planNames[selectedPlanDay];
-  savePlanNames();
-  renderDayPicker();
-  renderTodayPlanCard();
-});
-function parseWorkoutLine(line){
-  const clean = line.trim().replace(/^[-*•\d]+[.)]\s*/, '');
-  if(!clean) return null;
-
-  // Cardio: distance + unit + mm:ss time somewhere in the line
-  const cardioMatch = clean.match(/([\d.]+)\s*(mi|mile|miles|km|k|m|meters?)\b.*?(\d{1,2}:\d{2}(?::\d{2})?)/i);
-  if(cardioMatch){
-    let name = clean.slice(0, cardioMatch.index).trim().replace(/[:\-–]+$/, '').trim();
-    if(!name) name = 'Run';
-    return [{ name, type: 'cardio', weight: null, reps: null, runMinutes: Math.round(parseTimeToSeconds(cardioMatch[3]) / 60) || null, restSeconds: null }];
+/* ---------- live workout editor ---------- */
+function editSingleEntry(id){
+  const e = entries.find(x => x.id === id);
+  if(!e) return;
+  if(e.type === 'cardio'){
+    const distance = prompt(`Update distance (${e.unit || 'mi'}):`, e.distance);
+    if(distance === null) return;
+    const time = prompt('Update time (mm:ss):', formatSecondsToTime(e.timeSeconds));
+    if(time === null) return;
+    const seconds = parseTimeToSeconds(time);
+    if(Number(distance) <= 0 || seconds == null) return;
+    e.distance = Number(distance);
+    e.timeSeconds = seconds;
+  } else {
+    const reps = prompt('Update reps:', e.reps);
+    if(reps === null) return;
+    const weight = prompt('Update weight (lb, optional):', e.weight ?? '');
+    if(weight === null) return;
+    if(Number(reps) <= 0) return;
+    e.reps = Number(reps);
+    e.weight = weight === '' ? null : Number(weight);
   }
-
-  // Strength: "Name 3x8" or "Name 3 x 8 135lb"
-  const setsRepsMatch = clean.match(/^(.+?)\s+(\d+)\s*[x×]\s*(\d+)/i);
-  if(setsRepsMatch){
-    const name = setsRepsMatch[1].trim().replace(/[:\-–]+$/, '').trim() || 'Exercise';
-    const sets = Math.min(Number(setsRepsMatch[2]), 10);
-    const reps = Number(setsRepsMatch[3]);
-    const weightMatch = clean.match(/([\d.]+)\s*(?:lb|lbs|kg)\b/i);
-    const weight = weightMatch ? Number(weightMatch[1]) : null;
-    const items = [];
-    for(let i=0;i<sets;i++){
-      items.push({ name, type: weight ? 'strength' : 'reps', weight, reps, runMinutes: null, restSeconds: null });
-    }
-    return items;
-  }
-
-  // Reps only: "Name 12 reps"
-  const repsOnlyMatch = clean.match(/^(.+?)\s+(\d+)\s*reps?\b/i);
-  if(repsOnlyMatch){
-    const name = repsOnlyMatch[1].trim().replace(/[:\-–]+$/, '').trim() || 'Exercise';
-    return [{ name, type: 'reps', weight: null, reps: Number(repsOnlyMatch[2]), runMinutes: null, restSeconds: null }];
-  }
-
-  return null;
+  saveEntries(); renderLogTab();
 }
-document.getElementById('planParseBtn').addEventListener('click', () => {
-  const textarea = document.getElementById('planPasteText');
-  const statusEl = document.getElementById('planParseStatus');
-  const lines = textarea.value.split('\n').map(l => l.trim()).filter(Boolean);
-  if(lines.length === 0){
-    statusEl.textContent = 'Paste some workout text first.';
-    statusEl.classList.remove('success');
+
+function renderWorkoutEditor(){
+  const wrap = document.getElementById('workoutEditor');
+  const todayEntries = entries.filter(e => e.date === todayStr());
+  if(!todayEntries.length){
+    wrap.innerHTML = '<div class="empty">Log a set above to edit reps and sets while you work out.</div>';
     return;
   }
-  let added = 0, skipped = 0;
-  plan[selectedPlanDay] = plan[selectedPlanDay] || [];
-  lines.forEach(line => {
-    const parsed = parseWorkoutLine(line);
-    if(parsed){
-      parsed.forEach(item => { plan[selectedPlanDay].push(item); added++; });
-    } else {
-      skipped++;
+  const groups = [];
+  const groupMap = {};
+  todayEntries.forEach(e => {
+    const key = e.exercise.trim().toLowerCase();
+    if(!groupMap[key]){
+      groupMap[key] = { name:e.exercise, type:e.type, entries:[] };
+      groups.push(groupMap[key]);
     }
+    groupMap[key].entries.push(e);
   });
-  if(added > 0){
-    savePlan();
-    textarea.value = '';
-    statusEl.textContent = `Added ${added} exercise${added===1?'':'s'} from the text.` + (skipped ? ` Couldn't read ${skipped} line${skipped===1?'':'s'} — add those manually.` : '');
-    statusEl.classList.add('success');
-    renderPlanTab(); renderTodayPlanCard();
-  } else {
-    statusEl.textContent = "Couldn't find any exercises in that text. Try a format like \"Bench press 3x8 135lb\" or \"Run 2 miles 18:00\", one per line.";
-    statusEl.classList.remove('success');
+  wrap.innerHTML = groups.map(g => `
+    <div class="exercise-editor">
+      <div class="exercise-editor-head">
+        <div>
+          <div class="exercise-editor-name">${escapeHTML(g.name)}</div>
+          <div class="exercise-editor-meta">${g.entries.length} set${g.entries.length===1?'':'s'} logged</div>
+        </div>
+        <button class="small-btn" data-add-set="${escapeHTML(g.name)}">+ Set</button>
+      </div>
+      ${g.entries.map((e,i) => e.type === 'cardio'
+        ? `<div class="set-editor" style="grid-template-columns:34px 1fr 1fr auto;">
+             <div class="set-label">Run</div>
+             <input type="number" step="0.01" data-field="distance" data-id="${e.id}" value="${e.distance}" aria-label="Distance">
+             <input type="text" data-field="time" data-id="${e.id}" value="${formatSecondsToTime(e.timeSeconds)}" aria-label="Time">
+             <button class="small-btn danger" data-remove-set="${e.id}">×</button>
+           </div>`
+        : `<div class="set-editor">
+             <div class="set-label">S${i+1}</div>
+             <input type="number" step="0.01" data-field="weight" data-id="${e.id}" value="${e.weight ?? ''}" placeholder="lb" aria-label="Weight">
+             <input type="number" min="1" data-field="reps" data-id="${e.id}" value="${e.reps ?? ''}" placeholder="reps" aria-label="Reps">
+             <button class="small-btn danger" data-remove-set="${e.id}">×</button>
+           </div>`
+      ).join('')}
+      <div class="editor-actions">
+        <button class="small-btn" data-save-exercise="${escapeHTML(g.name)}">Save changes</button>
+      </div>
+    </div>
+  `).join('');
+
+  wrap.querySelectorAll('[data-remove-set]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-remove-set');
+      if(groups.some(g => g.entries.length <= 1 && g.entries[0].id === id)){
+        // Removing the last set is allowed; the exercise disappears from today's log.
+      }
+      deleteEntry(id);
+    });
+  });
+  wrap.querySelectorAll('[data-add-set]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = btn.getAttribute('data-add-set');
+      const source = todayEntries.find(e => e.exercise.trim().toLowerCase() === name.trim().toLowerCase());
+      if(!source) return;
+      const clone = {...source, id: Date.now()+'-'+Math.random().toString(36).slice(2,7)};
+      if(clone.type === 'strength') clone.reps = source.reps || 1;
+      entries.unshift(clone);
+      saveEntries(); renderLogTab();
+    });
+  });
+  wrap.querySelectorAll('[data-save-exercise]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = btn.getAttribute('data-save-exercise').trim().toLowerCase();
+      const ids = todayEntries.filter(e => e.exercise.trim().toLowerCase() === name).map(e => e.id);
+      ids.forEach(id => {
+        const e = entries.find(x => x.id === id);
+        if(!e) return;
+        if(e.type === 'cardio'){
+          const d = wrap.querySelector(`[data-field="distance"][data-id="${id}"]`);
+          const t = wrap.querySelector(`[data-field="time"][data-id="${id}"]`);
+          const seconds = parseTimeToSeconds(t?.value || '');
+          if(d && Number(d.value) > 0 && seconds != null){ e.distance = Number(d.value); e.timeSeconds = seconds; }
+        } else {
+          const w = wrap.querySelector(`[data-field="weight"][data-id="${id}"]`);
+          const r = wrap.querySelector(`[data-field="reps"][data-id="${id}"]`);
+          if(r && Number(r.value) > 0){
+            e.reps = Number(r.value);
+            e.weight = w && w.value !== '' ? Number(w.value) : null;
+          }
+        }
+      });
+      saveEntries(); renderLogTab();
+    });
+  });
+}
+
+/* ---------- workout calendar ---------- */
+function dateKeyFromParts(y,m,d){
+  return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+}
+function entriesForDate(date){
+  return entries.filter(e => e.date === date);
+}
+function renderCalendar(){
+  const title = document.getElementById('calendarTitle');
+  const grid = document.getElementById('workoutCalendar');
+  const summary = document.getElementById('calendarSummary');
+  if(!title || !grid || !summary) return;
+  title.textContent = calendarView.toLocaleDateString('en-US', {month:'long', year:'numeric'});
+  const y = calendarView.getFullYear(), m = calendarView.getMonth();
+  const firstDay = new Date(y,m,1).getDay();
+  const daysInMonth = new Date(y,m+1,0).getDate();
+  let html = '';
+  for(let i=0;i<firstDay;i++) html += '<div class="calendar-day empty"></div>';
+  for(let d=1;d<=daysInMonth;d++){
+    const date = dateKeyFromParts(y,m,d);
+    const dayEntries = entriesForDate(date);
+    const isToday = date === todayStr();
+    const selected = date === selectedCalendarDate;
+    html += `<button class="calendar-day ${dayEntries.length?'has-workout':''} ${isToday?'today':''} ${selected?'selected':''}" data-calendar-date="${date}">
+      <span class="day-num">${d}</span>
+      ${dayEntries.length ? `<span class="day-dot"></span><span class="day-count">${dayEntries.length} set${dayEntries.length===1?'':'s'}</span>` : ''}
+    </button>`;
   }
+  grid.innerHTML = html;
+  grid.querySelectorAll('[data-calendar-date]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedCalendarDate = btn.getAttribute('data-calendar-date');
+      renderCalendar();
+    });
+  });
+  const selectedEntries = entriesForDate(selectedCalendarDate);
+  if(selectedEntries.length){
+    const totalReps = selectedEntries.reduce((sum,e)=>sum+(e.type==='cardio'?0:(e.reps||0)),0);
+    const totalMiles = selectedEntries.reduce((sum,e)=>sum+(e.type==='cardio'?(e.unit==='mi'?e.distance:e.distance/1609.34):0),0);
+    const duration = selectedEntries.reduce((sum,e)=>sum+(e.type==='cardio'?(e.timeSeconds||0):0),0);
+    const complete = completions.find(c=>c.date===selectedCalendarDate);
+    summary.innerHTML = `<strong>${formatDateLabel(selectedCalendarDate)}</strong> · ${selectedEntries.length} set${selectedEntries.length===1?'':'s'} · ${totalReps} reps${totalMiles ? ` · ${totalMiles.toFixed(2)} mi` : ''}${duration ? ` · cardio ${formatSecondsToTime(duration)}` : ''}${complete ? ' · <span style="color:var(--plate)">Completed</span>' : ''}`;
+  } else {
+    summary.innerHTML = `<strong>${formatDateLabel(selectedCalendarDate)}</strong> · No workout logged.`;
+  }
+}
+document.getElementById('calendarPrevBtn').addEventListener('click', () => {
+  calendarView = new Date(calendarView.getFullYear(), calendarView.getMonth()-1, 1);
+  renderCalendar();
 });
-document.getElementById('planAddBtn').addEventListener('click', () => {
-  const nameInput = document.getElementById('planExerciseInput');
-  const name = nameInput.value.trim();
-  if(!name) { nameInput.focus(); return; }
-  const type = document.getElementById('planTypeInput').value;
-  const weight = document.getElementById('planWeightInput').value;
-  const reps = document.getElementById('planRepsInput').value;
-  const runMinutes = document.getElementById('planRunInput').value;
-  const restSeconds = document.getElementById('planRestInput').value;
-  const item = {
-    name,
-    type,
-    weight: type === 'strength' && weight ? Number(weight) : null,
-    reps: (type === 'strength' || type === 'reps') && reps ? Number(reps) : null,
-    runMinutes: type === 'cardio' && runMinutes ? Number(runMinutes) : null,
-    restSeconds: restSeconds ? Number(restSeconds) : null
-  };
-  plan[selectedPlanDay] = plan[selectedPlanDay] || [];
-  if(editingPlanIndex !== null){
-    plan[selectedPlanDay][editingPlanIndex] = item;
+document.getElementById('calendarNextBtn').addEventListener('click', () => {
+  calendarView = new Date(calendarView.getFullYear(), calendarView.getMonth()+1, 1);
+  renderCalendar();
+});
+document.getElementById('calendarTodayBtn').addEventListener('click', () => {
+  calendarView = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  selectedCalendarDate = todayStr();
+  renderCalendar();
+});
+
+/* ---------- completion tab ---------- */
+function sessionDurationSeconds(){
+  return currentSessionSeconds();
+}
+function renderCompleteTab(){
+  const status = document.getElementById('completeStatus');
+  const history = document.getElementById('completionHistory');
+  const btn = document.getElementById('completeWorkoutBtn');
+  if(!status || !history || !btn) return;
+  const today = todayStr();
+  const todayEntries = entriesForDate(today);
+  const duration = sessionDurationSeconds();
+  const planDay = DAY_NAMES[new Date().getDay()];
+  const planned = plan[planDay] || [];
+  const plannedNames = planned.map(x => x.name.trim().toLowerCase());
+  const loggedNames = [...new Set(todayEntries.map(x => x.exercise.trim().toLowerCase()))];
+  const missing = planned.filter(x => !loggedNames.includes(x.name.trim().toLowerCase()));
+
+  const checks = [
+    {ok: duration > 0, text: duration > 0 ? `Workout timer: ${formatSecondsToTime(duration)} recorded.` : 'Workout timer: Start the session timer before completing the workout.'},
+    {ok: todayEntries.length > 0, text: todayEntries.length ? `${todayEntries.length} set${todayEntries.length===1?'':'s'} logged today.` : 'Workout log: Add at least one set before completing.'},
+    {ok: planned.length === 0 || missing.length === 0, text: planned.length === 0 ? 'Plan check: No workout plan is assigned for today.' : (missing.length ? `Plan check: ${missing.length} planned exercise${missing.length===1?' is':'s are'} still missing.` : 'Plan check: All planned exercises are logged.')}
+  ];
+  status.innerHTML = `<div class="status-title">${todayEntries.length ? 'Ready to review' : 'Workout not ready'}</div>` +
+    checks.map(c => `<div class="status-line ${c.ok?'ok':'warn'}">${c.ok?'✓':'•'} ${c.text}</div>`).join('') +
+    `<div class="completion-stamp">Completion records capture today's date, workout set count, and session time.</div>`;
+  const already = completions.find(c => c.date === today);
+  btn.textContent = already ? 'Update completed workout' : 'Complete workout';
+  btn.disabled = !todayEntries.length || duration <= 0;
+  btn.style.opacity = btn.disabled ? '.5' : '1';
+
+  if(!completions.length){
+    history.innerHTML = '<div class="empty">No completed workouts yet.</div>';
   } else {
-    plan[selectedPlanDay].push(item);
+    const rev = [...completions].sort((a,b)=>b.completedAt.localeCompare(a.completedAt));
+    history.innerHTML = rev.map(c => `<div class="entry"><div class="info"><div class="ex-name">${formatDateLabel(c.date)}</div><div class="ex-detail">${c.sets} sets · ${formatSecondsToTime(c.durationSeconds)} · completed ${new Date(c.completedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}</div></div></div>`).join('');
   }
-  cancelPlanEdit();
-  savePlan(); renderPlanTab(); renderTodayPlanCard();
+}
+document.getElementById('completeWorkoutBtn').addEventListener('click', () => {
+  const today = todayStr();
+  const duration = sessionDurationSeconds();
+  const todayEntries = entriesForDate(today);
+  if(!todayEntries.length || duration <= 0) return;
+  const record = {
+    date: today,
+    sets: todayEntries.length,
+    durationSeconds: duration,
+    completedAt: new Date().toISOString()
+  };
+  const idx = completions.findIndex(c => c.date === today);
+  if(idx >= 0) completions[idx] = record;
+  else completions.push(record);
+  saveCompletions();
+  const msg = document.getElementById('completeMessage');
+  msg.textContent = 'Workout completed and logged successfully.';
+  msg.classList.add('success');
+  renderCompleteTab();
+  renderCalendar();
+});
+
+/* ---------- log sub-tabs ---------- */
+document.querySelectorAll('.log-subtab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.log-subtab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.log-subpanel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('log-subtab-' + btn.dataset.logtab).classList.add('active');
+    if(btn.dataset.logtab === 'calendar') renderCalendar();
+    if(btn.dataset.logtab === 'complete') renderCompleteTab();
+  });
 });
 
 /* ---------- weight tab ---------- */
