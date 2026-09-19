@@ -209,6 +209,71 @@
   .link-copy-row{display:flex;gap:8px;}
   .link-copy-row input{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:3px;color:var(--chalk-dim);padding:9px 12px;font-size:12.5px;}
   .link-copy-row button{background:var(--surface-2);color:var(--plate);border:1px solid var(--plate);border-radius:3px;padding:9px 14px;font-size:12.5px;font-weight:600;white-space:nowrap;}
+
+  /* WOD builder */
+  .wod-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;}
+  .wod-type-btn{background:var(--surface-2);color:var(--chalk-dim);border:1px solid var(--line);border-radius:3px;padding:9px 6px;font-size:12px;font-weight:600;text-align:left;line-height:1.3;}
+  .wod-type-btn .wt-sub{display:block;font-size:10px;font-weight:500;color:var(--chalk-dim);opacity:0.8;margin-top:1px;}
+  .wod-type-btn.active{background:var(--plate);color:#1B1A18;border-color:var(--plate);}
+  .wod-type-btn.active .wt-sub{color:#1B1A18;opacity:0.75;}
+  .wod-summary-badge{display:inline-block;background:var(--surface-2);color:var(--plate);border:1px solid var(--plate);border-radius:20px;padding:4px 12px;font-size:11.5px;font-weight:600;letter-spacing:.3px;margin:-2px 0 14px 0;}
+  .movement-row{display:flex;align-items:center;gap:6px;background:var(--surface-2);border-radius:3px;padding:9px 10px;margin-bottom:6px;cursor:pointer;}
+  .movement-row.editing{outline:1px solid var(--plate);}
+  .movement-num{font-family:'Oswald',sans-serif;color:var(--chalk-dim);font-size:12px;width:18px;flex-shrink:0;text-align:center;}
+  .movement-row .item-main{flex:1;min-width:0;}
+  .movement-row .ex-name{font-size:14px;color:var(--chalk);font-weight:600;}
+  .movement-row .ex-detail{font-size:12px;color:var(--chalk-dim);margin-top:2px;}
+  .movement-row .item-actions{display:flex;gap:3px;flex-shrink:0;align-items:center;}
+
+  /* Round x set execution grid */
+  .round-grid-wrap{overflow-x:auto;margin:4px 0 10px;}
+  .round-grid{border-collapse:collapse;width:100%;}
+  .round-grid th{font-family:'Oswald',sans-serif;font-size:10.5px;font-weight:600;color:var(--chalk-dim);padding:0 0 6px;text-align:center;min-width:30px;}
+  .round-grid th.movement-head{text-align:left;padding-right:8px;min-width:110px;}
+  .round-grid td{padding:2px;text-align:center;vertical-align:middle;}
+  .round-grid td.movement-label{text-align:left;padding-right:8px;}
+  .round-grid .movement-label .ex-name{font-size:12.5px;color:var(--chalk);font-weight:600;}
+  .round-grid .movement-label .ex-detail{font-size:10.5px;color:var(--chalk-dim);margin-top:1px;}
+  .round-cell{width:28px;height:28px;border-radius:4px;background:var(--bg);border:1px solid var(--line);color:transparent;font-size:13px;font-weight:700;}
+  .round-cell:hover{border-color:var(--plate);}
+  .round-cell.done{background:var(--plate);border-color:var(--plate);color:#1B1A18;}
+  .round-progress{font-size:12px;color:var(--chalk-dim);margin:0 0 10px;}
+  .round-progress strong{color:var(--plate);}
+  .amrap-counter{display:flex;align-items:center;justify-content:center;gap:16px;background:var(--surface-2);border-radius:4px;padding:14px;margin-bottom:12px;}
+  .amrap-counter button{width:38px;height:38px;border-radius:4px;background:var(--bg);border:1px solid var(--line);color:var(--chalk);font-size:18px;font-weight:700;}
+  .amrap-counter button:hover{border-color:var(--plate);color:var(--plate);}
+  .amrap-counter .amrap-num{font-family:'Oswald',sans-serif;font-size:30px;font-weight:700;color:var(--plate);min-width:50px;text-align:center;}
+  .amrap-counter .amrap-lbl{font-size:11px;color:var(--chalk-dim);display:block;margin-top:2px;}
+  .amrap-checklist{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+  .amrap-check-row{display:flex;align-items:center;gap:10px;background:var(--surface-2);border-radius:3px;padding:9px 10px;}
+  .amrap-check-row .check-box{width:20px;height:20px;border-radius:4px;background:var(--bg);border:1px solid var(--line);color:transparent;flex-shrink:0;font-size:12px;font-weight:700;}
+  .amrap-check-row .check-box.done{background:var(--plate);border-color:var(--plate);color:#1B1A18;}
+  .amrap-check-row .item-main{flex:1;min-width:0;}
+
+  /* Cardio plan (programmed run/walk) */
+  .cardio-toggle{display:flex;gap:6px;margin-bottom:10px;}
+  .cardio-toggle button{flex:1;background:var(--surface-2);color:var(--chalk-dim);border:1px solid var(--line);border-radius:3px;padding:9px;font-size:13px;font-weight:600;}
+  .cardio-toggle button.active{background:var(--plate);color:#1B1A18;border-color:var(--plate);}
+  .cardio-target-toggle{display:flex;gap:6px;margin-bottom:10px;}
+  .cardio-target-toggle button{flex:1;background:var(--bg);color:var(--chalk-dim);border:1px solid var(--line);border-radius:20px;padding:6px;font-size:11.5px;font-weight:600;}
+  .cardio-target-toggle button.active{color:var(--plate);border-color:var(--plate);}
+  .cardio-item{background:var(--surface-2);border-radius:3px;padding:10px 12px;margin-bottom:8px;}
+  .cardio-item-top{display:flex;align-items:center;justify-content:space-between;}
+  .cardio-item .ex-name{font-size:14px;color:var(--chalk);font-weight:600;}
+  .cardio-item .ex-detail{font-size:12px;color:var(--chalk-dim);margin-top:2px;}
+  .cardio-item .item-actions{display:flex;gap:5px;flex-shrink:0;}
+  .cardio-item.completed .ex-name{color:var(--plate);}
+  .cardio-complete-form{display:flex;gap:6px;margin-top:8px;}
+  .cardio-complete-form input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:3px;color:var(--chalk);padding:8px;font-size:12.5px;text-align:center;}
+
+  /* Calendar markers for plan / cardio */
+  .calendar-day .day-marks{display:flex;justify-content:center;gap:3px;margin-top:5px;}
+  .calendar-day .mark-dot{width:6px;height:6px;border-radius:50%;display:inline-block;}
+  .calendar-day .mark-dot.logged{background:var(--plate);}
+  .calendar-day .mark-dot.planned{background:transparent;border:1.5px solid var(--plate);}
+  .calendar-day .mark-dot.cardio{background:var(--rust);}
+  .calendar-plan-section{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
+  .calendar-plan-section h3{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;color:var(--chalk);margin:0 0 8px;display:flex;align-items:center;justify-content:space-between;}
 </style>
 </head>
 <body>
@@ -235,9 +300,9 @@
 
   <div class="tabs">
     <button class="tab-btn active" data-tab="log">Log</button>
-    <button class="tab-btn" data-tab="plan">Plan</button>
+    <button class="tab-btn" data-tab="plan">Training Program</button>
     <button class="tab-btn" data-tab="weight">Weight</button>
-    <button class="tab-btn" data-tab="steps">Steps</button>
+    <button class="tab-btn" data-tab="steps">Cardio</button>
     <button class="tab-btn" data-tab="share">Share</button>
   </div>
 
@@ -253,7 +318,7 @@
       <h2>Today's plan</h2>
       <div class="plan-today-title" id="planTodayTitle"></div>
       <a class="today-plan-link" id="planTodayLink" href="#" target="_blank" rel="noopener" style="display:none;">Open saved workout ↗</a>
-      <div id="planTodayList"></div>
+      <div id="planTodayExecution"></div>
     </div>
 
     <div class="timer-card">
@@ -340,6 +405,14 @@
         </div>
         <div class="calendar-grid" id="workoutCalendar"></div>
         <div class="calendar-summary" id="calendarSummary">Select a workout day to review the log.</div>
+        <div class="calendar-plan-section" id="calendarPlanSection" style="display:none;">
+          <h3><span id="calendarPlanTitle">Planned WOD</span></h3>
+          <div id="calendarPlanExecution"></div>
+        </div>
+        <div class="calendar-plan-section" id="calendarCardioSection" style="display:none;">
+          <h3><span>Scheduled cardio</span></h3>
+          <div id="calendarCardioList"></div>
+        </div>
       </div>
     </div>
 
@@ -359,13 +432,22 @@
 
   <div class="tab-panel" id="tab-plan">
     <div class="card">
-      <h2>Weekly plan</h2>
+      <h2>Training Program · Build a WOD</h2>
       <div class="day-picker" id="dayPicker"></div>
       <div class="plan-name-row">
-        <input type="text" id="planNameInput" placeholder="Name this day's workout (e.g. Push Day)" autocomplete="off">
+        <input type="text" id="planNameInput" placeholder="WOD name (e.g. &quot;Fran&quot;, Push Day)" autocomplete="off">
       </div>
-      <div class="form-row">
-        <input type="number" id="planRoundsInput" placeholder="Rounds (e.g. 3, for a circuit)" inputmode="numeric" min="1">
+      <div class="wod-type-grid" id="wodTypeGrid">
+        <button class="wod-type-btn" data-wodtype="rounds">Rounds<span class="wt-sub">N rounds of movements</span></button>
+        <button class="wod-type-btn" data-wodtype="fortime">For Time<span class="wt-sub">N rounds, scored by time</span></button>
+        <button class="wod-type-btn" data-wodtype="amrap">AMRAP<span class="wt-sub">Max rounds in a time cap</span></button>
+        <button class="wod-type-btn" data-wodtype="emom">EMOM<span class="wt-sub">Every minute on the minute</span></button>
+      </div>
+      <div class="form-row" id="planRoundsRow">
+        <input type="number" id="planRoundsInput" placeholder="Rounds (e.g. 10)" inputmode="numeric" min="1">
+      </div>
+      <div class="form-row" id="planTimeCapRow" style="display:none;">
+        <input type="number" id="planTimeCapInput" placeholder="Time cap (minutes)" inputmode="numeric" min="1">
       </div>
       <div class="saved-link" id="savedLinkRow" style="display:none;">
         <a id="savedLinkAnchor" href="#" target="_blank" rel="noopener"></a>
@@ -376,28 +458,43 @@
         <button class="cancel-edit-btn" id="planLinkSaveBtn">Save link</button>
       </div>
       <div class="paste-import">
-        <textarea id="planPasteText" placeholder="Paste the workout's text here (copied from a link or your notes) — e.g. &quot;Bench press 3x8 135lb&quot; or &quot;Run 2 miles 18:00&quot;, one exercise per line"></textarea>
-        <button class="add-btn" id="planParseBtn" style="margin-top:0;">Auto-fill exercises from text</button>
+        <textarea id="planPasteText" placeholder="Paste movements one per line — e.g.&#10;Run 200m&#10;Push-up 10 reps&#10;Power clean 5 reps 135lb"></textarea>
+        <button class="add-btn" id="planParseBtn" style="margin-top:0;">Auto-fill movements from text</button>
         <div class="parse-status" id="planParseStatus"></div>
       </div>
       <div id="planExerciseList"></div>
-      <div class="edit-hint">Tap an exercise to edit it.</div>
-      <div class="form-row" style="margin-top:6px;"><input type="text" id="planExerciseInput" placeholder="Exercise name" autocomplete="off"></div>
+      <div class="edit-hint">Tap a movement to edit it. Use ↑↓ to reorder.</div>
+      <div class="form-row" style="margin-top:6px;"><input type="text" id="planExerciseInput" placeholder="Movement name (e.g. Power clean)" autocomplete="off"></div>
       <select class="plan-type-select" id="planTypeInput">
         <option value="strength">Weight &amp; reps</option>
         <option value="reps">Reps only (bodyweight)</option>
-        <option value="cardio">Run / cardio time</option>
+        <option value="cardio">Run / row / bike distance</option>
       </select>
-      <div class="plan-form-grid">
+      <div class="plan-form-grid" id="planStrengthFields">
         <input type="number" id="planWeightInput" data-field="weight" placeholder="Weight (lb)" inputmode="decimal">
         <input type="number" id="planRepsInput" data-field="reps" placeholder="Reps" inputmode="numeric">
-        <input type="number" id="planRunInput" data-field="run" placeholder="Run (min)" inputmode="decimal">
       </div>
-      <div class="form-row"><input type="number" id="planRestInput" placeholder="Rest between sets (sec)" inputmode="numeric"></div>
+      <div class="plan-form-grid" id="planCardioFieldsPlan" style="display:none;">
+        <input type="number" id="planRunDistanceInput" data-field="rundist" placeholder="Distance" inputmode="decimal" style="flex:1.3;">
+        <select class="plan-type-select" id="planRunUnitInput" style="margin-bottom:0;width:auto;flex:1;">
+          <option value="m">Meters</option>
+          <option value="mi">Miles</option>
+        </select>
+      </div>
+      <div class="form-row"><input type="number" id="planRestInput" placeholder="Rest after this movement (sec, optional)" inputmode="numeric"></div>
       <div class="plan-form-actions">
         <button class="add-btn" id="planAddBtn">Add to plan</button>
         <button class="cancel-edit-btn" id="planCancelBtn" style="display:none;">Cancel</button>
       </div>
+    </div>
+    <div class="card">
+      <h2>Add to calendar</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Put <strong id="scheduleWodNameLabel">this WOD</strong> on a specific date — for a one-off WOD, or to move it off its usual day. It'll show up on the calendar just like a scheduled cardio session.</div>
+      <div class="link-row">
+        <input type="date" id="wodScheduleDateInput">
+        <button class="cancel-edit-btn" id="wodScheduleAddBtn">Add to calendar</button>
+      </div>
+      <div id="wodScheduleList"></div>
     </div>
   </div>
 
@@ -438,18 +535,33 @@
 
   <div class="tab-panel" id="tab-steps">
     <div class="card">
-      <h2>Log steps</h2>
-      <div class="parse-status" style="margin:-4px 0 12px 0;">Bring the Pain can't pull step counts directly from an Apple Watch, Fitbit, or similar — that needs the device's own app. Type in your daily total (from your watch or phone) and it'll track and chart it here.</div>
-      <div class="num-row">
-        <input type="date" id="stepsDateInput">
-        <input type="number" id="stepsValueInput" placeholder="Steps" inputmode="numeric">
+      <h2>Program a run or walk</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Schedule a cardio session on a specific date. It'll show up on the calendar so you can see it coming and log the real result when you're done.</div>
+      <div class="cardio-toggle" id="cardioActivityToggle">
+        <button class="active" data-activity="run">Run</button>
+        <button data-activity="walk">Walk</button>
       </div>
-      <button class="add-btn" id="stepsAddBtn">Add steps</button>
+      <div class="form-row"><input type="date" id="cardioDateInput"></div>
+      <div class="cardio-target-toggle" id="cardioTargetToggle">
+        <button class="active" data-target="distance">Target distance</button>
+        <button data-target="duration">Target duration</button>
+      </div>
+      <div class="num-row" id="cardioDistanceFields" style="margin-bottom:10px;">
+        <input type="number" id="cardioDistanceInput" placeholder="Distance" inputmode="decimal" style="flex:1.3;">
+        <select class="plan-type-select" id="cardioDistanceUnitInput" style="margin-bottom:0;width:auto;flex:1;">
+          <option value="mi">Miles</option>
+          <option value="m">Meters</option>
+        </select>
+      </div>
+      <div class="num-row" id="cardioDurationFields" style="margin-bottom:10px;display:none;">
+        <input type="number" id="cardioDurationInput" placeholder="Duration (min)" inputmode="numeric">
+      </div>
+      <div class="form-row"><input type="text" id="cardioNotesInput" placeholder="Notes (optional, e.g. easy pace)" autocomplete="off"></div>
+      <button class="add-btn" id="cardioAddBtn">Add to calendar</button>
     </div>
     <div class="card">
-      <h2>Trend</h2>
-      <div class="chart-wrap" id="stepsChartWrap"></div>
-      <div class="weight-list" id="stepsList"></div>
+      <h2>Upcoming &amp; recent</h2>
+      <div id="cardioPlanList"></div>
     </div>
   </div>
 
@@ -495,14 +607,18 @@ const appStorage = {
     }catch(e){ return null; }
   }
 };
-const KEYS = { entries:'entries', plan:'plan', weight:'bodyweight', planNames:'planNames', sessionTimer:'sessionTimer', planLinks:'planLinks', planRounds:'planRounds', steps:'steps', height:'height', profile:'profile', completions:'completions' };
+const KEYS = { entries:'entries', plan:'plan', weight:'bodyweight', planNames:'planNames', sessionTimer:'sessionTimer', planLinks:'planLinks', planRounds:'planRounds', planTypes:'planTypes', planTimeCap:'planTimeCap', roundCompletions:'roundCompletions', cardioPlans:'cardioPlans', wodSchedule:'wodSchedule', height:'height', profile:'profile', completions:'completions' };
 let entries = [];
-let plan = {};      // { Sun:[...], Mon:[...], ... }
+let plan = {};      // { Sun:[{id,name,type,weight,reps,runDistance,runUnit,restSeconds}], Mon:[...], ... }
 let planNames = {}; // { Sun:'Rest', Mon:'Push Day', ... }
 let planLinks = {}; // { Mon: 'https://...' }
-let planRounds = {}; // { Mon: 3 }
+let planRounds = {}; // { Mon: 10 }
+let planTypes = {}; // { Mon: 'rounds' | 'fortime' | 'amrap' | 'emom' }
+let planTimeCap = {}; // { Mon: 20 }  minutes, for amrap/emom
+let roundCompletions = {}; // { '2026-09-18': { 'movId_r1': entryId, 'movId_r2': entryId, 'movId_round': 4 (amrap counter) } }
+let cardioPlans = []; // [{id,date,activity,targetType,distance,unit,durationMin,notes,completed,actualDistance,actualUnit,actualTimeSeconds}]
+let wodSchedule = []; // [{id,date,day}] — pins a specific calendar date to one weekday's WOD template
 let weights = [];   // [{id,date,weight}]
-let stepsLog = [];  // [{id,date,steps}]
 let height = { feet: null, inches: null };
 let profile = { age: null, gender: '' };
 let editingPlanIndex = null;
@@ -511,20 +627,27 @@ let calendarView = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 let selectedCalendarDate = todayStr();
 const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 let selectedPlanDay = DAY_NAMES[new Date().getDay()];
+let cardioActivitySel = 'run';
+let cardioTargetSel = 'distance';
 
 /* ---------- persistence ---------- */
 async function loadAll(){
   try{ const r = await appStorage.get(KEYS.entries); entries = r ? JSON.parse(r.value) : []; }catch(e){ entries = []; }
   try{ const r = await appStorage.get(KEYS.plan); plan = r ? JSON.parse(r.value) : {}; }catch(e){ plan = {}; }
-  // migrate legacy plain-string plan entries to objects
+  // migrate legacy plain-string plan entries to objects, and ensure every movement has a stable id
   Object.keys(plan).forEach(day => {
     plan[day] = (plan[day] || []).map(item => typeof item === 'string' ? { name: item } : item);
+    plan[day].forEach(item => { if(!item.id) item.id = newId(); });
   });
   try{ const r = await appStorage.get(KEYS.planNames); planNames = r ? JSON.parse(r.value) : {}; }catch(e){ planNames = {}; }
   try{ const r = await appStorage.get(KEYS.planLinks); planLinks = r ? JSON.parse(r.value) : {}; }catch(e){ planLinks = {}; }
   try{ const r = await appStorage.get(KEYS.planRounds); planRounds = r ? JSON.parse(r.value) : {}; }catch(e){ planRounds = {}; }
+  try{ const r = await appStorage.get(KEYS.planTypes); planTypes = r ? JSON.parse(r.value) : {}; }catch(e){ planTypes = {}; }
+  try{ const r = await appStorage.get(KEYS.planTimeCap); planTimeCap = r ? JSON.parse(r.value) : {}; }catch(e){ planTimeCap = {}; }
+  try{ const r = await appStorage.get(KEYS.roundCompletions); roundCompletions = r ? JSON.parse(r.value) : {}; }catch(e){ roundCompletions = {}; }
+  try{ const r = await appStorage.get(KEYS.cardioPlans); cardioPlans = r ? JSON.parse(r.value) : []; }catch(e){ cardioPlans = []; }
+  try{ const r = await appStorage.get(KEYS.wodSchedule); wodSchedule = r ? JSON.parse(r.value) : []; }catch(e){ wodSchedule = []; }
   try{ const r = await appStorage.get(KEYS.weight); weights = r ? JSON.parse(r.value) : []; }catch(e){ weights = []; }
-  try{ const r = await appStorage.get(KEYS.steps); stepsLog = r ? JSON.parse(r.value) : []; }catch(e){ stepsLog = []; }
   try{ const r = await appStorage.get(KEYS.height); height = r ? JSON.parse(r.value) : { feet: null, inches: null }; }catch(e){ height = { feet: null, inches: null }; }
   try{ const r = await appStorage.get(KEYS.profile); profile = r ? JSON.parse(r.value) : { age: null, gender: '' }; }catch(e){ profile = { age: null, gender: '' }; }
   try{ const r = await appStorage.get(KEYS.completions); completions = r ? JSON.parse(r.value) : []; }catch(e){ completions = []; }
@@ -543,8 +666,12 @@ async function savePlan(){ try{ await appStorage.set(KEYS.plan, JSON.stringify(p
 async function savePlanNames(){ try{ await appStorage.set(KEYS.planNames, JSON.stringify(planNames)); }catch(e){} }
 async function savePlanLinks(){ try{ await appStorage.set(KEYS.planLinks, JSON.stringify(planLinks)); }catch(e){} }
 async function savePlanRounds(){ try{ await appStorage.set(KEYS.planRounds, JSON.stringify(planRounds)); }catch(e){} }
+async function savePlanTypes(){ try{ await appStorage.set(KEYS.planTypes, JSON.stringify(planTypes)); }catch(e){} }
+async function savePlanTimeCap(){ try{ await appStorage.set(KEYS.planTimeCap, JSON.stringify(planTimeCap)); }catch(e){} }
+async function saveRoundCompletions(){ try{ await appStorage.set(KEYS.roundCompletions, JSON.stringify(roundCompletions)); }catch(e){} }
+async function saveCardioPlans(){ try{ await appStorage.set(KEYS.cardioPlans, JSON.stringify(cardioPlans)); }catch(e){} }
+async function saveWodSchedule(){ try{ await appStorage.set(KEYS.wodSchedule, JSON.stringify(wodSchedule)); }catch(e){} }
 async function saveWeights(){ try{ await appStorage.set(KEYS.weight, JSON.stringify(weights)); }catch(e){} }
-async function saveSteps(){ try{ await appStorage.set(KEYS.steps, JSON.stringify(stepsLog)); }catch(e){} }
 async function saveHeight(){ try{ await appStorage.set(KEYS.height, JSON.stringify(height)); }catch(e){} }
 async function saveProfile(){ try{ await appStorage.set(KEYS.profile, JSON.stringify(profile)); }catch(e){} }
 async function saveCompletions(){ try{ await appStorage.set(KEYS.completions, JSON.stringify(completions)); }catch(e){} }
@@ -562,6 +689,9 @@ function formatDateLabel(dstr){
   return d.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric'});
 }
 function escapeHTML(str){ const div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
+function newId(){ return Date.now()+'-'+Math.random().toString(36).slice(2,7); }
+function toTitle(s){ return s.split(' ').filter(Boolean).map(w => w.charAt(0).toUpperCase()+w.slice(1)).join(' '); }
+function round2(n){ return Math.round(n*100)/100; }
 function normalizeUrl(str){
   const trimmed = str.trim();
   if(!trimmed) return '';
@@ -825,16 +955,15 @@ function renderTodaysTotals(todayEntries){
   document.getElementById('totalSets').textContent = sets;
 }
 function renderTodayPlanCard(){
-  const dayKey = DAY_NAMES[new Date().getDay()];
-  const list = plan[dayKey] || [];
+  const today = todayStr();
+  const { dayKey, list } = planForDate(today);
   const card = document.getElementById('planTodayCard');
   if(list.length === 0){ card.style.display = 'none'; return; }
   card.style.display = 'block';
   const titleEl = document.getElementById('planTodayTitle');
-  const rounds = planRounds[dayKey];
   const titleParts = [];
   if(planNames[dayKey]) titleParts.push(planNames[dayKey]);
-  if(rounds && rounds > 1) titleParts.push(`× ${rounds} rounds`);
+  titleParts.push(wodSummaryText(dayKey));
   titleEl.textContent = titleParts.join(' · ');
   titleEl.style.display = titleParts.length ? 'block' : 'none';
   const linkEl = document.getElementById('planTodayLink');
@@ -844,38 +973,112 @@ function renderTodayPlanCard(){
   } else {
     linkEl.style.display = 'none';
   }
-  document.getElementById('planTodayList').innerHTML = list.map((item, i) => `
-    <div class="plan-item" style="cursor:default;">
-      <div class="item-main">
-        <div class="ex-name">${escapeHTML(item.name)}</div>
-        <div class="ex-detail">${planItemDetail(item)}</div>
+  renderPlanExecution(today, document.getElementById('planTodayExecution'), () => renderLogTab());
+}
+
+/* ---------- shared plan execution (round x set grid, click to complete) ---------- */
+function planForDate(dateStr){
+  const scheduled = wodSchedule.find(s => s.date === dateStr);
+  const dayKey = scheduled ? scheduled.day : DAY_NAMES[new Date(dateStr + 'T00:00:00').getDay()];
+  return { dayKey, list: plan[dayKey] || [], scheduled: !!scheduled };
+}
+function toggleRoundCell(dateStr, movement, roundLabel){
+  const key = `${movement.id}_${roundLabel}`;
+  if(!roundCompletions[dateStr]) roundCompletions[dateStr] = {};
+  const existingEntryId = roundCompletions[dateStr][key];
+  if(existingEntryId){
+    // undo: remove the logged entry and clear the mark
+    entries = entries.filter(e => e.id !== existingEntryId);
+    delete roundCompletions[dateStr][key];
+  } else {
+    // complete: log a set using the movement's planned target
+    const id = newId();
+    let entry;
+    if(movement.type === 'cardio'){
+      entry = { id, date: dateStr, exercise: movement.name, type: 'cardio', distance: movement.runDistance || movement.runMinutes || 0, unit: movement.runUnit || 'm', timeSeconds: null };
+    } else {
+      entry = { id, date: dateStr, exercise: movement.name, type: 'strength', weight: movement.weight || null, reps: movement.reps || 1 };
+    }
+    entries.unshift(entry);
+    roundCompletions[dateStr][key] = id;
+  }
+  saveEntries(); saveRoundCompletions();
+}
+function renderPlanExecution(dateStr, containerEl, onChange){
+  if(!containerEl) return;
+  const refresh = onChange || (() => renderPlanExecution(dateStr, containerEl, onChange));
+  const { list, dayKey } = planForDate(dateStr);
+  if(!list.length){
+    containerEl.innerHTML = '<div class="empty">No WOD programmed for this day. Build one in the Plan tab.</div>';
+    return;
+  }
+  const type = planTypes[dayKey] || 'rounds';
+  const rounds = Math.max(1, Number(planRounds[dayKey]) || 1);
+  const dayCompletions = roundCompletions[dateStr] || {};
+
+  if(type === 'amrap' || type === 'emom'){
+    const counterKey = '__rounds_completed';
+    const completedRounds = Number(dayCompletions[counterKey]) || 0;
+    containerEl.innerHTML = `
+      <div class="amrap-counter">
+        <button data-amrap-dec>−</button>
+        <div><div class="amrap-num" id="amrapCount">${completedRounds}</div><span class="amrap-lbl">rounds complete</span></div>
+        <button data-amrap-inc>+</button>
       </div>
-      <div class="item-actions">
-        <button class="reorder-btn" data-rest="${item.restSeconds || 60}" title="Start rest timer">⏱</button>
-        <button class="quick-log-btn" data-quick="${i}">Use</button>
+      <div class="amrap-checklist">
+        ${list.map(item => `
+          <div class="amrap-check-row">
+            <div class="item-main"><div class="ex-name">${escapeHTML(item.name)}</div><div class="ex-detail">${planItemDetail(item)}</div></div>
+            <button class="reorder-btn" data-rest="${item.restSeconds || 60}" title="Start rest timer">⏱</button>
+          </div>
+        `).join('')}
       </div>
+    `;
+    containerEl.querySelector('[data-amrap-inc]').addEventListener('click', () => {
+      if(!roundCompletions[dateStr]) roundCompletions[dateStr] = {};
+      roundCompletions[dateStr][counterKey] = (Number(roundCompletions[dateStr][counterKey]) || 0) + 1;
+      saveRoundCompletions();
+      refresh();
+    });
+    containerEl.querySelector('[data-amrap-dec]').addEventListener('click', () => {
+      if(!roundCompletions[dateStr]) roundCompletions[dateStr] = {};
+      roundCompletions[dateStr][counterKey] = Math.max(0, (Number(roundCompletions[dateStr][counterKey]) || 0) - 1);
+      saveRoundCompletions();
+      refresh();
+    });
+    containerEl.querySelectorAll('[data-rest]').forEach(btn => {
+      btn.addEventListener('click', () => quickStartRestTimer(Number(btn.getAttribute('data-rest'))));
+    });
+    return;
+  }
+
+  let doneCount = 0, totalCount = 0;
+  const headerCells = Array.from({length: rounds}, (_, i) => `<th>R${i+1}</th>`).join('');
+  const bodyRows = list.map(item => {
+    const cells = Array.from({length: rounds}, (_, i) => {
+      const roundLabel = `r${i+1}`;
+      const key = `${item.id}_${roundLabel}`;
+      const done = !!dayCompletions[key];
+      totalCount++; if(done) doneCount++;
+      return `<td><button class="round-cell ${done?'done':''}" data-movement="${item.id}" data-round="${roundLabel}">✓</button></td>`;
+    }).join('');
+    return `<tr><td class="movement-label"><div class="ex-name">${escapeHTML(item.name)}</div><div class="ex-detail">${planItemDetail(item)}</div></td>${cells}</tr>`;
+  }).join('');
+  containerEl.innerHTML = `
+    <div class="round-progress"><strong>${doneCount}/${totalCount}</strong> sets complete</div>
+    <div class="round-grid-wrap">
+      <table class="round-grid">
+        <thead><tr><th class="movement-head">Movement</th>${headerCells}</tr></thead>
+        <tbody>${bodyRows}</tbody>
+      </table>
     </div>
-  `).join('');
-  document.querySelectorAll('#planTodayList [data-rest]').forEach(btn => {
-    btn.addEventListener('click', () => quickStartRestTimer(Number(btn.getAttribute('data-rest'))));
-  });
-  document.querySelectorAll('#planTodayList [data-quick]').forEach(btn => {
+  `;
+  containerEl.querySelectorAll('[data-movement]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const item = list[Number(btn.getAttribute('data-quick'))];
-      document.getElementById('exerciseInput').value = item.name;
-      const logType = document.getElementById('logTypeInput');
-      if(item.type === 'cardio' || item.runMinutes){
-        logType.value = 'cardio';
-        logType.dispatchEvent(new Event('change'));
-        document.getElementById('timeInput').value = item.runMinutes ? `${item.runMinutes}:00` : '';
-        document.getElementById('distanceInput').focus();
-      } else {
-        logType.value = 'strength';
-        logType.dispatchEvent(new Event('change'));
-        document.getElementById('weightInput').value = item.weight || '';
-        document.getElementById('repsInput').value = item.reps || '';
-        document.getElementById('weightInput').focus();
-      }
+      const movement = list.find(m => m.id === btn.getAttribute('data-movement'));
+      if(!movement) return;
+      toggleRoundCell(dateStr, movement, btn.getAttribute('data-round'));
+      refresh();
     });
   });
 }
@@ -883,9 +1086,307 @@ function planItemDetail(item){
   const parts = [];
   if(item.weight) parts.push(`${item.weight} lb`);
   if(item.reps) parts.push(`${item.reps} reps`);
+  if(item.runDistance) parts.push(`${item.runDistance} ${item.runUnit === 'mi' ? 'mi' : 'm'}`);
   if(item.runMinutes) parts.push(`${item.runMinutes} min run`);
-  if(item.restSeconds) parts.push(`${item.restSeconds}s rest`);
+  if(item.restSeconds) parts.push(`rest ${item.restSeconds}s`);
   return parts.length ? parts.join(' · ') : 'No target set';
+}
+const WOD_TYPE_LABELS = { rounds:'Rounds', fortime:'For Time', amrap:'AMRAP', emom:'EMOM' };
+function wodSummaryText(day){
+  const type = planTypes[day] || 'rounds';
+  const rounds = planRounds[day];
+  const cap = planTimeCap[day];
+  if(type === 'amrap') return `AMRAP ${cap ? cap+' min' : ''}`.trim();
+  if(type === 'emom') return `EMOM ${cap ? cap+' min' : ''}`.trim();
+  if(type === 'fortime') return `For Time${rounds ? ` · ${rounds} rounds` : ''}`;
+  return rounds ? `${rounds} round${rounds===1?'':'s'}` : 'Rounds';
+}
+
+/* ---------- weekly plan: WOD builder ---------- */
+function ensureDayDefaults(day){
+  if(!plan[day]) plan[day] = [];
+  if(!planTypes[day]) planTypes[day] = 'rounds';
+  if(!planRounds[day]) planRounds[day] = 1;
+}
+function renderDayPicker(){
+  const wrap = document.getElementById('dayPicker');
+  wrap.innerHTML = DAY_NAMES.map(day => `
+    <button class="day-btn ${day===selectedPlanDay?'active':''}" data-day="${day}">${day}${planNames[day] ? `<span class="day-plan-tag">${escapeHTML(planNames[day])}</span>` : ''}</button>
+  `).join('');
+  wrap.querySelectorAll('[data-day]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedPlanDay = btn.getAttribute('data-day');
+      cancelMovementEdit();
+      renderPlanTab();
+    });
+  });
+}
+function renderWodTypeGrid(){
+  const type = planTypes[selectedPlanDay] || 'rounds';
+  document.querySelectorAll('#wodTypeGrid [data-wodtype]').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-wodtype') === type);
+  });
+  const isCapType = type === 'amrap' || type === 'emom';
+  document.getElementById('planRoundsRow').style.display = isCapType ? 'none' : 'flex';
+  document.getElementById('planTimeCapRow').style.display = isCapType ? 'flex' : 'none';
+}
+document.querySelectorAll('#wodTypeGrid [data-wodtype]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    planTypes[selectedPlanDay] = btn.getAttribute('data-wodtype');
+    savePlanTypes();
+    renderWodTypeGrid();
+    renderTodayPlanCard();
+  });
+});
+document.getElementById('planNameInput').addEventListener('input', (ev) => {
+  planNames[selectedPlanDay] = ev.target.value;
+  savePlanNames();
+  renderDayPicker();
+});
+document.getElementById('planRoundsInput').addEventListener('input', (ev) => {
+  planRounds[selectedPlanDay] = ev.target.value ? Number(ev.target.value) : 1;
+  savePlanRounds();
+});
+document.getElementById('planTimeCapInput').addEventListener('input', (ev) => {
+  planTimeCap[selectedPlanDay] = ev.target.value ? Number(ev.target.value) : null;
+  savePlanTimeCap();
+});
+document.getElementById('planLinkSaveBtn').addEventListener('click', () => {
+  const url = normalizeUrl(document.getElementById('planLinkInput').value);
+  if(!url) return;
+  planLinks[selectedPlanDay] = url;
+  savePlanLinks();
+  document.getElementById('planLinkInput').value = '';
+  renderPlanTab();
+});
+document.getElementById('savedLinkDelBtn').addEventListener('click', () => {
+  delete planLinks[selectedPlanDay];
+  savePlanLinks();
+  renderPlanTab();
+});
+document.getElementById('planTypeInput').addEventListener('change', (ev) => {
+  const type = ev.target.value;
+  document.getElementById('planStrengthFields').style.display = type === 'cardio' ? 'none' : 'flex';
+  document.getElementById('planCardioFieldsPlan').style.display = type === 'cardio' ? 'flex' : 'none';
+  document.getElementById('planWeightInput').style.display = type === 'reps' ? 'none' : '';
+});
+
+function parsePlanLine(raw){
+  const line = raw.trim();
+  if(!line) return null;
+  const cardioWordMatch = /\b(run|row|bike|ski|walk|swim)\b/i.exec(line);
+  const distMatch = /(\d+(?:\.\d+)?)\s*(meters?|metres?|m\b|miles?|mi\b|km|kilometers?)/i.exec(line);
+  if(cardioWordMatch && distMatch){
+    let dist = parseFloat(distMatch[1]);
+    const unitRaw = distMatch[2].toLowerCase();
+    let unit = 'm';
+    if(unitRaw.startsWith('mi')) unit = 'mi';
+    else if(unitRaw.startsWith('km')){ dist = round2(dist * 0.621371); unit = 'mi'; }
+    let name = line.replace(distMatch[0], '').trim().replace(/^[-–:]+|[-–:]+$/g,'').trim();
+    if(!name) name = toTitle(cardioWordMatch[0]);
+    return { id: newId(), name: toTitle(name), type: 'cardio', runDistance: round2(dist), runUnit: unit };
+  }
+  const setsRepsMatch = /(\d+)\s*x\s*(\d+)/i.exec(line);
+  const weightMatch = /(\d+(?:\.\d+)?)\s*(?:lb|lbs|#)\b/i.exec(line);
+  if(setsRepsMatch){
+    const reps = Number(setsRepsMatch[2]);
+    let name = line.slice(0, setsRepsMatch.index).trim();
+    if(weightMatch) name = name.replace(weightMatch[0], '');
+    name = name.replace(/[-–:]+$/,'').trim();
+    if(!name) name = 'Movement';
+    const weight = weightMatch ? Number(weightMatch[1]) : null;
+    return { id: newId(), name: toTitle(name), type: weight ? 'strength' : 'reps', reps, weight, _roundsHint: Number(setsRepsMatch[1]) };
+  }
+  const roundsOnlyMatch = /^(\d+)\s*rounds?\s*:?\s*$/i.exec(line);
+  if(roundsOnlyMatch) return { _roundsOnly: true, _roundsHint: Number(roundsOnlyMatch[1]) };
+  const repsMatch = /(\d+)\s*reps?\b/i.exec(line);
+  const leadingNumMatch = !repsMatch ? /^(\d+)\s+(.+)/.exec(line) : null;
+  if(repsMatch || leadingNumMatch){
+    const reps = Number((repsMatch || leadingNumMatch)[1]);
+    let name = repsMatch ? line.replace(repsMatch[0], '') : leadingNumMatch[2];
+    if(weightMatch) name = name.replace(weightMatch[0], '');
+    name = name.trim().replace(/^[-–:]+|[-–:]+$/g,'').trim();
+    if(!name) name = 'Movement';
+    const weight = weightMatch ? Number(weightMatch[1]) : null;
+    return { id: newId(), name: toTitle(name), type: weight ? 'strength' : 'reps', reps, weight };
+  }
+  return { id: newId(), name: toTitle(line), type: 'reps', reps: null, weight: null };
+}
+document.getElementById('planParseBtn').addEventListener('click', () => {
+  const text = document.getElementById('planPasteText').value;
+  const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+  const status = document.getElementById('planParseStatus');
+  if(!lines.length){ status.textContent = 'Paste some movements first.'; status.classList.remove('success'); return; }
+  if(!plan[selectedPlanDay]) plan[selectedPlanDay] = [];
+  let roundsHint = null, added = 0;
+  lines.forEach(line => {
+    const parsed = parsePlanLine(line);
+    if(!parsed) return;
+    if(parsed._roundsHint) roundsHint = parsed._roundsHint;
+    if(parsed._roundsOnly) return;
+    delete parsed._roundsHint;
+    plan[selectedPlanDay].push(parsed);
+    added++;
+  });
+  if(roundsHint){
+    planRounds[selectedPlanDay] = roundsHint;
+    document.getElementById('planRoundsInput').value = roundsHint;
+    savePlanRounds();
+  }
+  savePlan();
+  document.getElementById('planPasteText').value = '';
+  status.textContent = added ? `Added ${added} movement${added===1?'':'s'} to ${selectedPlanDay}.` : 'Nothing to add — try one movement per line.';
+  status.classList.toggle('success', added > 0);
+  renderPlanTab();
+  renderTodayPlanCard();
+});
+
+function renderMovementList(){
+  const list = plan[selectedPlanDay] || [];
+  const wrap = document.getElementById('planExerciseList');
+  if(!list.length){
+    wrap.innerHTML = '<div class="empty">No movements yet. Add one below, or paste a workout above.</div>';
+    return;
+  }
+  wrap.innerHTML = list.map((item, i) => `
+    <div class="movement-row ${editingPlanIndex===i?'editing':''}" data-movement-index="${i}">
+      <div class="movement-num">${i+1}</div>
+      <div class="item-main">
+        <div class="ex-name">${escapeHTML(item.name)}</div>
+        <div class="ex-detail">${planItemDetail(item)}</div>
+      </div>
+      <div class="item-actions">
+        <button class="reorder-btn" data-move-up="${i}" ${i===0?'disabled':''} title="Move up">↑</button>
+        <button class="reorder-btn" data-move-down="${i}" ${i===list.length-1?'disabled':''} title="Move down">↓</button>
+        <button class="reorder-btn" data-move-del="${i}" title="Remove">×</button>
+      </div>
+    </div>
+  `).join('');
+  wrap.querySelectorAll('[data-movement-index]').forEach(row => {
+    row.addEventListener('click', (ev) => {
+      if(ev.target.closest('[data-move-up],[data-move-down],[data-move-del]')) return;
+      startMovementEdit(Number(row.getAttribute('data-movement-index')));
+    });
+  });
+  wrap.querySelectorAll('[data-move-up]').forEach(btn => btn.addEventListener('click', (ev) => { ev.stopPropagation(); moveMovement(Number(btn.getAttribute('data-move-up')), -1); }));
+  wrap.querySelectorAll('[data-move-down]').forEach(btn => btn.addEventListener('click', (ev) => { ev.stopPropagation(); moveMovement(Number(btn.getAttribute('data-move-down')), 1); }));
+  wrap.querySelectorAll('[data-move-del]').forEach(btn => btn.addEventListener('click', (ev) => { ev.stopPropagation(); deleteMovement(Number(btn.getAttribute('data-move-del'))); }));
+}
+function moveMovement(i, dir){
+  const list = plan[selectedPlanDay] || [];
+  const j = i + dir;
+  if(j < 0 || j >= list.length) return;
+  [list[i], list[j]] = [list[j], list[i]];
+  savePlan(); renderMovementList(); renderTodayPlanCard();
+}
+function deleteMovement(i){
+  const list = plan[selectedPlanDay] || [];
+  list.splice(i, 1);
+  if(editingPlanIndex === i) cancelMovementEdit();
+  savePlan(); renderMovementList(); renderTodayPlanCard();
+}
+function startMovementEdit(i){
+  const item = (plan[selectedPlanDay] || [])[i];
+  if(!item) return;
+  editingPlanIndex = i;
+  document.getElementById('planExerciseInput').value = item.name;
+  document.getElementById('planTypeInput').value = item.type || 'strength';
+  document.getElementById('planTypeInput').dispatchEvent(new Event('change'));
+  document.getElementById('planWeightInput').value = item.weight ?? '';
+  document.getElementById('planRepsInput').value = item.reps ?? '';
+  document.getElementById('planRunDistanceInput').value = item.runDistance ?? '';
+  document.getElementById('planRunUnitInput').value = item.runUnit || 'm';
+  document.getElementById('planRestInput').value = item.restSeconds ?? '';
+  document.getElementById('planAddBtn').textContent = 'Save changes';
+  document.getElementById('planCancelBtn').style.display = 'block';
+  renderMovementList();
+  document.getElementById('planExerciseInput').scrollIntoView({behavior:'smooth', block:'center'});
+}
+function cancelMovementEdit(){
+  editingPlanIndex = null;
+  document.getElementById('planExerciseInput').value = '';
+  document.getElementById('planWeightInput').value = '';
+  document.getElementById('planRepsInput').value = '';
+  document.getElementById('planRunDistanceInput').value = '';
+  document.getElementById('planRestInput').value = '';
+  document.getElementById('planAddBtn').textContent = 'Add to plan';
+  document.getElementById('planCancelBtn').style.display = 'none';
+}
+document.getElementById('planCancelBtn').addEventListener('click', () => { cancelMovementEdit(); renderMovementList(); });
+document.getElementById('planAddBtn').addEventListener('click', () => {
+  const name = document.getElementById('planExerciseInput').value.trim();
+  if(!name){ document.getElementById('planExerciseInput').focus(); return; }
+  const type = document.getElementById('planTypeInput').value;
+  const rest = document.getElementById('planRestInput').value;
+  const item = { id: (editingPlanIndex != null && plan[selectedPlanDay][editingPlanIndex]) ? plan[selectedPlanDay][editingPlanIndex].id : newId(), name, type, restSeconds: rest ? Number(rest) : null };
+  if(type === 'cardio'){
+    const dist = document.getElementById('planRunDistanceInput').value;
+    item.runDistance = dist ? Number(dist) : null;
+    item.runUnit = document.getElementById('planRunUnitInput').value;
+  } else {
+    const weight = document.getElementById('planWeightInput').value;
+    const reps = document.getElementById('planRepsInput').value;
+    item.weight = (type === 'strength' && weight) ? Number(weight) : null;
+    item.reps = reps ? Number(reps) : null;
+  }
+  if(!plan[selectedPlanDay]) plan[selectedPlanDay] = [];
+  if(editingPlanIndex != null) plan[selectedPlanDay][editingPlanIndex] = item;
+  else plan[selectedPlanDay].push(item);
+  savePlan();
+  cancelMovementEdit();
+  renderMovementList();
+  renderTodayPlanCard();
+});
+function renderWodScheduleList(){
+  const wrap = document.getElementById('wodScheduleList');
+  if(!wrap) return;
+  const mine = wodSchedule.filter(s => s.day === selectedPlanDay).sort((a,b) => a.date.localeCompare(b.date));
+  if(!mine.length){
+    wrap.innerHTML = `<div class="empty">Not pinned to any specific date — it still runs automatically every ${selectedPlanDay}.</div>`;
+    return;
+  }
+  wrap.innerHTML = mine.map(s => `
+    <div class="entry"><div class="info"><div class="ex-name">${formatDateLabel(s.date)}</div><div class="ex-detail">${s.date}</div></div><button class="del" data-schedel="${s.id}">×</button></div>
+  `).join('');
+  wrap.querySelectorAll('[data-schedel]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      wodSchedule = wodSchedule.filter(s => s.id !== btn.getAttribute('data-schedel'));
+      saveWodSchedule();
+      renderWodScheduleList();
+      renderCalendar();
+    });
+  });
+}
+document.getElementById('wodScheduleAddBtn').addEventListener('click', () => {
+  const date = document.getElementById('wodScheduleDateInput').value;
+  if(!date){ document.getElementById('wodScheduleDateInput').focus(); return; }
+  wodSchedule = wodSchedule.filter(s => s.date !== date); // one WOD per calendar date
+  wodSchedule.push({ id: newId(), date, day: selectedPlanDay });
+  wodSchedule.sort((a,b) => a.date.localeCompare(b.date));
+  saveWodSchedule();
+  document.getElementById('wodScheduleDateInput').value = '';
+  renderWodScheduleList();
+  renderCalendar();
+});
+function renderPlanTab(){
+  ensureDayDefaults(selectedPlanDay);
+  renderDayPicker();
+  document.getElementById('planNameInput').value = planNames[selectedPlanDay] || '';
+  document.getElementById('planRoundsInput').value = planRounds[selectedPlanDay] || '';
+  document.getElementById('planTimeCapInput').value = planTimeCap[selectedPlanDay] || '';
+  renderWodTypeGrid();
+  const linkRow = document.getElementById('savedLinkRow');
+  if(planLinks[selectedPlanDay]){
+    linkRow.style.display = 'flex';
+    const a = document.getElementById('savedLinkAnchor');
+    a.href = planLinks[selectedPlanDay];
+    a.textContent = planLinks[selectedPlanDay];
+  } else {
+    linkRow.style.display = 'none';
+  }
+  renderMovementList();
+  document.getElementById('scheduleWodNameLabel').textContent = planNames[selectedPlanDay] || `${selectedPlanDay}'s WOD`;
+  renderWodScheduleList();
 }
 
 /* ---------- live workout editor ---------- */
@@ -1012,6 +1513,9 @@ function dateKeyFromParts(y,m,d){
 function entriesForDate(date){
   return entries.filter(e => e.date === date);
 }
+function cardioForDate(date){
+  return cardioPlans.filter(c => c.date === date);
+}
 function renderCalendar(){
   const title = document.getElementById('calendarTitle');
   const grid = document.getElementById('workoutCalendar');
@@ -1026,11 +1530,19 @@ function renderCalendar(){
   for(let d=1;d<=daysInMonth;d++){
     const date = dateKeyFromParts(y,m,d);
     const dayEntries = entriesForDate(date);
+    const { list: dayPlanList } = planForDate(date);
+    const hasPlan = dayPlanList.length > 0;
+    const hasCardio = cardioForDate(date).length > 0;
     const isToday = date === todayStr();
     const selected = date === selectedCalendarDate;
-    html += `<button class="calendar-day ${dayEntries.length?'has-workout':''} ${isToday?'today':''} ${selected?'selected':''}" data-calendar-date="${date}">
+    const marks = [
+      dayEntries.length ? '<span class="mark-dot logged" title="Logged"></span>' : '',
+      hasPlan ? '<span class="mark-dot planned" title="Planned WOD"></span>' : '',
+      hasCardio ? '<span class="mark-dot cardio" title="Scheduled cardio"></span>' : ''
+    ].join('');
+    html += `<button class="calendar-day ${(dayEntries.length||hasPlan||hasCardio)?'has-workout':''} ${isToday?'today':''} ${selected?'selected':''}" data-calendar-date="${date}">
       <span class="day-num">${d}</span>
-      ${dayEntries.length ? `<span class="day-dot"></span><span class="day-count">${dayEntries.length} set${dayEntries.length===1?'':'s'}</span>` : ''}
+      ${marks ? `<span class="day-marks">${marks}</span>` : ''}
     </button>`;
   }
   grid.innerHTML = html;
@@ -1050,7 +1562,32 @@ function renderCalendar(){
   } else {
     summary.innerHTML = `<strong>${formatDateLabel(selectedCalendarDate)}</strong> · No workout logged.`;
   }
+
+  const planSection = document.getElementById('calendarPlanSection');
+  const { dayKey, list, scheduled } = planForDate(selectedCalendarDate);
+  if(list.length){
+    planSection.style.display = 'block';
+    const titleParts = [];
+    if(planNames[dayKey]) titleParts.push(planNames[dayKey]);
+    titleParts.push(wodSummaryText(dayKey));
+    const prefix = scheduled ? 'Scheduled WOD' : `${DAY_NAMES_FULL[new Date(selectedCalendarDate+'T00:00:00').getDay()]}'s WOD`;
+    document.getElementById('calendarPlanTitle').textContent = `${prefix} · ${titleParts.join(' · ')}`;
+    renderPlanExecution(selectedCalendarDate, document.getElementById('calendarPlanExecution'), () => renderCalendar());
+  } else {
+    planSection.style.display = 'none';
+  }
+
+  const cardioSection = document.getElementById('calendarCardioSection');
+  const dayCardio = cardioForDate(selectedCalendarDate);
+  if(dayCardio.length){
+    cardioSection.style.display = 'block';
+    document.getElementById('calendarCardioList').innerHTML = dayCardio.map(cardioItemHTML).join('');
+    wireCardioItemButtons(document.getElementById('calendarCardioList'), () => renderCalendar());
+  } else {
+    cardioSection.style.display = 'none';
+  }
 }
+const DAY_NAMES_FULL = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 document.getElementById('calendarPrevBtn').addEventListener('click', () => {
   calendarView = new Date(calendarView.getFullYear(), calendarView.getMonth()-1, 1);
   renderCalendar();
@@ -1077,8 +1614,7 @@ function renderCompleteTab(){
   const today = todayStr();
   const todayEntries = entriesForDate(today);
   const duration = sessionDurationSeconds();
-  const planDay = DAY_NAMES[new Date().getDay()];
-  const planned = plan[planDay] || [];
+  const planned = planForDate(today).list;
   const plannedNames = planned.map(x => x.name.trim().toLowerCase());
   const loggedNames = [...new Set(todayEntries.map(x => x.exercise.trim().toLowerCase()))];
   const missing = planned.filter(x => !loggedNames.includes(x.name.trim().toLowerCase()));
@@ -1272,37 +1808,115 @@ document.getElementById('ageInput').addEventListener('input', saveProfileFromInp
 document.getElementById('genderInput').addEventListener('change', saveProfileFromInputs);
 document.getElementById('weightValueInput').addEventListener('input', renderBmiReadout);
 
-/* ---------- steps tab ---------- */
-document.getElementById('stepsDateInput').value = todayStr();
-function addSteps(){
-  const date = document.getElementById('stepsDateInput').value || todayStr();
-  const val = document.getElementById('stepsValueInput').value;
-  if(!val) return;
-  stepsLog.push({ id: Date.now()+'-'+Math.random().toString(36).slice(2,7), date, steps: Number(val) });
-  stepsLog.sort((a,b) => a.date.localeCompare(b.date));
-  document.getElementById('stepsValueInput').value = '';
-  saveSteps(); renderStepsTab();
+/* ---------- cardio tab: program run/walk sessions, linked to the calendar ---------- */
+document.getElementById('cardioDateInput').value = todayStr();
+document.getElementById('wodScheduleDateInput').value = todayStr();
+document.querySelectorAll('#cardioActivityToggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    cardioActivitySel = btn.getAttribute('data-activity');
+    document.querySelectorAll('#cardioActivityToggle button').forEach(b => b.classList.toggle('active', b === btn));
+  });
+});
+document.querySelectorAll('#cardioTargetToggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    cardioTargetSel = btn.getAttribute('data-target');
+    document.querySelectorAll('#cardioTargetToggle button').forEach(b => b.classList.toggle('active', b === btn));
+    document.getElementById('cardioDistanceFields').style.display = cardioTargetSel === 'distance' ? 'flex' : 'none';
+    document.getElementById('cardioDurationFields').style.display = cardioTargetSel === 'duration' ? 'flex' : 'none';
+  });
+});
+function addCardioPlan(){
+  const date = document.getElementById('cardioDateInput').value || todayStr();
+  const notes = document.getElementById('cardioNotesInput').value.trim();
+  const entry = { id: newId(), date, activity: cardioActivitySel, targetType: cardioTargetSel, notes, completed: false };
+  if(cardioTargetSel === 'distance'){
+    const distance = document.getElementById('cardioDistanceInput').value;
+    if(!distance){ document.getElementById('cardioDistanceInput').focus(); return; }
+    entry.distance = Number(distance);
+    entry.unit = document.getElementById('cardioDistanceUnitInput').value;
+  } else {
+    const duration = document.getElementById('cardioDurationInput').value;
+    if(!duration){ document.getElementById('cardioDurationInput').focus(); return; }
+    entry.durationMin = Number(duration);
+  }
+  cardioPlans.push(entry);
+  cardioPlans.sort((a,b) => a.date.localeCompare(b.date));
+  document.getElementById('cardioDistanceInput').value = '';
+  document.getElementById('cardioDurationInput').value = '';
+  document.getElementById('cardioNotesInput').value = '';
+  saveCardioPlans(); renderCardioTab(); renderCalendar();
 }
-function deleteSteps(id){ stepsLog = stepsLog.filter(s => s.id !== id); saveSteps(); renderStepsTab(); }
-document.getElementById('stepsAddBtn').addEventListener('click', addSteps);
-document.getElementById('stepsValueInput').addEventListener('keydown', ev => { if(ev.key==='Enter') addSteps(); });
-function renderStepsChart(){
-  document.getElementById('stepsChartWrap').innerHTML = buildTrendSVG(
-    stepsLog.map(s => ({ date: s.date, value: s.steps })), v => Math.round(v).toLocaleString()
-  );
+document.getElementById('cardioAddBtn').addEventListener('click', addCardioPlan);
+
+function cardioItemHTML(c){
+  const targetText = c.targetType === 'duration'
+    ? `${c.durationMin} min`
+    : `${c.distance} ${c.unit === 'mi' ? 'mi' : 'm'}`;
+  let actualText = '';
+  if(c.completed){
+    const bits = [];
+    if(c.actualDistance) bits.push(`${c.actualDistance} ${c.actualUnit === 'mi' ? 'mi' : 'm'}`);
+    if(c.actualTimeSeconds) bits.push(`in ${formatSecondsToTime(c.actualTimeSeconds)}`);
+    actualText = bits.length ? ` · done: ${bits.join(' ')}` : ' · done';
+  }
+  return `
+    <div class="cardio-item ${c.completed?'completed':''}">
+      <div class="cardio-item-top">
+        <div class="item-main">
+          <div class="ex-name">${c.activity === 'walk' ? 'Walk' : 'Run'} · ${escapeHTML(targetText)}</div>
+          <div class="ex-detail">${formatDateLabel(c.date)}${c.notes ? ` · ${escapeHTML(c.notes)}` : ''}${actualText}</div>
+        </div>
+        <div class="item-actions">
+          ${!c.completed ? `<button class="small-btn" data-cardio-complete="${c.id}">Mark done</button>` : ''}
+          <button class="del" data-cardio-del="${c.id}">×</button>
+        </div>
+      </div>
+    </div>
+  `;
 }
-function renderStepsList(){
-  const wrap = document.getElementById('stepsList');
-  if(stepsLog.length === 0){ wrap.innerHTML = ''; return; }
-  const rev = [...stepsLog].sort((a,b) => b.date.localeCompare(a.date));
-  wrap.innerHTML = rev.map(s => `
-    <div class="entry"><div class="info"><div class="ex-name">${s.steps.toLocaleString()} steps</div><div class="ex-detail">${formatDateLabel(s.date)}</div></div><button class="del" data-sdel="${s.id}">×</button></div>
-  `).join('');
-  wrap.querySelectorAll('[data-sdel]').forEach(btn => {
-    btn.addEventListener('click', () => deleteSteps(btn.getAttribute('data-sdel')));
+function wireCardioItemButtons(containerEl, onChange){
+  containerEl.querySelectorAll('[data-cardio-del]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      cardioPlans = cardioPlans.filter(c => c.id !== btn.getAttribute('data-cardio-del'));
+      saveCardioPlans();
+      renderCardioTab();
+      (onChange || (()=>{}))();
+    });
+  });
+  containerEl.querySelectorAll('[data-cardio-complete]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const c = cardioPlans.find(x => x.id === btn.getAttribute('data-cardio-complete'));
+      if(!c) return;
+      const defaultDist = c.distance || '';
+      const distance = prompt(`Actual distance (${(c.unit || 'mi') === 'mi' ? 'mi' : 'm'}):`, defaultDist);
+      if(distance === null) return;
+      const time = prompt('Actual time (mm:ss, optional):', '');
+      c.completed = true;
+      c.actualDistance = distance ? Number(distance) : null;
+      c.actualUnit = c.unit || 'mi';
+      c.actualTimeSeconds = time ? parseTimeToSeconds(time) : null;
+      if(c.actualDistance){
+        entries.unshift({ id: newId(), date: c.date, exercise: c.activity === 'walk' ? 'Walk' : 'Run', type: 'cardio', distance: c.actualDistance, unit: c.actualUnit, timeSeconds: c.actualTimeSeconds });
+        saveEntries();
+      }
+      saveCardioPlans();
+      renderCardioTab();
+      renderLogTab();
+      (onChange || (()=>{}))();
+    });
   });
 }
-function renderStepsTab(){ renderStepsChart(); renderStepsList(); }
+function renderCardioTab(){
+  const wrap = document.getElementById('cardioPlanList');
+  if(!wrap) return;
+  if(!cardioPlans.length){
+    wrap.innerHTML = '<div class="empty">No cardio sessions scheduled yet. Add one above and it will appear on the calendar.</div>';
+    return;
+  }
+  const rev = [...cardioPlans].sort((a,b) => b.date.localeCompare(a.date));
+  wrap.innerHTML = rev.map(cardioItemHTML).join('');
+  wireCardioItemButtons(wrap, renderCalendar);
+}
 
 /* ---------- share tab ---------- */
 function buildShareText(){
@@ -1405,7 +2019,7 @@ document.getElementById('addBtn').addEventListener('click', addEntry);
 document.getElementById('repsInput').addEventListener('keydown', ev => { if(ev.key==='Enter') addEntry(); });
 document.getElementById('weightInput').addEventListener('keydown', ev => { if(ev.key==='Enter') addEntry(); });
 
-function renderAll(){ renderLogTab(); renderPlanTab(); renderWeightTab(); renderStepsTab(); renderShareTab(); }
+function renderAll(){ renderLogTab(); renderPlanTab(); renderWeightTab(); renderCardioTab(); renderShareTab(); }
 loadAll();
 </script>
 </body>
