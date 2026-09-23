@@ -160,6 +160,16 @@
   .install-os li{font-size:12.5px;color:var(--chalk-dim);line-height:1.4;}
   .install-os li strong{color:var(--chalk);}
   .notes-textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:3px;color:var(--chalk);padding:10px 12px;font-size:13px;font-family:'Inter',sans-serif;min-height:80px;resize:vertical;}
+  code{font-family:monospace;background:var(--surface-2);padding:1px 5px;border-radius:3px;font-size:11.5px;}
+  .community-post{background:var(--surface-2);border-radius:4px;padding:12px 14px;margin-bottom:10px;}
+  .community-post-top{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .community-post .cp-author{font-size:11.5px;color:var(--chalk-dim);}
+  .community-post .cp-type{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--plate);border:1px solid var(--plate);border-radius:10px;padding:1px 7px;margin-right:6px;}
+  .community-post .cp-title{font-size:14.5px;font-weight:600;color:var(--chalk);margin-top:4px;}
+  .community-post .cp-detail{font-size:12.5px;color:var(--chalk-dim);margin-top:3px;line-height:1.4;}
+  .community-post .cp-actions{display:flex;align-items:center;gap:6px;margin-top:8px;}
+  .kudos-btn{background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--chalk-dim);font-weight:600;}
+  .kudos-btn.kudosed{color:var(--plate);border-color:var(--plate);}
   .notes-textarea::placeholder{color:var(--chalk-dim);}
   .notes-textarea:focus{outline:none;border-color:var(--plate);}
   .star-rating{display:flex;gap:6px;margin:2px 0 14px;}
@@ -343,6 +353,8 @@
     <button class="tab-btn" data-tab="steps">Cardio</button>
     <button class="tab-btn" data-tab="progress">Progress</button>
     <button class="tab-btn" data-tab="reviews">Reviews</button>
+    <button class="tab-btn" data-tab="community">Community</button>
+    <button class="tab-btn" data-tab="account">Account</button>
     <button class="tab-btn" data-tab="share">Share</button>
   </div>
 
@@ -736,6 +748,63 @@
     </div>
   </div>
 
+  <div class="tab-panel" id="tab-account">
+    <div class="card" id="firebaseSetupCard">
+      <h2>Connect Firebase</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Paste the <code>firebaseConfig</code> object from your Firebase project's web app settings (Project settings → your app → SDK setup and configuration). This is stored only on this device — you'll paste it again on your other devices, but you only sign up/log in once per account.</div>
+      <div class="form-row"><textarea class="notes-textarea" id="firebaseConfigInput" placeholder='{&#10;  "apiKey": "...",&#10;  "authDomain": "...",&#10;  "projectId": "...",&#10;  ...&#10;}' style="min-height:120px;font-family:monospace;font-size:12px;"></textarea></div>
+      <button class="add-btn" id="firebaseConfigSaveBtn">Save &amp; connect</button>
+      <div class="parse-status" id="firebaseConfigStatus"></div>
+    </div>
+
+    <div class="card" id="accountLoggedOutCard" style="display:none;">
+      <h2>Your account</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Logging in lets this device sync with your other devices — same account, same data, kept up to date automatically. Staying logged out keeps everything local-only, same as before.</div>
+      <div class="form-row"><input type="email" id="authEmailInput" placeholder="Email" autocomplete="email"></div>
+      <div class="form-row"><input type="password" id="authPasswordInput" placeholder="Password (6+ characters)" autocomplete="current-password"></div>
+      <div class="plan-form-actions">
+        <button class="add-btn" id="authLoginBtn">Log in</button>
+        <button class="cancel-edit-btn" id="authSignupBtn">Sign up</button>
+      </div>
+      <div class="parse-status" id="authStatus"></div>
+    </div>
+
+    <div class="card" id="accountLoggedInCard" style="display:none;">
+      <h2>Your account</h2>
+      <div class="parse-status" id="accountEmailLabel" style="margin:-4px 0 12px 0;"></div>
+      <div class="form-row"><input type="text" id="displayNameInput" placeholder="Display name (shown on the Community tab)" autocomplete="off"></div>
+      <button class="add-btn" id="displayNameSaveBtn" style="margin-bottom:14px;">Save name</button>
+      <div class="parse-status" id="syncStatus"></div>
+      <div class="plan-form-actions">
+        <button class="cancel-edit-btn" id="syncNowBtn">Sync now</button>
+        <button class="cancel-edit-btn" id="authLogoutBtn">Log out</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-community">
+    <div class="card" id="communityLoggedOutNotice" style="display:none;">
+      <h2>Community</h2>
+      <div class="parse-status">Log in from the Account tab to share wins and see what others are posting.</div>
+    </div>
+    <div class="card" id="communityComposerCard" style="display:none;">
+      <h2>Share a win</h2>
+      <select class="plan-type-select" id="communityTypeInput">
+        <option value="pr">Personal record</option>
+        <option value="wod">Workout / WOD</option>
+        <option value="general">General</option>
+      </select>
+      <div class="form-row"><input type="text" id="communityTitleInput" placeholder="Title (e.g. &quot;New Fran PR&quot;)" autocomplete="off"></div>
+      <div class="form-row"><textarea class="notes-textarea" id="communityDetailInput" placeholder="Details (e.g. &quot;4:32, down from 5:10 last month&quot;)" style="min-height:70px;"></textarea></div>
+      <button class="add-btn" id="communityPostBtn">Share to community</button>
+      <div class="parse-status" id="communityPostStatus"></div>
+    </div>
+    <div class="card" id="communityFeedCard" style="display:none;">
+      <h2>Feed</h2>
+      <div id="communityFeedList"></div>
+    </div>
+  </div>
+
   <div class="tab-panel" id="tab-share">
     <div class="card">
       <h2>Share progress</h2>
@@ -782,12 +851,45 @@
       </div>
       <div class="parse-status">Once installed, the app works offline and remembers your data on that device — scan the QR code above or send yourself the link to get started.</div>
     </div>
+
+    <div class="card">
+      <h2>Update workouts on laptop &amp; phone</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">This app saves everything <strong>on the device you're using</strong> — there's no account or cloud sync. If you edit your Training Program on your laptop, your phone's installed app won't see the change (and vice versa) until you move a backup file across.</div>
+      <div class="install-steps">
+        <div class="install-os">
+          <div class="install-os-title">💻 Updated on your laptop? Push it to your phone</div>
+          <ol>
+            <li>On your laptop, tap <strong>Export backup</strong> below — it downloads a small .json file.</li>
+            <li>Send that file to your phone however you normally would (email it to yourself, AirDrop, a cloud drive, Messages).</li>
+            <li>Open the file on your phone, or open the app there and tap <strong>Import backup</strong>, then choose the file.</li>
+            <li>Your phone now matches your laptop. This replaces what's on the phone, so export from your laptop last if you've made changes on both.</li>
+          </ol>
+        </div>
+        <div class="install-os">
+          <div class="install-os-title">📱 Updated on your phone? Push it to your laptop</div>
+          <ol>
+            <li>On your phone, open the app and tap <strong>Export backup</strong> below.</li>
+            <li>Send the downloaded file to your laptop the same way (email, cloud drive, AirDrop/Nearby Share).</li>
+            <li>On your laptop, open the app, go to Share → <strong>Import backup</strong>, and choose the file.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="plan-form-actions">
+        <button class="add-btn" id="exportBackupBtn">Export backup</button>
+        <button class="cancel-edit-btn" id="importBackupBtn">Import backup</button>
+      </div>
+      <input type="file" id="importBackupFile" accept="application/json,.json" style="display:none;">
+      <div class="parse-status" id="backupStatus"></div>
+    </div>
   </div>
 
   <div class="footer-note">Saved automatically on this device.</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
 <script>
 const appStorage = {
@@ -1107,9 +1209,15 @@ document.getElementById('exerciseInput').addEventListener('input', updateExercis
 function computeStreak(){
   const days = [...new Set(entries.map(e => e.date))].sort().reverse();
   if(days.length === 0) return 0;
-  let streak = 0; let cursor = new Date();
+  const today = todayStr();
+  const yesterday = addDaysStr(today, -1);
+  let cursor;
+  if(days[0] === today) cursor = new Date(today + 'T00:00:00');
+  else if(days[0] === yesterday) cursor = new Date(yesterday + 'T00:00:00');
+  else return 0; // most recent logged day is older than yesterday — streak is broken
+  let streak = 0;
   for(let i=0;i<days.length;i++){
-    const expected = cursor.toLocaleDateString('en-CA');
+    const expected = dateKeyFromParts(cursor.getFullYear(), cursor.getMonth(), cursor.getDate());
     if(days[i] === expected){ streak++; cursor.setDate(cursor.getDate()-1); }
     else break;
   }
@@ -1368,7 +1476,87 @@ const EXERCISE_LIBRARY = [
   { name:'Box Jump', category:'full body', sets:3, reps:'8-10', cue:'Land soft, stand tall at the top before stepping down.' },
   { name:'Farmer Carry', category:'full body', sets:3, reps:'30-40m', cue:'Tall posture, tight grip, don\'t let the weights swing.' },
   { name:'Run', category:'cardio', sets:1, reps:'distance', cue:'Relaxed shoulders, steady breathing rhythm.' },
-  { name:'Row', category:'cardio', sets:1, reps:'distance', cue:'Legs, then hips, then arms — reverse on the way back.' }
+  { name:'Row', category:'cardio', sets:1, reps:'distance', cue:'Legs, then hips, then arms — reverse on the way back.' },
+  // Chest
+  { name:'Incline Dumbbell Press', category:'chest', sets:3, reps:'8-10', cue:'Press up and slightly together, control the descent on the incline.' },
+  { name:'Decline Bench Press', category:'chest', sets:3, reps:'6-10', cue:'Lower to the bottom of the chest — targets the lower pec fibers.' },
+  { name:'Cable Chest Fly', category:'chest', sets:3, reps:'12-15', cue:'Slight bend in elbows, bring hands together in front of your chest.' },
+  { name:'Close-Grip Bench Press', category:'chest', sets:3, reps:'8-10', cue:'Hands just inside shoulder width, elbows tucked — hits triceps hard.' },
+  // Back
+  { name:'T-Bar Row', category:'back', sets:4, reps:'8-10', cue:'Chest against the pad or hinge forward, pull to the sternum.' },
+  { name:'Single-Arm Cable Row', category:'back', sets:3, reps:'10-12', cue:'Rotate slightly through the torso, squeeze the shoulder blade at the finish.' },
+  // Shoulders
+  { name:'Arnold Press', category:'shoulders', sets:3, reps:'8-10', cue:'Rotate palms out as you press — start facing you, finish facing forward.' },
+  { name:'Cable Lateral Raise', category:'shoulders', sets:3, reps:'12-15', cue:'Constant tension from the cable, lead with the elbow.' },
+  { name:'Front Dumbbell Raise', category:'shoulders', sets:3, reps:'10-12', cue:'Raise to eye level, avoid swinging the torso for momentum.' },
+  { name:'Rear Delt Fly', category:'shoulders', sets:3, reps:'12-15', cue:'Hinge forward, squeeze shoulder blades together at the top.' },
+  { name:'Upright Row', category:'shoulders', sets:3, reps:'10-12', cue:'Lead with the elbows, stop around chest height to protect the shoulders.' },
+  { name:'Landmine Press', category:'shoulders', sets:3, reps:'8-10', cue:'Press the bar up and away, brace hard through the core.' },
+  // Biceps
+  { name:'EZ-Bar Curl', category:'arms', sets:3, reps:'8-12', cue:'Angled grip eases wrist strain, keep elbows locked at your sides.' },
+  { name:'Incline Dumbbell Curl', category:'arms', sets:3, reps:'10-12', cue:'Arms hang behind the torso for a deep stretch at the bottom.' },
+  { name:'Preacher Curl', category:'arms', sets:3, reps:'8-12', cue:'Full extension at the bottom, control the negative on the pad.' },
+  { name:'Concentration Curl', category:'arms', sets:3, reps:'10-12', cue:'Elbow braced against the inner thigh, isolate the bicep.' },
+  { name:'Cable Curl', category:'arms', sets:3, reps:'10-15', cue:'Constant tension throughout, keep elbows pinned.' },
+  { name:'Reverse Curl', category:'arms', sets:3, reps:'10-12', cue:'Overhand grip, targets the forearms and brachialis.' },
+  // Triceps
+  { name:'Rope Triceps Extension', category:'arms', sets:3, reps:'10-15', cue:'Spread the rope apart at full extension, elbows stay pinned.' },
+  { name:'Overhead Dumbbell Extension', category:'arms', sets:3, reps:'8-12', cue:'Elbows point forward, lower behind your head with control.' },
+  { name:'Overhead Cable Extension', category:'arms', sets:3, reps:'10-12', cue:'Face away from the cable, keep elbows fixed near your ears.' },
+  { name:'Dumbbell Kickbacks', category:'arms', sets:3, reps:'12-15', cue:'Hinge forward, upper arm parallel to the floor, extend fully.' },
+  { name:'Bench Dips', category:'arms', sets:3, reps:'10-15', cue:'Hands on the bench behind you, lower until elbows hit ~90°.' },
+  { name:'Cable Single-Arm Extension', category:'arms', sets:3, reps:'10-15', cue:'One arm at a time, full lockout, keep the elbow still.' },
+  // Legs — quads
+  { name:'Reverse Lunges', category:'legs', sets:3, reps:'10-12', cue:'Step back into the lunge — easier on the knees than walking lunges.' },
+  { name:'Step-Ups', category:'legs', sets:3, reps:'10-12', cue:'Drive through the lead heel, avoid pushing off the back foot.' },
+  { name:'Leg Extension', category:'legs', sets:3, reps:'12-15', cue:'Controlled tempo, pause briefly at the top.' },
+  { name:'Hack Squat', category:'legs', sets:4, reps:'8-12', cue:'Back flat on the pad, drive through mid-foot.' },
+  // Legs — hamstrings/glutes
+  { name:'Stiff-Leg Deadlift', category:'legs', sets:3, reps:'8-10', cue:'Minimal knee bend, hinge from the hips to load the hamstrings.' },
+  { name:'Sumo Deadlift', category:'legs', sets:4, reps:'3-6', cue:'Wide stance, toes out, chest tall through the pull.' },
+  { name:'Glute Bridge', category:'legs', sets:3, reps:'12-15', cue:'Drive through the heels, squeeze glutes hard at the top.' },
+  { name:'Good Morning', category:'legs', sets:3, reps:'8-10', cue:'Soft knees, hinge at the hips with a flat back.' },
+  { name:'Lying Leg Curl', category:'legs', sets:3, reps:'10-15', cue:'Control the negative, avoid hips lifting off the pad.' },
+  { name:'Seated Leg Curl', category:'legs', sets:3, reps:'10-15', cue:'Full range of motion, pause at peak contraction.' },
+  // Calves
+  { name:'Seated Calf Raise', category:'legs', sets:3, reps:'15-20', cue:'Targets the soleus, pause at the top of each rep.' },
+  { name:'Leg Press Calf Raise', category:'legs', sets:3, reps:'15-20', cue:'Press through the balls of your feet on the leg press platform.' },
+  { name:'Single-Leg Calf Raise', category:'legs', sets:3, reps:'12-15', cue:'One leg at a time, use a wall for balance if needed.' },
+  // Core
+  { name:'Side Plank', category:'core', sets:3, reps:'30-45s', cue:'Stack hips and shoulders, keep the body in a straight line.' },
+  { name:'Bicycle Crunch', category:'core', sets:3, reps:'16-20', cue:'Slow and controlled, opposite elbow to opposite knee.' },
+  { name:'Crunches', category:'core', sets:3, reps:'15-20', cue:'Short range of motion, curl the ribs toward the hips.' },
+  { name:'Reverse Crunch', category:'core', sets:3, reps:'12-15', cue:'Curl the hips off the floor, avoid using momentum.' },
+  { name:'Ab Wheel Rollout', category:'core', sets:3, reps:'8-12', cue:'Brace hard, roll out only as far as you can keep your back flat.' },
+  { name:'Cable Crunch', category:'core', sets:3, reps:'12-15', cue:'Kneel tall, crunch down through the abs, not the hips.' },
+  { name:'Dead Bug', category:'core', sets:3, reps:'10-12', cue:'Lower back stays flat on the floor, move opposite arm and leg together.' },
+  { name:'Bird Dog', category:'core', sets:3, reps:'10-12', cue:'Extend opposite arm and leg, keep the hips square.' },
+  // Conditioning / cardio
+  { name:'Treadmill Incline Walk', category:'cardio', sets:1, reps:'distance', cue:'Steady incline, brisk pace, arms relaxed.' },
+  { name:'Assault Bike', category:'cardio', sets:1, reps:'distance', cue:'Push and pull the handles, pace yourself early.' },
+  { name:'Stationary Bike', category:'cardio', sets:1, reps:'distance', cue:'Steady cadence, adjust resistance to your effort target.' },
+  { name:'Ski Erg', category:'cardio', sets:1, reps:'distance', cue:'Drive down with the lats, hinge at the hips.' },
+  { name:'Jump Rope', category:'cardio', sets:1, reps:'distance', cue:'Light on your feet, small quick wrist turns.' },
+  { name:'Double-Unders', category:'cardio', sets:3, reps:'20-30', cue:'Rope passes twice per jump — quick wrists, steady rhythm.' },
+  { name:'Walking', category:'cardio', sets:1, reps:'distance', cue:'Easy aerobic pace — great for recovery days.' },
+  { name:'Sled Push', category:'cardio', sets:3, reps:'20-30m', cue:'Low body angle, drive hard through the legs.' },
+  { name:'Sled Pull', category:'cardio', sets:3, reps:'20-30m', cue:'Hand over hand or walk backward, keep tension on the rope.' },
+  { name:'Bear Crawl', category:'cardio', sets:3, reps:'20-30m', cue:'Knees hover just off the ground, opposite hand and foot move together.' },
+  // Useful combination exercises
+  { name:'Bench Press + Dumbbell Row', category:'full body', sets:3, reps:'8-10 each', cue:'Superset: press then row — no rest between the pair.' },
+  { name:'Dumbbell Press + Dumbbell Row', category:'full body', sets:3, reps:'8-10 each', cue:'Superset: alternate pressing and rowing for a full upper-body pair.' },
+  { name:'Biceps Curl + Triceps Extension', category:'full body', sets:3, reps:'10-12 each', cue:'Superset: curl then extend — hits both sides of the arm back to back.' },
+  { name:'Goblet Squat + Shoulder Press', category:'full body', sets:3, reps:'8-10', cue:'Squat down, stand and press — one continuous full-body rep.' },
+  { name:'Romanian Deadlift + Dumbbell Row', category:'full body', sets:3, reps:'8-10 each', cue:'Superset: hinge pattern then row — a strong posterior-chain pairing.' },
+  { name:'Front Squat + Overhead Press', category:'full body', sets:3, reps:'5-8', cue:'Squat then press overhead as two distinct movements.' },
+  { name:'Lunge + Biceps Curl', category:'full body', sets:3, reps:'10-12 each side', cue:'Lunge and curl together for a lower/upper combo.' },
+  { name:'Reverse Lunge + Shoulder Press', category:'full body', sets:3, reps:'8-10 each side', cue:'Step back into the lunge while pressing overhead.' },
+  { name:'Deadlift + Bent-Over Row', category:'full body', sets:3, reps:'6-8', cue:'Deadlift to lockout, then row from the hip crease — same setup, two movements.' },
+  { name:'Dumbbell Squat + Biceps Curl', category:'full body', sets:3, reps:'10-12', cue:'Squat down, curl on the way up for a lower/upper combo.' },
+  { name:'Dumbbell Thruster', category:'full body', sets:3, reps:'8-12', cue:'Squat straight into a press with dumbbells at the shoulders.' },
+  { name:'Squat + Calf Raise', category:'full body', sets:3, reps:'10-12', cue:'Finish each squat rep with a calf raise at the top.' },
+  { name:'Push-Up + Dumbbell Row', category:'full body', sets:3, reps:'8-10 each side', cue:'Renegade-row style: push-up, then row one dumbbell at a time.' },
+  { name:"Farmer's Carry + Walking Lunge", category:'full body', sets:3, reps:'20-30m', cue:'Carry heavy, then lunge — grip and legs under fatigue.' }
 ];
 function exerciseLibraryLookup(name){
   if(!name) return null;
@@ -2675,12 +2863,346 @@ document.getElementById('copyLinkBtn').addEventListener('click', async () => {
 });
 function renderShareTab(){ renderSharePreview(); renderQrCard(); }
 
+/* ---------- backup / restore: move updates between laptop and phone ---------- */
+function buildBackupObject(){
+  return {
+    app: 'Bring the Pain',
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    data: {
+      entries, plan, planNames, planLinks, planRounds, planTypes, planTimeCap,
+      roundCompletions, cardioPlans, wodSchedule, reviews, weights,
+      stepsLog, caloriesLog, height, profile, completions
+    }
+  };
+}
+function setBackupStatus(msg, ok){
+  const el = document.getElementById('backupStatus');
+  if(!el) return;
+  el.textContent = msg;
+  el.classList.toggle('success', !!ok);
+}
+document.getElementById('exportBackupBtn').addEventListener('click', () => {
+  try{
+    const obj = buildBackupObject();
+    const blob = new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `bring-the-pain-backup-${todayStr()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setBackupStatus('Backup downloaded. Send that file to your other device to import it there.', true);
+  }catch(e){
+    setBackupStatus('Could not create a backup file on this device.', false);
+  }
+});
+function applyImportedData(data, opts={}){
+  entries = Array.isArray(data.entries) ? data.entries : [];
+  plan = data.plan || {};
+  planNames = data.planNames || {};
+  planLinks = data.planLinks || {};
+  planRounds = data.planRounds || {};
+  planTypes = data.planTypes || {};
+  planTimeCap = data.planTimeCap || {};
+  roundCompletions = data.roundCompletions || {};
+  cardioPlans = Array.isArray(data.cardioPlans) ? data.cardioPlans : [];
+  wodSchedule = Array.isArray(data.wodSchedule) ? data.wodSchedule : [];
+  reviews = Array.isArray(data.reviews) ? data.reviews : [];
+  weights = Array.isArray(data.weights) ? data.weights : [];
+  stepsLog = Array.isArray(data.stepsLog) ? data.stepsLog : [];
+  caloriesLog = Array.isArray(data.caloriesLog) ? data.caloriesLog : [];
+  height = data.height || { feet: null, inches: null };
+  profile = data.profile || { age: null, gender: '' };
+  completions = Array.isArray(data.completions) ? data.completions : [];
+  const p = Promise.all([
+    saveEntries(), savePlan(), savePlanNames(), savePlanLinks(), savePlanRounds(),
+    savePlanTypes(), savePlanTimeCap(), saveRoundCompletions(), saveCardioPlans(),
+    saveWodSchedule(), saveReviews(), saveWeights(), saveStepsLog(), saveCaloriesLog(),
+    saveHeight(), saveProfile(), saveCompletions()
+  ]);
+  if(!opts.silent) p.then(() => renderAll());
+  return p;
+}
+document.getElementById('importBackupBtn').addEventListener('click', () => {
+  document.getElementById('importBackupFile').click();
+});
+document.getElementById('importBackupFile').addEventListener('change', async (ev) => {
+  const file = ev.target.files && ev.target.files[0];
+  ev.target.value = ''; // allow re-selecting the same file later
+  if(!file) return;
+  try{
+    const text = await file.text();
+    const parsed = JSON.parse(text);
+    const data = parsed && parsed.data ? parsed.data : parsed;
+    if(!data || typeof data !== 'object') throw new Error('invalid backup');
+    const ok = confirm('This replaces everything on this device (workouts, logs, weight, cardio, reviews) with the contents of this backup file. Continue?');
+    if(!ok) return;
+    await applyImportedData(data);
+    renderAll();
+    setBackupStatus('Backup imported — this device is now up to date.', true);
+  }catch(e){
+    setBackupStatus("Couldn't read that file — make sure it's a backup exported from this app.", false);
+  }
+});
+
+/* ---------- firebase: account, cross-device sync, community feed ---------- */
+let firebaseConfig = null;
+let fbApp = null, fbAuth = null, fbDb = null;
+let currentUser = null;
+let lastPushedJSON = null;
+let lastSyncedAt = null;
+let cloudSyncTimer = null;
+let unsubUserDoc = null;
+let unsubCommunity = null;
+
+function loadFirebaseConfig(){
+  try{ const raw = localStorage.getItem('BTP_firebaseConfig'); return raw ? JSON.parse(raw) : null; }catch(e){ return null; }
+}
+function saveFirebaseConfigLocal(cfg){
+  try{ localStorage.setItem('BTP_firebaseConfig', JSON.stringify(cfg)); }catch(e){}
+}
+function initFirebase(cfg){
+  try{
+    fbApp = firebase.initializeApp(cfg);
+    fbAuth = firebase.auth();
+    fbDb = firebase.firestore();
+    fbAuth.onAuthStateChanged(onAuthChanged);
+    return true;
+  }catch(e){
+    console.warn('firebase init failed', e);
+    return false;
+  }
+}
+function onAuthChanged(user){
+  currentUser = user;
+  if(user){
+    startUserDocListener(user.uid);
+    startCommunityListener();
+  } else {
+    stopUserDocListener();
+    stopCommunityListener();
+  }
+  renderAccountTab();
+  renderCommunityTab();
+}
+document.getElementById('firebaseConfigSaveBtn').addEventListener('click', () => {
+  const statusEl = document.getElementById('firebaseConfigStatus');
+  try{
+    const cfg = JSON.parse(document.getElementById('firebaseConfigInput').value.trim());
+    if(!cfg.apiKey || !cfg.projectId) throw new Error('missing fields');
+    saveFirebaseConfigLocal(cfg);
+    firebaseConfig = cfg;
+    const ok = initFirebase(cfg);
+    statusEl.textContent = ok ? 'Connected! Sign up or log in below.' : 'Valid JSON, but Firebase could not connect — double check the values.';
+    statusEl.classList.toggle('success', ok);
+    if(ok) renderAccountTab();
+  }catch(e){
+    statusEl.textContent = 'Could not read that as a firebaseConfig object — paste the whole thing, including the braces.';
+    statusEl.classList.remove('success');
+  }
+});
+function authErrorMessage(e){
+  const code = (e && e.code) || '';
+  if(code.includes('email-already-in-use')) return 'That email already has an account — try logging in instead.';
+  if(code.includes('wrong-password') || code.includes('invalid-credential')) return 'Wrong email or password.';
+  if(code.includes('user-not-found')) return 'No account with that email — try signing up instead.';
+  if(code.includes('weak-password')) return 'Password should be at least 6 characters.';
+  if(code.includes('invalid-email')) return 'That email address looks invalid.';
+  return 'Something went wrong — try again.';
+}
+document.getElementById('authSignupBtn').addEventListener('click', async () => {
+  const statusEl = document.getElementById('authStatus');
+  const email = document.getElementById('authEmailInput').value.trim();
+  const pw = document.getElementById('authPasswordInput').value;
+  if(!email || pw.length < 6){ statusEl.textContent = 'Enter an email and a password of at least 6 characters.'; return; }
+  try{ await fbAuth.createUserWithEmailAndPassword(email, pw); statusEl.textContent = ''; }
+  catch(e){ statusEl.textContent = authErrorMessage(e); }
+});
+document.getElementById('authLoginBtn').addEventListener('click', async () => {
+  const statusEl = document.getElementById('authStatus');
+  const email = document.getElementById('authEmailInput').value.trim();
+  const pw = document.getElementById('authPasswordInput').value;
+  if(!email || !pw){ statusEl.textContent = 'Enter your email and password.'; return; }
+  try{ await fbAuth.signInWithEmailAndPassword(email, pw); statusEl.textContent = ''; }
+  catch(e){ statusEl.textContent = authErrorMessage(e); }
+});
+document.getElementById('authLogoutBtn').addEventListener('click', async () => {
+  try{ await fbAuth.signOut(); }catch(e){}
+});
+document.getElementById('displayNameSaveBtn').addEventListener('click', async () => {
+  if(!currentUser) return;
+  const name = document.getElementById('displayNameInput').value.trim();
+  try{ await currentUser.updateProfile({ displayName: name }); scheduleCloudSync(); document.getElementById('syncStatus').textContent = 'Name saved.'; }catch(e){}
+});
+document.getElementById('syncNowBtn').addEventListener('click', () => pushUserDataToCloud());
+function updateSyncStatusUI(state){
+  const el = document.getElementById('syncStatus');
+  if(!el) return;
+  if(state === 'error'){ el.textContent = 'Sync failed — check your connection.'; el.classList.remove('success'); return; }
+  if(state === 'syncing'){ el.textContent = 'Syncing…'; el.classList.remove('success'); return; }
+  el.textContent = lastSyncedAt ? `Last synced ${lastSyncedAt.toLocaleTimeString()}` : 'Not synced yet.';
+  el.classList.add('success');
+}
+function scheduleCloudSync(){
+  if(!currentUser || !fbDb) return;
+  clearTimeout(cloudSyncTimer);
+  cloudSyncTimer = setTimeout(pushUserDataToCloud, 1200);
+}
+async function pushUserDataToCloud(){
+  if(!currentUser || !fbDb) return;
+  updateSyncStatusUI('syncing');
+  try{
+    const backup = buildBackupObject();
+    lastPushedJSON = JSON.stringify(backup.data);
+    await fbDb.collection('users').doc(currentUser.uid).set({
+      ...backup.data,
+      displayName: currentUser.displayName || '',
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    lastSyncedAt = new Date();
+    updateSyncStatusUI();
+  }catch(e){
+    console.warn('cloud sync failed', e);
+    updateSyncStatusUI('error');
+  }
+}
+function startUserDocListener(uid){
+  stopUserDocListener();
+  unsubUserDoc = fbDb.collection('users').doc(uid).onSnapshot(async (doc) => {
+    if(!doc.exists){ pushUserDataToCloud(); return; } // brand-new account on this device — seed the cloud
+    const { updatedAt, displayName, ...rest } = doc.data();
+    const incomingJSON = JSON.stringify(rest);
+    if(incomingJSON === lastPushedJSON) return; // echo of our own write
+    await applyImportedData(rest, { silent: true });
+    lastPushedJSON = incomingJSON;
+    lastSyncedAt = new Date();
+    renderAll();
+    updateSyncStatusUI();
+  }, (err) => { console.warn('user doc listener error', err); updateSyncStatusUI('error'); });
+}
+function stopUserDocListener(){ if(unsubUserDoc){ unsubUserDoc(); unsubUserDoc = null; } }
+function renderAccountTab(){
+  const setupCard = document.getElementById('firebaseSetupCard');
+  const loggedOutCard = document.getElementById('accountLoggedOutCard');
+  const loggedInCard = document.getElementById('accountLoggedInCard');
+  if(!setupCard) return;
+  if(!fbAuth){
+    setupCard.style.display = 'block'; loggedOutCard.style.display = 'none'; loggedInCard.style.display = 'none';
+    return;
+  }
+  setupCard.style.display = 'none';
+  if(currentUser){
+    loggedOutCard.style.display = 'none'; loggedInCard.style.display = 'block';
+    document.getElementById('accountEmailLabel').textContent = `Logged in as ${currentUser.email}`;
+    document.getElementById('displayNameInput').value = currentUser.displayName || '';
+    updateSyncStatusUI();
+  } else {
+    loggedOutCard.style.display = 'block'; loggedInCard.style.display = 'none';
+  }
+}
+
+/* ---- community feed ---- */
+const COMMUNITY_TYPE_LABELS = { pr:'PR', wod:'Workout', general:'General' };
+function startCommunityListener(){
+  stopCommunityListener();
+  unsubCommunity = fbDb.collection('community_posts').orderBy('createdAt','desc').limit(50)
+    .onSnapshot((snap) => {
+      const posts = [];
+      snap.forEach(doc => posts.push({ id: doc.id, ...doc.data() }));
+      renderCommunityFeed(posts);
+    }, (err) => console.warn('community listener error', err));
+}
+function stopCommunityListener(){ if(unsubCommunity){ unsubCommunity(); unsubCommunity = null; } }
+function renderCommunityFeed(posts){
+  const wrap = document.getElementById('communityFeedList');
+  if(!wrap) return;
+  if(!posts.length){ wrap.innerHTML = '<div class="empty">No posts yet — be the first to share a win.</div>'; return; }
+  wrap.innerHTML = posts.map(p => `
+    <div class="community-post">
+      <div class="community-post-top"><div><span class="cp-type">${COMMUNITY_TYPE_LABELS[p.type] || 'General'}</span><span class="cp-author">${escapeHTML(p.displayName || 'Someone')}</span></div></div>
+      <div class="cp-title">${escapeHTML(p.title || '')}</div>
+      ${p.detail ? `<div class="cp-detail">${escapeHTML(p.detail)}</div>` : ''}
+      <div class="cp-actions"><button class="kudos-btn" data-kudos="${p.id}">👍 ${p.kudosCount || 0}</button></div>
+    </div>
+  `).join('');
+  wrap.querySelectorAll('[data-kudos]').forEach(btn => btn.addEventListener('click', () => toggleKudos(btn.getAttribute('data-kudos'))));
+  if(currentUser){
+    posts.forEach(p => {
+      fbDb.collection('community_posts').doc(p.id).collection('kudos').doc(currentUser.uid).get()
+        .then(doc => { const btn = wrap.querySelector(`[data-kudos="${p.id}"]`); if(btn && doc.exists) btn.classList.add('kudosed'); })
+        .catch(()=>{});
+    });
+  }
+}
+async function toggleKudos(postId){
+  if(!currentUser || !fbDb) return;
+  const kudosRef = fbDb.collection('community_posts').doc(postId).collection('kudos').doc(currentUser.uid);
+  const postRef = fbDb.collection('community_posts').doc(postId);
+  try{
+    const doc = await kudosRef.get();
+    if(doc.exists){
+      await kudosRef.delete();
+      await postRef.update({ kudosCount: firebase.firestore.FieldValue.increment(-1) });
+    } else {
+      await kudosRef.set({ at: firebase.firestore.FieldValue.serverTimestamp() });
+      await postRef.update({ kudosCount: firebase.firestore.FieldValue.increment(1) });
+    }
+  }catch(e){ console.warn('kudos failed', e); }
+}
+document.getElementById('communityPostBtn').addEventListener('click', async () => {
+  if(!currentUser || !fbDb) return;
+  const statusEl = document.getElementById('communityPostStatus');
+  const title = document.getElementById('communityTitleInput').value.trim();
+  const detail = document.getElementById('communityDetailInput').value.trim();
+  const type = document.getElementById('communityTypeInput').value;
+  if(!title){ document.getElementById('communityTitleInput').focus(); return; }
+  try{
+    await fbDb.collection('community_posts').add({
+      uid: currentUser.uid,
+      displayName: currentUser.displayName || currentUser.email.split('@')[0],
+      type, title, detail, kudosCount: 0,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    document.getElementById('communityTitleInput').value = '';
+    document.getElementById('communityDetailInput').value = '';
+    statusEl.textContent = 'Shared!'; statusEl.classList.add('success');
+  }catch(e){
+    statusEl.textContent = 'Could not post — try again.'; statusEl.classList.remove('success');
+  }
+});
+function renderCommunityTab(){
+  const notice = document.getElementById('communityLoggedOutNotice');
+  const composer = document.getElementById('communityComposerCard');
+  const feedCard = document.getElementById('communityFeedCard');
+  if(!notice) return;
+  const loggedIn = !!currentUser;
+  notice.style.display = loggedIn ? 'none' : 'block';
+  composer.style.display = loggedIn ? 'block' : 'none';
+  feedCard.style.display = loggedIn ? 'block' : 'none';
+}
+
+// every local save now also schedules a debounced push to the cloud (no-op until logged in)
+const _origAppStorageSet = appStorage.set.bind(appStorage);
+appStorage.set = async (key, value) => {
+  const result = await _origAppStorageSet(key, value);
+  scheduleCloudSync();
+  return result;
+};
+firebaseConfig = loadFirebaseConfig();
+if(firebaseConfig && typeof firebase !== 'undefined'){
+  initFirebase(firebaseConfig);
+  document.getElementById('firebaseConfigInput').value = JSON.stringify(firebaseConfig, null, 2);
+}
+
 /* ---------- boot ---------- */
 document.getElementById('addBtn').addEventListener('click', addEntry);
 document.getElementById('repsInput').addEventListener('keydown', ev => { if(ev.key==='Enter') addEntry(); });
 document.getElementById('weightInput').addEventListener('keydown', ev => { if(ev.key==='Enter') addEntry(); });
 
-function renderAll(){ renderLogTab(); renderPlanTab(); renderWeightTab(); renderCardioTab(); renderProgressTab(); renderReviewsTab(); renderShareTab(); }
+function renderAll(){ renderLogTab(); renderPlanTab(); renderWeightTab(); renderCardioTab(); renderProgressTab(); renderReviewsTab(); renderAccountTab(); renderCommunityTab(); renderShareTab(); }
 populateExerciseDatalist();
 loadAll();
 </script>
