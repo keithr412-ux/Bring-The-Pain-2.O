@@ -58,8 +58,8 @@
   .total-tile .tnum{font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:var(--plate);line-height:1;}
   .total-tile .tlbl{font-size:11px;color:var(--chalk-dim);margin-top:4px;}
 
-  .tabs{display:flex;gap:6px;margin-bottom:18px;border-bottom:1px solid var(--line);}
-  .tab-btn{flex:1;background:transparent;color:var(--chalk-dim);padding:10px 4px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.3px;border-bottom:2px solid transparent;}
+  .tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:4px 6px;margin-bottom:18px;border-bottom:1px solid var(--line);}
+  .tab-btn{background:transparent;color:var(--chalk-dim);padding:9px 3px;font-family:'Oswald',sans-serif;font-size:12px;line-height:1.25;font-weight:600;letter-spacing:0.2px;border-bottom:2px solid transparent;white-space:normal;word-break:break-word;}
   .tab-btn.active{color:var(--plate);border-bottom-color:var(--plate);}
 
   .tab-panel{display:none;}
