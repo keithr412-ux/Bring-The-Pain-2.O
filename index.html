@@ -52,6 +52,14 @@
   .timer-controls button{flex:1;padding:10px;border-radius:3px;font-weight:600;font-size:13.5px;}
   .btn-start{background:var(--plate);color:#1B1A18;}
   .btn-reset{background:var(--surface-2);color:var(--chalk);}
+  .tabata-config{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px;}
+  .tabata-config-field{display:flex;flex-direction:column;gap:4px;min-width:0;}
+  .tabata-config-field label{font-size:10.5px;color:var(--chalk-dim);text-transform:uppercase;letter-spacing:.3px;}
+  .tabata-config-field input{width:100%;box-sizing:border-box;background:var(--bg);border:1px solid var(--line);border-radius:3px;color:var(--chalk);padding:8px 4px;font-size:14px;text-align:center;min-width:0;}
+  .tabata-phase{text-align:center;font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;padding:4px;border-radius:3px;}
+  .tabata-phase-work{color:var(--plate);}
+  .tabata-phase-rest{color:var(--rust);}
+  .tabata-phase-done{color:var(--chalk);}
 
   .totals-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .total-tile{background:var(--surface-2);border-radius:3px;padding:12px;text-align:center;}
@@ -170,6 +178,10 @@
   .community-post .cp-actions{display:flex;align-items:center;gap:6px;margin-top:8px;}
   .kudos-btn{background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--chalk-dim);font-weight:600;}
   .kudos-btn.kudosed{color:var(--plate);border-color:var(--plate);}
+  .leaderboard-row{display:flex;align-items:center;gap:10px;background:var(--surface-2);border-radius:4px;padding:9px 12px;margin-bottom:6px;}
+  .leaderboard-row .lb-rank{font-family:'Oswald',sans-serif;font-weight:700;color:var(--plate);width:22px;text-align:center;flex-shrink:0;}
+  .leaderboard-row .lb-name{flex:1;font-size:13px;color:var(--chalk);font-weight:600;}
+  .leaderboard-row .lb-time{font-family:'Oswald',sans-serif;font-size:14px;color:var(--plate);font-weight:700;}
   .notes-textarea::placeholder{color:var(--chalk-dim);}
   .notes-textarea:focus{outline:none;border-color:var(--plate);}
   .star-rating{display:flex;gap:6px;margin:2px 0 14px;}
@@ -287,6 +299,22 @@
   .round-cell.done{background:var(--plate);border-color:var(--plate);color:#1B1A18;}
   .round-progress{font-size:12px;color:var(--chalk-dim);margin:0 0 10px;}
   .round-progress strong{color:var(--plate);}
+  .wod-timer{background:var(--surface-2);border-radius:6px;padding:16px;margin-bottom:14px;text-align:center;}
+  .wod-timer-display{font-family:'Oswald',sans-serif;font-size:42px;font-weight:700;color:var(--plate);letter-spacing:1px;line-height:1;}
+  .wod-timer-sub{font-size:11.5px;color:var(--chalk-dim);margin-top:4px;min-height:14px;}
+  .wod-timer-controls{display:flex;gap:8px;justify-content:center;margin-top:12px;}
+  .wod-timer-controls button{min-width:90px;}
+  .gps-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+  .gps-stat{background:var(--surface-2);border-radius:4px;padding:12px 6px;text-align:center;}
+  .gps-stat .gps-num{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--plate);}
+  .gps-stat .gps-lbl{font-size:10.5px;color:var(--chalk-dim);margin-top:2px;}
+  .round-stepper{display:flex;align-items:center;justify-content:center;gap:14px;background:var(--surface-2);border-radius:4px;padding:10px;margin:10px 0 2px;}
+  .round-step-btn{width:34px;height:34px;border-radius:4px;background:var(--bg);border:1px solid var(--plate);color:var(--plate);font-size:18px;font-weight:700;line-height:1;flex-shrink:0;}
+  .round-step-btn:hover{background:var(--plate);color:#1B1A18;}
+  .round-step-btn:disabled{opacity:0.35;border-color:var(--line);color:var(--chalk-dim);}
+  .round-step-count{font-size:13px;font-weight:600;color:var(--chalk);min-width:70px;text-align:center;}
+  .round-editor{background:var(--surface-2);border:1px solid var(--plate);border-radius:4px;padding:12px 14px;margin-top:12px;}
+  .round-editor-title{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;color:var(--plate);margin-bottom:8px;}
   .amrap-counter{display:flex;align-items:center;justify-content:center;gap:16px;background:var(--surface-2);border-radius:4px;padding:14px;margin-bottom:12px;}
   .amrap-counter button{width:38px;height:38px;border-radius:4px;background:var(--bg);border:1px solid var(--line);color:var(--chalk);font-size:18px;font-weight:700;}
   .amrap-counter button:hover{border-color:var(--plate);color:var(--plate);}
@@ -377,9 +405,9 @@
       <div class="timer-top"><h2>Rest timer</h2></div>
       <div class="timer-display" id="timerDisplay">01:00</div>
       <div class="timer-presets">
-        <button class="preset-btn" data-secs="30">30s</button>
-        <button class="preset-btn" data-secs="60">60s</button>
-        <button class="preset-btn" data-secs="90">90s</button>
+        <button class="preset-btn" data-secs="30">0:30</button>
+        <button class="preset-btn" data-secs="60">1:00</button>
+        <button class="preset-btn" data-secs="90">1:30</button>
         <button class="preset-btn" data-secs="120">2:00</button>
         <button class="preset-btn" data-secs="180">3:00</button>
       </div>
@@ -390,6 +418,22 @@
       <div class="timer-controls">
         <button class="btn-start" id="timerStartBtn">Start</button>
         <button class="btn-reset" id="timerResetBtn">Reset</button>
+      </div>
+    </div>
+
+    <div class="timer-card">
+      <div class="timer-top"><h2>Tabata timer</h2></div>
+      <div class="tabata-config" id="tabataConfig">
+        <div class="tabata-config-field"><label for="tabataRoundsInput">Rounds</label><input type="number" id="tabataRoundsInput" value="8" min="1" inputmode="numeric"></div>
+        <div class="tabata-config-field"><label for="tabataWorkInput">Work (s)</label><input type="number" id="tabataWorkInput" value="20" min="1" inputmode="numeric"></div>
+        <div class="tabata-config-field"><label for="tabataRestInput">Rest (s)</label><input type="number" id="tabataRestInput" value="10" min="0" inputmode="numeric"></div>
+      </div>
+      <div class="tabata-phase tabata-phase-work" id="tabataPhase">READY</div>
+      <div class="timer-display" id="tabataDisplay">00:20</div>
+      <div class="wod-timer-sub" id="tabataRoundLabel">Round 1 of 8</div>
+      <div class="timer-controls" id="tabataControls" style="margin-top:12px;">
+        <button class="btn-start" id="tabataStartBtn">Start</button>
+        <button class="btn-reset" id="tabataResetBtn" style="display:none;">Reset</button>
       </div>
     </div>
 
@@ -675,11 +719,27 @@
 
   <div class="tab-panel" id="tab-steps">
     <div class="card">
+      <h2>Track a run live (GPS)</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;" id="gpsIntroText">Uses your phone's location to track distance and pace in real time — works best outdoors with a clear sky view. Needs to be served over https (GitHub Pages is fine); it won't work opening the file directly.</div>
+      <div id="gpsIdleView">
+        <button class="add-btn" id="gpsStartBtn">▶ Start GPS run</button>
+      </div>
+      <div id="gpsTrackingView" style="display:none;">
+        <div class="gps-stats" id="gpsTrackerStats"></div>
+        <div class="parse-status" id="gpsStatus"></div>
+        <div class="plan-form-actions">
+          <button class="add-btn" id="gpsStopSaveBtn">Stop &amp; save</button>
+          <button class="cancel-edit-btn" id="gpsDiscardBtn">Discard</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
       <h2>Program a run or walk</h2>
       <div class="parse-status" style="margin:-4px 0 12px 0;">Schedule a cardio session on a specific date. It'll show up on the calendar so you can see it coming and log the real result when you're done.</div>
       <div class="cardio-toggle" id="cardioActivityToggle">
         <button class="active" data-activity="run">Run</button>
         <button data-activity="walk">Walk</button>
+        <button data-activity="row">Row</button>
       </div>
       <div class="form-row"><input type="date" id="cardioDateInput"></div>
       <div class="cardio-target-toggle" id="cardioTargetToggle">
@@ -798,6 +858,21 @@
       <div class="form-row"><textarea class="notes-textarea" id="communityDetailInput" placeholder="Details (e.g. &quot;4:32, down from 5:10 last month&quot;)" style="min-height:70px;"></textarea></div>
       <button class="add-btn" id="communityPostBtn">Share to community</button>
       <div class="parse-status" id="communityPostStatus"></div>
+    </div>
+    <div class="card" id="leaderboardPostCard" style="display:none;">
+      <h2>Post a benchmark time</h2>
+      <div class="num-row">
+        <select class="plan-type-select" id="leaderboardWodPostSelect" style="margin-bottom:0;"></select>
+        <input type="text" id="leaderboardTimeInput" placeholder="mm:ss" inputmode="numeric" style="max-width:100px;">
+      </div>
+      <div class="form-row" id="leaderboardCustomNameRow" style="display:none;"><input type="text" id="leaderboardCustomNameInput" placeholder="WOD name" autocomplete="off"></div>
+      <button class="add-btn" id="leaderboardPostBtn">Post time</button>
+      <div class="parse-status" id="leaderboardPostStatus"></div>
+    </div>
+    <div class="card" id="leaderboardViewCard" style="display:none;">
+      <h2>Leaderboard</h2>
+      <div class="form-row"><select class="plan-type-select" id="leaderboardWodSelect" style="margin-bottom:0;"></select></div>
+      <div id="leaderboardList"></div>
     </div>
     <div class="card" id="communityFeedCard" style="display:none;">
       <h2>Feed</h2>
@@ -1108,6 +1183,91 @@ document.getElementById('customTimerInput').addEventListener('keydown', ev => {
 });
 renderTimer();
 
+/* ---------- Tabata timer: work/rest interval beeper, nested under Log > Workout ---------- */
+let tabataState = null; // { rounds, workSec, restSec, startedAt, elapsedBeforePause, running, intervalId, lastPhaseKey }
+function currentTabataElapsedMs(){
+  if(!tabataState) return 0;
+  const live = tabataState.running ? (Date.now() - tabataState.startedAt) : 0;
+  return tabataState.elapsedBeforePause + live;
+}
+function tabataPhaseInfo(elapsedSec, state){
+  const cycleLen = state.workSec + state.restSec;
+  const totalLen = state.rounds * cycleLen;
+  if(elapsedSec >= totalLen) return { done: true, round: state.rounds, phase: 'done', remaining: 0 };
+  const round = Math.floor(elapsedSec / cycleLen);
+  const withinCycle = elapsedSec - round * cycleLen;
+  const phase = withinCycle < state.workSec ? 'work' : 'rest';
+  const remaining = phase === 'work' ? (state.workSec - withinCycle) : (cycleLen - withinCycle);
+  return { done: false, round: round + 1, phase, remaining };
+}
+function startTabataTimer(){
+  const rounds = Math.max(1, Number(document.getElementById('tabataRoundsInput').value) || 8);
+  const workSec = Math.max(1, Number(document.getElementById('tabataWorkInput').value) || 20);
+  const restSec = Math.max(0, Number(document.getElementById('tabataRestInput').value) || 10);
+  tabataState = { rounds, workSec, restSec, startedAt: Date.now(), elapsedBeforePause: 0, running: true, lastPhaseKey: '1-work' };
+  playCountInBeep();
+  tabataState.intervalId = setInterval(tickTabata, 200);
+  document.getElementById('tabataConfig').style.opacity = '0.5';
+  document.querySelectorAll('#tabataConfig input').forEach(el => el.disabled = true);
+  document.getElementById('tabataStartBtn').style.display = 'none';
+  document.getElementById('tabataResetBtn').style.display = 'block';
+  renderTabataDisplay(tabataPhaseInfo(0, tabataState));
+}
+function resetTabataTimer(){
+  if(tabataState && tabataState.intervalId) clearInterval(tabataState.intervalId);
+  tabataState = null;
+  document.getElementById('tabataConfig').style.opacity = '';
+  document.querySelectorAll('#tabataConfig input').forEach(el => el.disabled = false);
+  document.getElementById('tabataStartBtn').style.display = 'block';
+  document.getElementById('tabataResetBtn').style.display = 'none';
+  const workSec = Number(document.getElementById('tabataWorkInput').value) || 20;
+  const rounds = Number(document.getElementById('tabataRoundsInput').value) || 8;
+  document.getElementById('tabataPhase').textContent = 'READY';
+  document.getElementById('tabataPhase').className = 'tabata-phase tabata-phase-work';
+  document.getElementById('tabataDisplay').textContent = formatSecondsToTime(workSec);
+  document.getElementById('tabataRoundLabel').textContent = `Round 1 of ${rounds}`;
+}
+function tickTabata(){
+  if(!tabataState) return;
+  const elapsedSec = currentTabataElapsedMs() / 1000;
+  const info = tabataPhaseInfo(elapsedSec, tabataState);
+  const phaseKey = info.done ? 'done' : `${info.round}-${info.phase}`;
+  if(phaseKey !== tabataState.lastPhaseKey){
+    tabataState.lastPhaseKey = phaseKey;
+    if(info.done){
+      playBuzzer();
+      clearInterval(tabataState.intervalId);
+      tabataState.running = false;
+    } else {
+      playRoundBeep();
+    }
+  }
+  renderTabataDisplay(info);
+}
+function renderTabataDisplay(info){
+  const displayEl = document.getElementById('tabataDisplay');
+  const phaseEl = document.getElementById('tabataPhase');
+  const roundEl = document.getElementById('tabataRoundLabel');
+  if(!displayEl || !tabataState) return;
+  if(info.done){
+    displayEl.textContent = '0:00';
+    phaseEl.textContent = 'Done! 💪';
+    phaseEl.className = 'tabata-phase tabata-phase-done';
+    roundEl.textContent = `${tabataState.rounds} of ${tabataState.rounds} rounds complete`;
+    return;
+  }
+  displayEl.textContent = formatSecondsToTime(Math.ceil(info.remaining));
+  phaseEl.textContent = info.phase === 'work' ? 'WORK' : 'REST';
+  phaseEl.className = 'tabata-phase ' + (info.phase === 'work' ? 'tabata-phase-work' : 'tabata-phase-rest');
+  roundEl.textContent = `Round ${info.round} of ${tabataState.rounds}`;
+}
+document.getElementById('tabataStartBtn').addEventListener('click', startTabataTimer);
+document.getElementById('tabataResetBtn').addEventListener('click', resetTabataTimer);
+document.querySelectorAll('#tabataConfig input').forEach(el => {
+  el.addEventListener('input', () => { if(!tabataState) resetTabataTimer(); });
+});
+resetTabataTimer();
+
 /* ---------- session stopwatch ---------- */
 let sessionTimer = { date: todayStr(), elapsedSeconds: 0, running: false, startedAt: null };
 let sessionTickInterval = null;
@@ -1312,6 +1472,163 @@ function renderTodayPlanCard(){
   renderPlanExecution(today, document.getElementById('planTodayExecution'), () => renderLogTab());
 }
 
+/* ---------- audio: beeps + buzzer, pure Web Audio API, no files needed ---------- */
+function getAudioCtx(){
+  if(!window.__btpAudioCtx){
+    try{ window.__btpAudioCtx = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){ return null; }
+  }
+  return window.__btpAudioCtx;
+}
+function playTone(freq, durationMs, type){
+  const ctx = getAudioCtx();
+  if(!ctx) return;
+  if(ctx.state === 'suspended') ctx.resume();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = type || 'sine';
+  osc.frequency.value = freq;
+  const now = ctx.currentTime;
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.35, now + 0.015);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + durationMs/1000);
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.start(now);
+  osc.stop(now + durationMs/1000 + 0.03);
+}
+function playRoundBeep(){ playTone(880, 160, 'sine'); }
+function playCountInBeep(){ playTone(660, 110, 'sine'); }
+function playBuzzer(){
+  playTone(220, 550, 'sawtooth');
+  setTimeout(() => playTone(220, 550, 'sawtooth'), 350);
+}
+
+/* ---------- WOD timer: stopwatch (rounds/for time), countdown (AMRAP), interval beeper (EMOM) ---------- */
+let wodTimerState = null; // { dateStr, dayKey, type, startedAt, elapsedBeforePause, running, intervalId, lastIntervalIndex, capBeepDone }
+function currentWodElapsedMs(){
+  if(!wodTimerState) return 0;
+  const live = wodTimerState.running ? (Date.now() - wodTimerState.startedAt) : 0;
+  return wodTimerState.elapsedBeforePause + live;
+}
+function startWodTimer(dateStr, dayKey){
+  if(wodTimerState) resetWodTimer();
+  wodTimerState = { dateStr, dayKey, type: planTypes[dayKey] || 'rounds', startedAt: Date.now(), elapsedBeforePause: 0, running: true, lastIntervalIndex: -1, capBeepDone: false };
+  playCountInBeep();
+  wodTimerState.intervalId = setInterval(tickWodTimer, 250);
+  tickWodTimer();
+}
+function pauseWodTimer(){
+  if(!wodTimerState || !wodTimerState.running) return;
+  wodTimerState.elapsedBeforePause += Date.now() - wodTimerState.startedAt;
+  wodTimerState.running = false;
+  clearInterval(wodTimerState.intervalId);
+}
+function resumeWodTimer(){
+  if(!wodTimerState || wodTimerState.running) return;
+  wodTimerState.startedAt = Date.now();
+  wodTimerState.running = true;
+  wodTimerState.intervalId = setInterval(tickWodTimer, 250);
+}
+function resetWodTimer(){
+  if(wodTimerState && wodTimerState.intervalId) clearInterval(wodTimerState.intervalId);
+  wodTimerState = null;
+}
+function tickWodTimer(){
+  if(!wodTimerState) return;
+  const elapsedSec = currentWodElapsedMs()/1000;
+  const { type, dayKey, dateStr } = wodTimerState;
+  const capSec = (Number(planTimeCap[dayKey]) || 0) * 60;
+
+  if(type === 'amrap'){
+    if(capSec > 0 && elapsedSec >= capSec && !wodTimerState.capBeepDone){
+      wodTimerState.capBeepDone = true;
+      playBuzzer();
+      pauseWodTimer();
+    }
+  } else if(type === 'emom'){
+    const interval = 60;
+    const idx = Math.floor(elapsedSec / interval);
+    if(idx !== wodTimerState.lastIntervalIndex){
+      wodTimerState.lastIntervalIndex = idx;
+      if(idx > 0){
+        playRoundBeep();
+        if(!roundCompletions[dateStr]) roundCompletions[dateStr] = {};
+        const key = '__rounds_completed';
+        const cur = Number(roundCompletions[dateStr][key]) || 0;
+        if(idx > cur){
+          roundCompletions[dateStr][key] = idx;
+          saveRoundCompletions();
+          const amrapNum = document.getElementById('amrapCount');
+          if(amrapNum) amrapNum.textContent = idx;
+        }
+      }
+    }
+    if(capSec > 0 && elapsedSec >= capSec && !wodTimerState.capBeepDone){
+      wodTimerState.capBeepDone = true;
+      playBuzzer();
+      pauseWodTimer();
+    }
+  } else {
+    // rounds / for time: stopwatch counting up; one heads-up beep if a time cap is set and reached
+    if(capSec > 0 && elapsedSec >= capSec && !wodTimerState.capBeepDone){
+      wodTimerState.capBeepDone = true;
+      playBuzzer();
+    }
+  }
+  renderWodTimerDisplay();
+}
+function renderWodTimerDisplay(){
+  if(!wodTimerState) return;
+  const displayEl = document.getElementById('wodTimerDisplay');
+  const subEl = document.getElementById('wodTimerSub');
+  if(!displayEl || !subEl) return; // timer panel not currently on screen; state keeps ticking regardless
+  const elapsedSec = currentWodElapsedMs()/1000;
+  const { type, dayKey } = wodTimerState;
+  const capSec = (Number(planTimeCap[dayKey]) || 0) * 60;
+  if(type === 'amrap'){
+    const remaining = capSec > 0 ? Math.max(0, capSec - elapsedSec) : elapsedSec;
+    displayEl.textContent = formatSecondsToTime(Math.round(remaining));
+    subEl.textContent = capSec > 0 ? `Elapsed ${formatSecondsToTime(Math.round(elapsedSec))}` : 'Set a time cap in Training Program to count down';
+  } else if(type === 'emom'){
+    const interval = 60;
+    const withinInterval = interval - (elapsedSec % interval);
+    const round = Math.floor(elapsedSec/interval) + 1;
+    const totalRounds = capSec > 0 ? Math.ceil(capSec/interval) : null;
+    displayEl.textContent = formatSecondsToTime(Math.round(withinInterval === interval ? 0 : withinInterval));
+    subEl.textContent = `Round ${round}${totalRounds ? ` of ${totalRounds}` : ''} · Total ${formatSecondsToTime(Math.round(elapsedSec))}${capSec>0?` / ${formatSecondsToTime(capSec)}`:''}`;
+  } else {
+    displayEl.textContent = formatSecondsToTime(Math.round(elapsedSec));
+    subEl.textContent = capSec > 0 ? `Cap ${formatSecondsToTime(capSec)}${elapsedSec>=capSec?' — reached!':''}` : '';
+  }
+}
+function wodTimerHTML(){
+  const started = !!wodTimerState;
+  const running = started && wodTimerState.running;
+  const stopLabel = (wodTimerState && (wodTimerState.type === 'rounds' || wodTimerState.type === 'fortime')) ? 'Stop' : 'Pause';
+  return `
+    <div class="wod-timer">
+      <div class="wod-timer-display" id="wodTimerDisplay">00:00</div>
+      <div class="wod-timer-sub" id="wodTimerSub"></div>
+      <div class="wod-timer-controls">
+        ${!started ? '<button class="add-btn" id="wodTimerStartBtn">▶ Start</button>' : ''}
+        ${started && running ? `<button class="cancel-edit-btn" id="wodTimerPauseBtn">${stopLabel}</button>` : ''}
+        ${started && !running ? '<button class="add-btn" id="wodTimerResumeBtn">Resume</button>' : ''}
+        ${started ? '<button class="cancel-edit-btn" id="wodTimerResetBtn">Reset</button>' : ''}
+      </div>
+    </div>
+  `;
+}
+function wireWodTimer(containerEl, dateStr, dayKey, refresh){
+  const startBtn = containerEl.querySelector('#wodTimerStartBtn');
+  if(startBtn) startBtn.addEventListener('click', () => { startWodTimer(dateStr, dayKey); refresh(); });
+  const pauseBtn = containerEl.querySelector('#wodTimerPauseBtn');
+  if(pauseBtn) pauseBtn.addEventListener('click', () => { pauseWodTimer(); refresh(); });
+  const resumeBtn = containerEl.querySelector('#wodTimerResumeBtn');
+  if(resumeBtn) resumeBtn.addEventListener('click', () => { resumeWodTimer(); refresh(); });
+  const resetBtn = containerEl.querySelector('#wodTimerResetBtn');
+  if(resetBtn) resetBtn.addEventListener('click', () => { resetWodTimer(); refresh(); });
+  renderWodTimerDisplay();
+}
+
 /* ---------- shared plan execution (round x set grid, click to complete) ---------- */
 function planForDate(dateStr){
   const scheduled = wodSchedule.find(s => s.date === dateStr);
@@ -1340,6 +1657,7 @@ function toggleRoundCell(dateStr, movement, roundLabel){
   }
   saveEntries(); saveRoundCompletions();
 }
+let roundEditState = null; // { dateStr, movement, roundLabel, containerEl, refresh } — the one round currently open for editing
 function renderPlanExecution(dateStr, containerEl, onChange){
   if(!containerEl) return;
   const refresh = onChange || (() => renderPlanExecution(dateStr, containerEl, onChange));
@@ -1356,6 +1674,7 @@ function renderPlanExecution(dateStr, containerEl, onChange){
     const counterKey = '__rounds_completed';
     const completedRounds = Number(dayCompletions[counterKey]) || 0;
     containerEl.innerHTML = `
+      ${wodTimerHTML()}
       <div class="amrap-counter">
         <button data-amrap-dec>−</button>
         <div><div class="amrap-num" id="amrapCount">${completedRounds}</div><span class="amrap-lbl">rounds complete</span></div>
@@ -1370,6 +1689,7 @@ function renderPlanExecution(dateStr, containerEl, onChange){
         `).join('')}
       </div>
     `;
+    wireWodTimer(containerEl, dateStr, dayKey, refresh);
     containerEl.querySelector('[data-amrap-inc]').addEventListener('click', () => {
       if(!roundCompletions[dateStr]) roundCompletions[dateStr] = {};
       roundCompletions[dateStr][counterKey] = (Number(roundCompletions[dateStr][counterKey]) || 0) + 1;
@@ -1400,7 +1720,9 @@ function renderPlanExecution(dateStr, containerEl, onChange){
     }).join('');
     return `<tr><td class="movement-label"><div class="ex-name">${escapeHTML(item.name)}${item.supersetWithNext ? ' <span class="superset-badge">🔗</span>' : ''}</div><div class="ex-detail">${planItemDetail(item)}</div></td>${cells}</tr>`;
   }).join('');
+  const showEditor = roundEditState && roundEditState.containerEl === containerEl && roundEditState.dateStr === dateStr;
   containerEl.innerHTML = `
+    ${wodTimerHTML()}
     <div class="round-progress"><strong>${doneCount}/${totalCount}</strong> sets complete</div>
     <div class="round-grid-wrap">
       <table class="round-grid">
@@ -1408,14 +1730,129 @@ function renderPlanExecution(dateStr, containerEl, onChange){
         <tbody>${bodyRows}</tbody>
       </table>
     </div>
+    <div class="round-stepper">
+      <button class="round-step-btn" id="removeRoundBtn" ${rounds<=1?'disabled':''} title="Remove a round">−</button>
+      <div class="round-step-count">${rounds} round${rounds===1?'':'s'}</div>
+      <button class="round-step-btn" id="addRoundBtn" title="Add a round">+</button>
+    </div>
+    <div class="edit-hint">Tap a logged round again to edit its weight/reps or remove it.</div>
+    ${showEditor ? buildRoundEditorHTML(roundEditState) : ''}
   `;
+  wireWodTimer(containerEl, dateStr, dayKey, refresh);
   containerEl.querySelectorAll('[data-movement]').forEach(btn => {
     btn.addEventListener('click', () => {
       const movement = list.find(m => m.id === btn.getAttribute('data-movement'));
       if(!movement) return;
-      toggleRoundCell(dateStr, movement, btn.getAttribute('data-round'));
+      const roundLabel = btn.getAttribute('data-round');
+      const key = `${movement.id}_${roundLabel}`;
+      const alreadyDone = !!(roundCompletions[dateStr] || {})[key];
+      if(alreadyDone){
+        roundEditState = { dateStr, movement, roundLabel, containerEl, refresh };
+      } else {
+        toggleRoundCell(dateStr, movement, roundLabel);
+      }
       refresh();
     });
+  });
+  containerEl.querySelector('#addRoundBtn').addEventListener('click', () => {
+    planRounds[dayKey] = rounds + 1;
+    savePlanRounds();
+    refresh();
+  });
+  containerEl.querySelector('#removeRoundBtn').addEventListener('click', () => {
+    if(rounds <= 1) return;
+    const lastRoundLabel = `r${rounds}`;
+    const hasLoggedSets = list.some(item => !!dayCompletions[`${item.id}_${lastRoundLabel}`]);
+    if(hasLoggedSets && !confirm(`Round ${rounds} has logged sets. Removing it won't delete what you've already logged in your history, but you'll lose the checkmarks for that round here. Continue?`)) return;
+    planRounds[dayKey] = rounds - 1;
+    savePlanRounds();
+    refresh();
+  });
+  if(showEditor) wireRoundEditor(containerEl, refresh);
+}
+function buildRoundEditorHTML(state){
+  const { movement, roundLabel, dateStr } = state;
+  const key = `${movement.id}_${roundLabel}`;
+  const existingEntryId = (roundCompletions[dateStr] || {})[key];
+  const existingEntry = existingEntryId ? entries.find(e => e.id === existingEntryId) : null;
+  const roundNum = roundLabel.replace('r','');
+  let fieldsHTML;
+  if(movement.type === 'cardio'){
+    const dist = existingEntry ? existingEntry.distance : movement.runDistance;
+    const unit = existingEntry ? existingEntry.unit : (movement.runUnit || 'm');
+    fieldsHTML = `
+      <div class="plan-form-grid">
+        <input type="number" id="roundEditDistance" value="${dist ?? ''}" placeholder="Distance" inputmode="decimal" style="flex:1.3;">
+        <select class="plan-type-select" id="roundEditUnit" style="margin-bottom:0;width:auto;flex:1;">
+          <option value="m" ${unit==='m'?'selected':''}>Meters</option>
+          <option value="mi" ${unit==='mi'?'selected':''}>Miles</option>
+        </select>
+      </div>`;
+  } else {
+    const weight = existingEntry ? existingEntry.weight : movement.weight;
+    const reps = existingEntry ? existingEntry.reps : movement.reps;
+    fieldsHTML = `
+      <div class="plan-form-grid">
+        ${movement.type === 'strength' ? `<input type="number" id="roundEditWeight" value="${weight ?? ''}" placeholder="Weight (lb)" inputmode="decimal">` : ''}
+        <input type="number" id="roundEditReps" value="${reps ?? ''}" placeholder="Reps" inputmode="numeric">
+      </div>`;
+  }
+  return `
+    <div class="round-editor">
+      <div class="round-editor-title">Round ${roundNum} · ${escapeHTML(movement.name)}</div>
+      ${fieldsHTML}
+      <div class="plan-form-actions">
+        <button class="add-btn" id="roundEditSaveBtn">${existingEntry ? 'Save changes' : 'Log this round'}</button>
+        ${existingEntry ? '<button class="cancel-edit-btn" id="roundEditRemoveBtn">Remove</button>' : ''}
+        <button class="cancel-edit-btn" id="roundEditCancelBtn">Cancel</button>
+      </div>
+    </div>
+  `;
+}
+function wireRoundEditor(containerEl, refresh){
+  const state = roundEditState;
+  const { dateStr, movement, roundLabel } = state;
+  const key = `${movement.id}_${roundLabel}`;
+  const existingEntryId = (roundCompletions[dateStr] || {})[key];
+  document.getElementById('roundEditCancelBtn').addEventListener('click', () => {
+    roundEditState = null;
+    refresh();
+  });
+  document.getElementById('roundEditSaveBtn').addEventListener('click', () => {
+    let entry;
+    if(movement.type === 'cardio'){
+      const distance = Number(document.getElementById('roundEditDistance').value) || 0;
+      const unit = document.getElementById('roundEditUnit').value;
+      entry = { id: existingEntryId || newId(), date: dateStr, exercise: movement.name, type: 'cardio', distance, unit, timeSeconds: null };
+    } else {
+      const reps = Number(document.getElementById('roundEditReps').value) || 0;
+      const weightEl = document.getElementById('roundEditWeight');
+      const weight = weightEl ? (weightEl.value ? Number(weightEl.value) : null) : null;
+      entry = { id: existingEntryId || newId(), date: dateStr, exercise: movement.name, type: 'strength', weight, reps };
+    }
+    if(existingEntryId){
+      const idx = entries.findIndex(e => e.id === existingEntryId);
+      if(idx > -1) entries[idx] = entry; else entries.unshift(entry);
+    } else {
+      entries.unshift(entry);
+    }
+    if(!roundCompletions[dateStr]) roundCompletions[dateStr] = {};
+    roundCompletions[dateStr][key] = entry.id;
+    saveEntries(); saveRoundCompletions();
+    roundEditState = null;
+    refresh();
+    if(dateStr === todayStr()) renderLogTab(); else renderCalendar();
+  });
+  const removeBtn = document.getElementById('roundEditRemoveBtn');
+  if(removeBtn) removeBtn.addEventListener('click', () => {
+    if(existingEntryId){
+      entries = entries.filter(e => e.id !== existingEntryId);
+      delete roundCompletions[dateStr][key];
+      saveEntries(); saveRoundCompletions();
+    }
+    roundEditState = null;
+    refresh();
+    if(dateStr === todayStr()) renderLogTab(); else renderCalendar();
   });
 }
 function planItemDetail(item){
@@ -1424,7 +1861,7 @@ function planItemDetail(item){
   if(item.reps) parts.push(`${item.reps} reps`);
   if(item.runDistance) parts.push(`${item.runDistance} ${item.runUnit === 'mi' ? 'mi' : 'm'}`);
   if(item.runMinutes) parts.push(`${item.runMinutes} min run`);
-  if(item.restSeconds) parts.push(`rest ${item.restSeconds}s`);
+  if(item.restSeconds) parts.push(`rest ${formatSecondsToTime(item.restSeconds)}`);
   return parts.length ? parts.join(' · ') : 'No target set';
 }
 const WOD_TYPE_LABELS = { rounds:'Rounds', fortime:'For Time', amrap:'AMRAP', emom:'EMOM' };
@@ -2387,6 +2824,82 @@ document.getElementById('ageInput').addEventListener('input', saveProfileFromInp
 document.getElementById('genderInput').addEventListener('change', saveProfileFromInputs);
 document.getElementById('weightValueInput').addEventListener('input', renderBmiReadout);
 
+/* ---------- GPS run tracking (Geolocation API, no external service) ---------- */
+let gpsTrackState = null; // { watchId, tickInterval, points:[{lat,lon}], startedAt, distanceMeters }
+function haversineDistanceMeters(lat1, lon1, lat2, lon2){
+  const R = 6371000;
+  const toRad = d => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1), dLon = toRad(lon2 - lon1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+function setGpsStatus(msg){ const el = document.getElementById('gpsStatus'); if(el) el.textContent = msg || ''; }
+function startGpsTracking(){
+  if(!navigator.geolocation){ setGpsStatus('GPS is not available on this device or browser.'); return; }
+  gpsTrackState = { watchId: null, points: [], startedAt: Date.now(), distanceMeters: 0 };
+  document.getElementById('gpsIdleView').style.display = 'none';
+  document.getElementById('gpsTrackingView').style.display = 'block';
+  setGpsStatus('Getting a GPS fix…');
+  gpsTrackState.watchId = navigator.geolocation.watchPosition(onGpsPosition, onGpsError, { enableHighAccuracy: true, maximumAge: 1000, timeout: 20000 });
+  gpsTrackState.tickInterval = setInterval(renderGpsTrackerDisplay, 1000);
+  renderGpsTrackerDisplay();
+}
+function onGpsPosition(pos){
+  if(!gpsTrackState) return;
+  const { latitude, longitude, accuracy } = pos.coords;
+  const last = gpsTrackState.points[gpsTrackState.points.length - 1];
+  if(last){
+    const d = haversineDistanceMeters(last.lat, last.lon, latitude, longitude);
+    if(d > 1 && d < 200) gpsTrackState.distanceMeters += d; // ignore GPS noise and implausible jumps
+  }
+  gpsTrackState.points.push({ lat: latitude, lon: longitude });
+  setGpsStatus(accuracy > 30 ? `Weak GPS signal (±${Math.round(accuracy)}m) — try getting a clearer view of the sky.` : 'Tracking…');
+  renderGpsTrackerDisplay();
+}
+function onGpsError(err){
+  setGpsStatus('GPS error: ' + (err && err.message ? err.message : 'could not get your location.'));
+}
+function renderGpsTrackerDisplay(){
+  if(!gpsTrackState) return;
+  const el = document.getElementById('gpsTrackerStats');
+  if(!el) return;
+  const elapsedSec = Math.round((Date.now() - gpsTrackState.startedAt) / 1000);
+  const distanceMi = gpsTrackState.distanceMeters / 1609.34;
+  const paceSecPerMi = distanceMi > 0.02 ? elapsedSec / distanceMi : 0;
+  el.innerHTML = `
+    <div class="gps-stat"><div class="gps-num">${formatSecondsToTime(elapsedSec)}</div><div class="gps-lbl">Time</div></div>
+    <div class="gps-stat"><div class="gps-num">${distanceMi.toFixed(2)}</div><div class="gps-lbl">Miles</div></div>
+    <div class="gps-stat"><div class="gps-num">${paceSecPerMi ? formatSecondsToTime(Math.round(paceSecPerMi)) : '--:--'}</div><div class="gps-lbl">Pace /mi</div></div>
+  `;
+}
+function stopGpsTracking(save){
+  if(!gpsTrackState) return;
+  if(gpsTrackState.watchId != null) navigator.geolocation.clearWatch(gpsTrackState.watchId);
+  clearInterval(gpsTrackState.tickInterval);
+  const elapsedSeconds = Math.round((Date.now() - gpsTrackState.startedAt) / 1000);
+  const distanceMi = round2(gpsTrackState.distanceMeters / 1609.34);
+  if(save && distanceMi > 0.01){
+    entries.unshift({ id: newId(), date: todayStr(), exercise: 'Run', type: 'cardio', distance: distanceMi, unit: 'mi', timeSeconds: elapsedSeconds });
+    saveEntries();
+    const openToday = cardioPlans.filter(c => !c.completed && c.date === todayStr());
+    if(openToday.length === 1){
+      const c = openToday[0];
+      c.completed = true; c.actualDistance = distanceMi; c.actualUnit = 'mi'; c.actualTimeSeconds = elapsedSeconds;
+      saveCardioPlans();
+    }
+    renderAll();
+  }
+  gpsTrackState = null;
+  document.getElementById('gpsIdleView').style.display = 'block';
+  document.getElementById('gpsTrackingView').style.display = 'none';
+  setGpsStatus('');
+}
+document.getElementById('gpsStartBtn').addEventListener('click', startGpsTracking);
+document.getElementById('gpsStopSaveBtn').addEventListener('click', () => stopGpsTracking(true));
+document.getElementById('gpsDiscardBtn').addEventListener('click', () => {
+  if(confirm('Discard this GPS run without saving it?')) stopGpsTracking(false);
+});
+
 /* ---------- cardio tab: program run/walk sessions, linked to the calendar ---------- */
 document.getElementById('cardioDateInput').value = todayStr();
 document.getElementById('wodScheduleDateInput').value = todayStr();
@@ -2427,6 +2940,7 @@ function addCardioPlan(){
 }
 document.getElementById('cardioAddBtn').addEventListener('click', addCardioPlan);
 
+const CARDIO_ACTIVITY_LABELS = { run:'Run', walk:'Walk', row:'Row' };
 function cardioItemHTML(c){
   const targetText = c.targetType === 'duration'
     ? `${c.durationMin} min`
@@ -2442,7 +2956,7 @@ function cardioItemHTML(c){
     <div class="cardio-item ${c.completed?'completed':''}">
       <div class="cardio-item-top">
         <div class="item-main">
-          <div class="ex-name">${c.activity === 'walk' ? 'Walk' : 'Run'} · ${escapeHTML(targetText)}</div>
+          <div class="ex-name">${CARDIO_ACTIVITY_LABELS[c.activity] || 'Run'} · ${escapeHTML(targetText)}</div>
           <div class="ex-detail">${formatDateLabel(c.date)}${c.notes ? ` · ${escapeHTML(c.notes)}` : ''}${actualText}</div>
         </div>
         <div class="item-actions">
@@ -2475,7 +2989,7 @@ function wireCardioItemButtons(containerEl, onChange){
       c.actualUnit = c.unit || 'mi';
       c.actualTimeSeconds = time ? parseTimeToSeconds(time) : null;
       if(c.actualDistance){
-        entries.unshift({ id: newId(), date: c.date, exercise: c.activity === 'walk' ? 'Walk' : 'Run', type: 'cardio', distance: c.actualDistance, unit: c.actualUnit, timeSeconds: c.actualTimeSeconds });
+        entries.unshift({ id: newId(), date: c.date, exercise: CARDIO_ACTIVITY_LABELS[c.activity] || 'Run', type: 'cardio', distance: c.actualDistance, unit: c.actualUnit, timeSeconds: c.actualTimeSeconds });
         saveEntries();
       }
       saveCardioPlans();
@@ -3105,14 +3619,18 @@ function renderAccountTab(){
 }
 
 /* ---- community feed ---- */
-const COMMUNITY_TYPE_LABELS = { pr:'PR', wod:'Workout', general:'General' };
+const COMMUNITY_TYPE_LABELS = { pr:'PR', wod:'Workout', general:'General', leaderboard:'Benchmark' };
+const BENCHMARK_WODS = ['Fran','Murph','Grace','Helen','Cindy','Diane','Annie','Karen','Jackie','Angie','Other'];
+let communityPostsCache = [];
 function startCommunityListener(){
   stopCommunityListener();
-  unsubCommunity = fbDb.collection('community_posts').orderBy('createdAt','desc').limit(50)
+  unsubCommunity = fbDb.collection('community_posts').orderBy('createdAt','desc').limit(100)
     .onSnapshot((snap) => {
       const posts = [];
       snap.forEach(doc => posts.push({ id: doc.id, ...doc.data() }));
+      communityPostsCache = posts;
       renderCommunityFeed(posts);
+      renderLeaderboard();
     }, (err) => console.warn('community listener error', err));
 }
 function stopCommunityListener(){ if(unsubCommunity){ unsubCommunity(); unsubCommunity = null; } }
@@ -3173,15 +3691,67 @@ document.getElementById('communityPostBtn').addEventListener('click', async () =
     statusEl.textContent = 'Could not post — try again.'; statusEl.classList.remove('success');
   }
 });
+document.getElementById('leaderboardWodPostSelect').innerHTML = BENCHMARK_WODS.map(w => `<option value="${w}">${w}</option>`).join('');
+document.getElementById('leaderboardWodSelect').innerHTML = BENCHMARK_WODS.filter(w => w !== 'Other').map(w => `<option value="${w}">${w}</option>`).join('');
+document.getElementById('leaderboardWodPostSelect').addEventListener('change', (ev) => {
+  document.getElementById('leaderboardCustomNameRow').style.display = ev.target.value === 'Other' ? 'block' : 'none';
+});
+document.getElementById('leaderboardPostBtn').addEventListener('click', async () => {
+  if(!currentUser || !fbDb) return;
+  const statusEl = document.getElementById('leaderboardPostStatus');
+  const picked = document.getElementById('leaderboardWodPostSelect').value;
+  const wodName = picked === 'Other' ? document.getElementById('leaderboardCustomNameInput').value.trim() : picked;
+  const timeSeconds = parseTimeToSeconds(document.getElementById('leaderboardTimeInput').value.trim());
+  if(!wodName){ statusEl.textContent = 'Name the WOD.'; statusEl.classList.remove('success'); return; }
+  if(!timeSeconds){ statusEl.textContent = 'Enter a time as mm:ss.'; statusEl.classList.remove('success'); return; }
+  try{
+    await fbDb.collection('community_posts').add({
+      uid: currentUser.uid,
+      displayName: currentUser.displayName || currentUser.email.split('@')[0],
+      type: 'leaderboard', wodName, timeSeconds,
+      title: `${wodName} — ${formatSecondsToTime(timeSeconds)}`,
+      detail: '', kudosCount: 0,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    document.getElementById('leaderboardTimeInput').value = '';
+    statusEl.textContent = 'Posted!'; statusEl.classList.add('success');
+  }catch(e){
+    statusEl.textContent = 'Could not post — try again.'; statusEl.classList.remove('success');
+  }
+});
+document.getElementById('leaderboardWodSelect').addEventListener('change', renderLeaderboard);
+function renderLeaderboard(){
+  const sel = document.getElementById('leaderboardWodSelect');
+  const wrap = document.getElementById('leaderboardList');
+  if(!sel || !wrap) return;
+  const chosen = sel.value || BENCHMARK_WODS[0];
+  const rows = communityPostsCache
+    .filter(p => p.type === 'leaderboard' && p.wodName === chosen && typeof p.timeSeconds === 'number')
+    .sort((a,b) => a.timeSeconds - b.timeSeconds)
+    .slice(0, 10);
+  if(!rows.length){ wrap.innerHTML = `<div class="empty">No times posted for ${escapeHTML(chosen)} yet — be the first.</div>`; return; }
+  wrap.innerHTML = rows.map((r,i) => `
+    <div class="leaderboard-row">
+      <div class="lb-rank">${i+1}</div>
+      <div class="lb-name">${escapeHTML(r.displayName || 'Someone')}</div>
+      <div class="lb-time">${formatSecondsToTime(r.timeSeconds)}</div>
+    </div>
+  `).join('');
+}
 function renderCommunityTab(){
   const notice = document.getElementById('communityLoggedOutNotice');
   const composer = document.getElementById('communityComposerCard');
   const feedCard = document.getElementById('communityFeedCard');
+  const lbPostCard = document.getElementById('leaderboardPostCard');
+  const lbViewCard = document.getElementById('leaderboardViewCard');
   if(!notice) return;
   const loggedIn = !!currentUser;
   notice.style.display = loggedIn ? 'none' : 'block';
   composer.style.display = loggedIn ? 'block' : 'none';
   feedCard.style.display = loggedIn ? 'block' : 'none';
+  lbPostCard.style.display = loggedIn ? 'block' : 'none';
+  lbViewCard.style.display = loggedIn ? 'block' : 'none';
+  if(loggedIn) renderLeaderboard();
 }
 
 // every local save now also schedules a debounced push to the cloud (no-op until logged in)
@@ -3203,6 +3773,22 @@ document.getElementById('repsInput').addEventListener('keydown', ev => { if(ev.k
 document.getElementById('weightInput').addEventListener('keydown', ev => { if(ev.key==='Enter') addEntry(); });
 
 function renderAll(){ renderLogTab(); renderPlanTab(); renderWeightTab(); renderCardioTab(); renderProgressTab(); renderReviewsTab(); renderAccountTab(); renderCommunityTab(); renderShareTab(); }
+// Beta flags — flip either to true when ready to expose it to testers.
+// Hides the tab entirely (and its content never becomes reachable); nothing else changes.
+const SHOW_ACCOUNT_TAB = false;
+const SHOW_COMMUNITY_TAB = false;
+function applyBetaTabVisibility(){
+  if(!SHOW_ACCOUNT_TAB){
+    const btn = document.querySelector('[data-tab="account"]');
+    if(btn) btn.style.display = 'none';
+  }
+  if(!SHOW_COMMUNITY_TAB){
+    const btn = document.querySelector('[data-tab="community"]');
+    if(btn) btn.style.display = 'none';
+  }
+}
+applyBetaTabVisibility();
+
 populateExerciseDatalist();
 loadAll();
 </script>
