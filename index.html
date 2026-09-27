@@ -60,6 +60,8 @@
   .tabata-phase-work{color:var(--plate);}
   .tabata-phase-rest{color:var(--rust);}
   .tabata-phase-done{color:var(--chalk);}
+  @keyframes justLoadedFlash{0%{background:rgba(231,193,58,0.22);}100%{background:transparent;}}
+  #planExerciseList.just-loaded{animation:justLoadedFlash 1.4s ease-out;border-radius:6px;}
 
   .totals-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .total-tile{background:var(--surface-2);border-radius:3px;padding:12px;text-align:center;}
@@ -506,6 +508,13 @@
         </div>
         <div class="calendar-grid" id="workoutCalendar"></div>
         <div class="calendar-summary" id="calendarSummary">Select a workout day to review the log.</div>
+        <div class="calendar-plan-section" id="calendarMoveSection" style="display:none;">
+          <h3><span>Move this day's workout</span></h3>
+          <div class="link-row">
+            <input type="date" id="calendarMoveDateInput">
+            <button class="cancel-edit-btn" id="calendarMoveBtn">Move</button>
+          </div>
+        </div>
         <div class="calendar-plan-section" id="calendarPlanSection" style="display:none;">
           <h3><span id="calendarPlanTitle">Planned WOD</span></h3>
           <div id="calendarPlanExecution"></div>
@@ -538,6 +547,7 @@
       <div class="plan-name-row">
         <input type="text" id="planNameInput" list="wodNameLibrary" placeholder="WOD name — type your own or pick from the library (e.g. &quot;Fran&quot;, Push Day)" autocomplete="off">
       </div>
+      <div class="ex-suggest-hint" id="wodNameTemplateHint"></div>
       <datalist id="wodNameLibrary">
         <!-- CrossFit "Girls" benchmark WODs -->
         <option value="Fran">
@@ -1364,6 +1374,21 @@ function updateExerciseSuggestHint(){
     parts.push(`Last time: ${prog.last.weight} lb × ${prog.last.reps}${suggestPart}`);
   }
   hintEl.innerHTML = parts.map(p => `<div>${escapeHTML(p)}</div>`).join('');
+
+  // populate the actual weight/reps fields too, not just the hint text — only when the
+  // person hasn't already typed something there, so we never clobber an active entry.
+  if(document.getElementById('logTypeInput').value !== 'cardio'){
+    const repsField = document.getElementById('repsInput');
+    const weightField = document.getElementById('weightInput');
+    if(!repsField.value){
+      if(prog) repsField.value = prog.last.reps;
+      else if(lib){
+        const topRep = parseInt(String(lib.reps).split('-').pop(), 10);
+        if(!isNaN(topRep)) repsField.value = topRep;
+      }
+    }
+    if(!weightField.value && prog) weightField.value = prog.suggestion;
+  }
 }
 document.getElementById('exerciseInput').addEventListener('input', updateExerciseSuggestHint);
 function computeStreak(){
@@ -1907,6 +1932,9 @@ const EXERCISE_LIBRARY = [
   { name:'Power Clean', category:'olympic', sets:5, reps:'2-3', cue:'Triple extension, catch above parallel.' },
   { name:'Clean and Jerk', category:'olympic', sets:5, reps:'1-2', cue:'Stable front rack, drive hard on the jerk dip.' },
   { name:'Snatch', category:'olympic', sets:5, reps:'2-3', cue:'Keep the bar close, aggressive turnover overhead.' },
+  { name:'Hang Power Clean', category:'olympic', sets:5, reps:'3-5', cue:'Bar starts above the knee, snap the hips, catch high.' },
+  { name:'Push Jerk', category:'olympic', sets:5, reps:'3-5', cue:'Dip, drive, and punch under the bar — receive in a short squat.' },
+  { name:'Air Squat', category:'legs', sets:3, reps:'15-20', cue:'Hips back and down, chest tall, full depth.' },
   { name:'Kettlebell Swing', category:'full body', sets:3, reps:'15-20', cue:'Hip hinge power, arms are just a hook.' },
   { name:'Thruster', category:'full body', sets:3, reps:'8-12', cue:'Front squat straight into a press, no pause at the top.' },
   { name:'Wall Ball', category:'full body', sets:3, reps:'15-20', cue:'Hit the target, catch the rebound in the squat.' },
@@ -1995,6 +2023,187 @@ const EXERCISE_LIBRARY = [
   { name:'Push-Up + Dumbbell Row', category:'full body', sets:3, reps:'8-10 each side', cue:'Renegade-row style: push-up, then row one dumbbell at a time.' },
   { name:"Farmer's Carry + Walking Lunge", category:'full body', sets:3, reps:'20-30m', cue:'Carry heavy, then lunge — grip and legs under fatigue.' }
 ];
+// Named WOD templates: picking one of these exact names in the WOD name field
+// auto-fills the movement list with the standard prescription. Weight is left for
+// the person's own history to suggest (or blank if none yet) — these are starting
+// points, not fixed numbers. Reps use the FIRST number of any descending rep scheme
+// (e.g. Fran's 21-15-9) since each round can only hold one target reps value here;
+// tap round 2 / round 3 afterward to edit those rounds down to 15 / 9, etc.
+const WOD_TEMPLATES = {
+  'Fran': { wodType:'fortime', rounds:3, movements:[
+    { name:'Thruster', type:'strength', reps:21 },
+    { name:'Pull-up', type:'reps', reps:21 }
+  ]},
+  'Grace': { wodType:'fortime', rounds:1, movements:[
+    { name:'Clean and Jerk', type:'strength', reps:30 }
+  ]},
+  'Helen': { wodType:'fortime', rounds:3, movements:[
+    { name:'Run', type:'cardio', runDistance:400, runUnit:'m' },
+    { name:'Kettlebell Swing', type:'strength', reps:21 },
+    { name:'Pull-up', type:'reps', reps:12 }
+  ]},
+  'Cindy': { wodType:'amrap', timeCapMin:20, movements:[
+    { name:'Pull-up', type:'reps', reps:5 },
+    { name:'Push-up', type:'reps', reps:10 },
+    { name:'Air Squat', type:'reps', reps:15 }
+  ]},
+  'Annie': { wodType:'fortime', rounds:5, movements:[
+    { name:'Double-Unders', type:'reps', reps:50 },
+    { name:'Sit-up', type:'reps', reps:50 }
+  ]},
+  'Karen': { wodType:'fortime', rounds:1, movements:[
+    { name:'Wall Ball', type:'strength', reps:150 }
+  ]},
+  'Jackie': { wodType:'fortime', rounds:1, movements:[
+    { name:'Row', type:'cardio', runDistance:1000, runUnit:'m' },
+    { name:'Thruster', type:'strength', reps:50 },
+    { name:'Pull-up', type:'reps', reps:30 }
+  ]},
+  'DT': { wodType:'fortime', rounds:5, movements:[
+    { name:'Deadlift', type:'strength', reps:12 },
+    { name:'Hang Power Clean', type:'strength', reps:9 },
+    { name:'Push Jerk', type:'strength', reps:6 }
+  ]},
+  'Murph': { wodType:'fortime', rounds:1, movements:[
+    { name:'Run', type:'cardio', runDistance:1, runUnit:'mi' },
+    { name:'Pull-up', type:'reps', reps:100 },
+    { name:'Push-up', type:'reps', reps:200 },
+    { name:'Air Squat', type:'reps', reps:300 },
+    { name:'Run', type:'cardio', runDistance:1, runUnit:'mi' }
+  ]},
+  'Angie': { wodType:'fortime', rounds:1, movements:[
+    { name:'Pull-up', type:'reps', reps:100 },
+    { name:'Push-up', type:'reps', reps:100 },
+    { name:'Sit-up', type:'reps', reps:100 },
+    { name:'Air Squat', type:'reps', reps:100 }
+  ]},
+  'Push Day': { wodType:'rounds', rounds:3, movements:[
+    { name:'Bench Press', type:'strength', reps:8 },
+    { name:'Overhead Press', type:'strength', reps:8 },
+    { name:'Incline Dumbbell Press', type:'strength', reps:10 },
+    { name:'Triceps Pushdown', type:'strength', reps:12 },
+    { name:'Lateral Raise', type:'strength', reps:12 }
+  ]},
+  'Pull Day': { wodType:'rounds', rounds:3, movements:[
+    { name:'Deadlift', type:'strength', reps:5 },
+    { name:'Pull-up', type:'reps', reps:8 },
+    { name:'Barbell Row', type:'strength', reps:8 },
+    { name:'Face Pull', type:'strength', reps:15 },
+    { name:'Barbell Curl', type:'strength', reps:10 }
+  ]},
+  'Leg Day': { wodType:'rounds', rounds:3, movements:[
+    { name:'Back Squat', type:'strength', reps:6 },
+    { name:'Romanian Deadlift', type:'strength', reps:8 },
+    { name:'Leg Press', type:'strength', reps:10 },
+    { name:'Walking Lunge', type:'strength', reps:10 },
+    { name:'Calf Raise', type:'strength', reps:15 }
+  ]},
+  'Upper Body': { wodType:'rounds', rounds:3, movements:[
+    { name:'Bench Press', type:'strength', reps:8 },
+    { name:'Barbell Row', type:'strength', reps:8 },
+    { name:'Overhead Press', type:'strength', reps:8 },
+    { name:'Barbell Curl', type:'strength', reps:10 },
+    { name:'Triceps Pushdown', type:'strength', reps:12 }
+  ]},
+  'Lower Body': { wodType:'rounds', rounds:3, movements:[
+    { name:'Back Squat', type:'strength', reps:6 },
+    { name:'Romanian Deadlift', type:'strength', reps:8 },
+    { name:'Bulgarian Split Squat', type:'strength', reps:10 },
+    { name:'Hip Thrust', type:'strength', reps:10 },
+    { name:'Calf Raise', type:'strength', reps:15 }
+  ]},
+  'Full Body': { wodType:'rounds', rounds:3, movements:[
+    { name:'Back Squat', type:'strength', reps:6 },
+    { name:'Bench Press', type:'strength', reps:8 },
+    { name:'Barbell Row', type:'strength', reps:8 },
+    { name:'Overhead Press', type:'strength', reps:8 },
+    { name:'Plank', type:'reps', reps:45 }
+  ]},
+  'Chest & Triceps': { wodType:'rounds', rounds:3, movements:[
+    { name:'Bench Press', type:'strength', reps:8 },
+    { name:'Incline Dumbbell Press', type:'strength', reps:10 },
+    { name:'Chest Fly', type:'strength', reps:12 },
+    { name:'Triceps Pushdown', type:'strength', reps:12 },
+    { name:'Skull Crusher', type:'strength', reps:10 }
+  ]},
+  'Back & Biceps': { wodType:'rounds', rounds:3, movements:[
+    { name:'Pull-up', type:'reps', reps:8 },
+    { name:'Barbell Row', type:'strength', reps:8 },
+    { name:'Lat Pulldown', type:'strength', reps:10 },
+    { name:'Barbell Curl', type:'strength', reps:10 },
+    { name:'Hammer Curl', type:'strength', reps:10 }
+  ]},
+  'Shoulders & Arms': { wodType:'rounds', rounds:3, movements:[
+    { name:'Overhead Press', type:'strength', reps:8 },
+    { name:'Lateral Raise', type:'strength', reps:12 },
+    { name:'Rear Delt Fly', type:'strength', reps:12 },
+    { name:'Barbell Curl', type:'strength', reps:10 },
+    { name:'Triceps Pushdown', type:'strength', reps:12 }
+  ]},
+  'Core & Abs': { wodType:'rounds', rounds:3, movements:[
+    { name:'Plank', type:'reps', reps:45 },
+    { name:'Hanging Knee Raise', type:'reps', reps:12 },
+    { name:'Cable Crunch', type:'strength', reps:15 },
+    { name:'Russian Twist', type:'reps', reps:20 },
+    { name:'Dead Bug', type:'reps', reps:12 }
+  ]},
+  'Arm Day': { wodType:'rounds', rounds:3, movements:[
+    { name:'Barbell Curl', type:'strength', reps:10 },
+    { name:'Hammer Curl', type:'strength', reps:10 },
+    { name:'Triceps Pushdown', type:'strength', reps:12 },
+    { name:'Skull Crusher', type:'strength', reps:10 },
+    { name:'Preacher Curl', type:'strength', reps:10 }
+  ]},
+  'Back Day': { wodType:'rounds', rounds:3, movements:[
+    { name:'Deadlift', type:'strength', reps:5 },
+    { name:'Pull-up', type:'reps', reps:8 },
+    { name:'Barbell Row', type:'strength', reps:8 },
+    { name:'Lat Pulldown', type:'strength', reps:10 },
+    { name:'Seated Cable Row', type:'strength', reps:10 }
+  ]},
+  'Chest Day': { wodType:'rounds', rounds:3, movements:[
+    { name:'Bench Press', type:'strength', reps:8 },
+    { name:'Incline Bench Press', type:'strength', reps:8 },
+    { name:'Dumbbell Bench Press', type:'strength', reps:10 },
+    { name:'Chest Fly', type:'strength', reps:12 },
+    { name:'Push-up', type:'reps', reps:15 }
+  ]},
+  'Shoulder Day': { wodType:'rounds', rounds:3, movements:[
+    { name:'Overhead Press', type:'strength', reps:8 },
+    { name:'Arnold Press', type:'strength', reps:10 },
+    { name:'Lateral Raise', type:'strength', reps:12 },
+    { name:'Front Dumbbell Raise', type:'strength', reps:12 },
+    { name:'Rear Delt Fly', type:'strength', reps:12 }
+  ]}
+};
+function applyWodTemplate(name){
+  const tpl = WOD_TEMPLATES[name];
+  if(!tpl) return false;
+  const day = selectedPlanDay;
+  planTypes[day] = tpl.wodType;
+  savePlanTypes();
+  if(tpl.wodType === 'amrap' || tpl.wodType === 'emom'){
+    planTimeCap[day] = tpl.timeCapMin || 20;
+    savePlanTimeCap();
+  } else {
+    planRounds[day] = tpl.rounds || 1;
+    savePlanRounds();
+  }
+  plan[day] = tpl.movements.map(m => {
+    const item = { id: newId(), name: m.name, type: m.type, restSeconds: null, supersetWithNext: false };
+    if(m.type === 'cardio'){
+      item.runDistance = m.runDistance;
+      item.runUnit = m.runUnit;
+    } else {
+      item.reps = m.reps;
+      const prog = suggestedNextWeight(m.name);
+      item.weight = (m.type === 'strength' && prog) ? prog.suggestion : null;
+    }
+    return item;
+  });
+  savePlan();
+  return true;
+}
 function exerciseLibraryLookup(name){
   if(!name) return null;
   const norm = name.trim().toLowerCase();
@@ -2073,10 +2282,34 @@ document.querySelectorAll('#wodTypeGrid [data-wodtype]').forEach(btn => {
     renderTodayPlanCard();
   });
 });
+function renderWodNameTemplateHint(name){
+  const hintEl = document.getElementById('wodNameTemplateHint');
+  if(!hintEl) return;
+  const tpl = WOD_TEMPLATES[name];
+  hintEl.innerHTML = tpl ? `<div>✓ Auto-fills ${tpl.movements.length} movement${tpl.movements.length===1?'':'s'} — edit anything after it loads.</div>` : '';
+}
 document.getElementById('planNameInput').addEventListener('input', (ev) => {
-  planNames[selectedPlanDay] = ev.target.value;
+  const name = ev.target.value;
+  planNames[selectedPlanDay] = name;
   savePlanNames();
   renderDayPicker();
+  renderWodNameTemplateHint(name);
+  if(WOD_TEMPLATES[name]){
+    const existing = plan[selectedPlanDay] || [];
+    const proceed = existing.length
+      ? confirm(`Load the standard "${name}" movements? This replaces the ${existing.length} movement${existing.length===1?'':'s'} already in ${selectedPlanDay}'s plan. Suggested weights come from your own history where you have any — everything stays editable after.`)
+      : true;
+    if(proceed){
+      applyWodTemplate(name);
+      renderPlanTab();
+      renderTodayPlanCard();
+      const listEl = document.getElementById('planExerciseList');
+      listEl.scrollIntoView?.({behavior:'smooth', block:'start'});
+      listEl.classList.remove('just-loaded');
+      void listEl.offsetWidth; // restart the animation even if it was already applied recently
+      listEl.classList.add('just-loaded');
+    }
+  }
 });
 document.getElementById('planRoundsInput').addEventListener('input', (ev) => {
   planRounds[selectedPlanDay] = ev.target.value ? Number(ev.target.value) : 1;
@@ -2116,14 +2349,24 @@ function updatePlanExerciseHint(){
 }
 document.getElementById('planExerciseInput').addEventListener('input', () => {
   updatePlanExerciseHint();
-  const lib = exerciseLibraryLookup(document.getElementById('planExerciseInput').value.trim());
+  const exName = document.getElementById('planExerciseInput').value.trim();
+  const lib = exerciseLibraryLookup(exName);
   if(lib && editingPlanIndex == null){
     const typeSelect = document.getElementById('planTypeInput');
     typeSelect.value = lib.category === 'cardio' ? 'cardio' : 'strength';
     typeSelect.dispatchEvent(new Event('change'));
-    if(lib.category !== 'cardio' && !document.getElementById('planRepsInput').value){
-      const topRep = parseInt(String(lib.reps).split('-').pop(), 10);
-      if(!isNaN(topRep)) document.getElementById('planRepsInput').value = topRep;
+    if(lib.category !== 'cardio'){
+      const repsField = document.getElementById('planRepsInput');
+      const weightField = document.getElementById('planWeightInput');
+      const prog = suggestedNextWeight(exName);
+      if(!repsField.value){
+        if(prog) repsField.value = prog.last.reps;
+        else {
+          const topRep = parseInt(String(lib.reps).split('-').pop(), 10);
+          if(!isNaN(topRep)) repsField.value = topRep;
+        }
+      }
+      if(!weightField.value && prog) weightField.value = prog.suggestion;
     }
   }
 });
@@ -2334,6 +2577,7 @@ function renderPlanTab(){
   ensureDayDefaults(selectedPlanDay);
   renderDayPicker();
   document.getElementById('planNameInput').value = planNames[selectedPlanDay] || '';
+  renderWodNameTemplateHint(planNames[selectedPlanDay] || '');
   document.getElementById('planRoundsInput').value = planRounds[selectedPlanDay] || '';
   document.getElementById('planTimeCapInput').value = planTimeCap[selectedPlanDay] || '';
   renderWodTypeGrid();
@@ -2478,6 +2722,60 @@ function entriesForDate(date){
 function cardioForDate(date){
   return cardioPlans.filter(c => c.date === date);
 }
+function dateHasMovableWorkout(date){
+  return entriesForDate(date).length > 0
+    || cardioForDate(date).length > 0
+    || !!wodSchedule.find(s => s.date === date)
+    || !!(roundCompletions[date] && Object.keys(roundCompletions[date]).length)
+    || completions.some(c => c.date === date);
+}
+async function moveWorkoutToDate(sourceDate, targetDate){
+  if(!targetDate || sourceDate === targetDate) return;
+  entries.forEach(e => { if(e.date === sourceDate) e.date = targetDate; });
+  await saveEntries();
+
+  if(roundCompletions[sourceDate]){
+    if(!roundCompletions[targetDate]) roundCompletions[targetDate] = {};
+    Object.keys(roundCompletions[sourceDate]).forEach(key => {
+      if(!(key in roundCompletions[targetDate])) roundCompletions[targetDate][key] = roundCompletions[sourceDate][key];
+    });
+    delete roundCompletions[sourceDate];
+    await saveRoundCompletions();
+  }
+
+  const srcCompletionIdx = completions.findIndex(c => c.date === sourceDate);
+  if(srcCompletionIdx > -1){
+    if(completions.some(c => c.date === targetDate)) completions.splice(srcCompletionIdx, 1);
+    else completions[srcCompletionIdx].date = targetDate;
+    await saveCompletions();
+  }
+
+  const srcSched = wodSchedule.find(s => s.date === sourceDate);
+  if(srcSched){
+    wodSchedule = wodSchedule.filter(s => s.date !== targetDate && s !== srcSched);
+    srcSched.date = targetDate;
+    wodSchedule.push(srcSched);
+    await saveWodSchedule();
+  }
+
+  let movedCardio = false;
+  cardioPlans.forEach(c => { if(c.date === sourceDate){ c.date = targetDate; movedCardio = true; } });
+  if(movedCardio) await saveCardioPlans();
+
+  selectedCalendarDate = targetDate;
+  renderAll();
+}
+document.getElementById('calendarMoveBtn').addEventListener('click', async () => {
+  const target = document.getElementById('calendarMoveDateInput').value;
+  if(!target) return;
+  const sourceLabel = formatDateLabel(selectedCalendarDate);
+  const targetLabel = formatDateLabel(target);
+  const hasExistingOnTarget = dateHasMovableWorkout(target);
+  const msg = hasExistingOnTarget
+    ? `${targetLabel} already has workout data. Moving ${sourceLabel}'s workout there will combine them (nothing gets deleted, but they'll share that day). Continue?`
+    : `Move ${sourceLabel}'s workout to ${targetLabel}?`;
+  if(confirm(msg)) await moveWorkoutToDate(selectedCalendarDate, target);
+});
 function renderCalendar(){
   const title = document.getElementById('calendarTitle');
   const grid = document.getElementById('workoutCalendar');
@@ -2523,6 +2821,14 @@ function renderCalendar(){
     summary.innerHTML = `<strong>${formatDateLabel(selectedCalendarDate)}</strong> · ${selectedEntries.length} set${selectedEntries.length===1?'':'s'} · ${totalReps} reps${totalMiles ? ` · ${totalMiles.toFixed(2)} mi` : ''}${duration ? ` · cardio ${formatSecondsToTime(duration)}` : ''}${complete ? ' · <span style="color:var(--plate)">Completed</span>' : ''}`;
   } else {
     summary.innerHTML = `<strong>${formatDateLabel(selectedCalendarDate)}</strong> · No workout logged.`;
+  }
+
+  const moveSection = document.getElementById('calendarMoveSection');
+  if(dateHasMovableWorkout(selectedCalendarDate)){
+    moveSection.style.display = 'block';
+    document.getElementById('calendarMoveDateInput').value = '';
+  } else {
+    moveSection.style.display = 'none';
   }
 
   const planSection = document.getElementById('calendarPlanSection');
