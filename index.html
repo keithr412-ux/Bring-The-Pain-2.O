@@ -180,6 +180,16 @@
   .community-post .cp-actions{display:flex;align-items:center;gap:6px;margin-top:8px;}
   .kudos-btn{background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--chalk-dim);font-weight:600;}
   .kudos-btn.kudosed{color:var(--plate);border-color:var(--plate);}
+  .nutrition-stat-row{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--chalk-dim);}
+  .nutrition-stat-row strong{color:var(--chalk);}
+  .macro-bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--surface-2);}
+  .macro-bar .macro-protein{background:var(--plate);}
+  .macro-bar .macro-fat{background:var(--rust);}
+  .macro-bar .macro-carb{background:var(--chalk-dim);}
+  .ref-block{margin-bottom:14px;}
+  .ref-block:last-of-type{margin-bottom:0;}
+  .ref-title{font-family:'Oswald',sans-serif;font-size:12.5px;font-weight:600;color:var(--plate);margin-bottom:3px;}
+  .ref-text{font-size:12px;color:var(--chalk-dim);line-height:1.5;}
   .leaderboard-row{display:flex;align-items:center;gap:10px;background:var(--surface-2);border-radius:4px;padding:9px 12px;margin-bottom:6px;}
   .leaderboard-row .lb-rank{font-family:'Oswald',sans-serif;font-weight:700;color:var(--plate);width:22px;text-align:center;flex-shrink:0;}
   .leaderboard-row .lb-name{flex:1;font-size:13px;color:var(--chalk);font-weight:600;}
@@ -380,6 +390,7 @@
     <button class="tab-btn active" data-tab="log">Log</button>
     <button class="tab-btn" data-tab="plan">Training Program</button>
     <button class="tab-btn" data-tab="weight">BMI Tracker</button>
+    <button class="tab-btn" data-tab="nutrition">Nutrition</button>
     <button class="tab-btn" data-tab="steps">Cardio</button>
     <button class="tab-btn" data-tab="progress">Progress</button>
     <button class="tab-btn" data-tab="reviews">Reviews</button>
@@ -516,7 +527,7 @@
           </div>
         </div>
         <div class="calendar-plan-section" id="calendarPlanSection" style="display:none;">
-          <h3><span id="calendarPlanTitle">Planned WOD</span></h3>
+          <h3><span id="calendarPlanTitle">Planned WOD</span><button class="small-btn" id="calendarEditInPlanBtn">Edit in Training Program</button></h3>
           <div id="calendarPlanExecution"></div>
         </div>
         <div class="calendar-plan-section" id="calendarCardioSection" style="display:none;">
@@ -724,6 +735,74 @@
       <h2>Weight trend</h2>
       <div class="chart-wrap" id="chartWrap"></div>
       <div class="weight-list" id="weightList"></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-nutrition">
+    <div class="card">
+      <h2>Your numbers</h2>
+      <div class="parse-status" id="nutritionMissingInfo" style="margin:-4px 0 12px 0;"></div>
+      <div class="nutrition-stat-row" id="nutritionInputsSummary"></div>
+      <div class="form-row" style="margin-top:10px;">
+        <select class="plan-type-select" id="activityLevelInput" style="margin-bottom:0;">
+          <option value="1.2">Sedentary — little or no exercise</option>
+          <option value="1.375">Light — exercise 1-3 days/week</option>
+          <option value="1.55" selected>Moderate — exercise 3-5 days/week</option>
+          <option value="1.725">Active — exercise 6-7 days/week</option>
+          <option value="1.9">Very active — hard training + physical job</option>
+        </select>
+      </div>
+      <div class="pr-grid" style="margin-top:12px;">
+        <div class="pr-card"><div class="pr-num" id="bmrOut">—</div><div class="pr-lbl">BMR</div><div class="pr-sub">calories at rest</div></div>
+        <div class="pr-card"><div class="pr-num" id="tdeeOut">—</div><div class="pr-lbl">Maintenance (TDEE)</div><div class="pr-sub">BMR × activity level</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Set a goal</h2>
+      <div class="cardio-target-toggle" id="nutritionGoalToggle">
+        <button data-goal="lose">Lose fat</button>
+        <button class="active" data-goal="maintain">Maintain</button>
+        <button data-goal="gain">Build muscle</button>
+      </div>
+      <div class="pr-card" style="text-align:center;">
+        <div class="pr-num" id="goalCaloriesOut">—</div>
+        <div class="pr-lbl">Suggested daily calories</div>
+        <div class="pr-sub" id="goalCaloriesMath"></div>
+      </div>
+      <div class="parse-status" id="goalTodayCompare" style="margin-top:10px;"></div>
+    </div>
+
+    <div class="card">
+      <h2>Macro targets</h2>
+      <div class="macro-bar" id="macroBar"></div>
+      <div class="pr-grid" style="margin-top:10px;">
+        <div class="pr-card"><div class="pr-num" id="proteinOut">—</div><div class="pr-lbl">Protein (g)</div><div class="pr-sub" id="proteinSub"></div></div>
+        <div class="pr-card"><div class="pr-num" id="fatOut">—</div><div class="pr-lbl">Fat (g)</div><div class="pr-sub" id="fatSub"></div></div>
+        <div class="pr-card"><div class="pr-num" id="carbOut">—</div><div class="pr-lbl">Carbs (g)</div><div class="pr-sub" id="carbSub"></div></div>
+        <div class="pr-card"><div class="pr-num" id="macroCalOut">—</div><div class="pr-lbl">Total calories</div><div class="pr-sub">4/4/9 kcal per gram</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Quick reference</h2>
+      <div class="ref-block">
+        <div class="ref-title">BMR — Mifflin-St Jeor equation</div>
+        <div class="ref-text">Men: 10×weight(kg) + 6.25×height(cm) − 5×age + 5<br>Women: 10×weight(kg) + 6.25×height(cm) − 5×age − 161</div>
+      </div>
+      <div class="ref-block">
+        <div class="ref-title">TDEE — total daily energy expenditure</div>
+        <div class="ref-text">BMR × activity multiplier (1.2 sedentary → 1.9 very active). This is roughly how many calories you burn in a day, including exercise.</div>
+      </div>
+      <div class="ref-block">
+        <div class="ref-title">Calories per gram</div>
+        <div class="ref-text">Protein: 4 kcal/g &nbsp;·&nbsp; Carbs: 4 kcal/g &nbsp;·&nbsp; Fat: 9 kcal/g</div>
+      </div>
+      <div class="ref-block">
+        <div class="ref-title">Rule of thumb</div>
+        <div class="ref-text">A pool of about 3,500 calories ≈ 1 lb of body fat. A 500 cal/day deficit or surplus is roughly 1 lb/week — a pace generally considered sustainable rather than extreme.</div>
+      </div>
+      <div class="parse-status" style="margin-top:4px;">These are population-average estimates, not a medical calculation — actual needs vary by individual. This isn't medical or nutrition advice; check with a doctor or registered dietitian before making significant changes, especially with any health condition.</div>
     </div>
   </div>
 
@@ -991,7 +1070,7 @@ const appStorage = {
     }catch(e){ return null; }
   }
 };
-const KEYS = { entries:'entries', plan:'plan', weight:'bodyweight', planNames:'planNames', sessionTimer:'sessionTimer', planLinks:'planLinks', planRounds:'planRounds', planTypes:'planTypes', planTimeCap:'planTimeCap', roundCompletions:'roundCompletions', cardioPlans:'cardioPlans', wodSchedule:'wodSchedule', reviews:'reviews', stepsLog:'stepsLog', caloriesLog:'caloriesLog', height:'height', profile:'profile', completions:'completions' };
+const KEYS = { entries:'entries', plan:'plan', weight:'bodyweight', planNames:'planNames', sessionTimer:'sessionTimer', planLinks:'planLinks', planRounds:'planRounds', planTypes:'planTypes', planTimeCap:'planTimeCap', roundCompletions:'roundCompletions', cardioPlans:'cardioPlans', wodSchedule:'wodSchedule', reviews:'reviews', stepsLog:'stepsLog', caloriesLog:'caloriesLog', nutritionPrefs:'nutritionPrefs', height:'height', profile:'profile', completions:'completions' };
 let entries = [];
 let plan = {};      // { Sun:[{id,name,type,weight,reps,runDistance,runUnit,restSeconds}], Mon:[...], ... }
 let planNames = {}; // { Sun:'Rest', Mon:'Push Day', ... }
@@ -1003,6 +1082,7 @@ let roundCompletions = {}; // { '2026-09-18': { 'movId_r1': entryId, 'movId_r2':
 let cardioPlans = []; // [{id,date,activity,targetType,distance,unit,durationMin,notes,completed,actualDistance,actualUnit,actualTimeSeconds}]
 let wodSchedule = []; // [{id,date,day}] — pins a specific calendar date to one weekday's WOD template
 let reviews = []; // [{id,date,rating,notes}]
+let nutritionPrefs = { goal: 'maintain', activity: '1.55' };
 let weights = [];   // [{id,date,weight}]
 let stepsLog = [];  // [{id,date,steps}]
 let caloriesLog = []; // [{id,date,calories}]
@@ -1035,6 +1115,7 @@ async function loadAll(){
   try{ const r = await appStorage.get(KEYS.cardioPlans); cardioPlans = r ? JSON.parse(r.value) : []; }catch(e){ cardioPlans = []; }
   try{ const r = await appStorage.get(KEYS.wodSchedule); wodSchedule = r ? JSON.parse(r.value) : []; }catch(e){ wodSchedule = []; }
   try{ const r = await appStorage.get(KEYS.reviews); reviews = r ? JSON.parse(r.value) : []; }catch(e){ reviews = []; }
+  try{ const r = await appStorage.get(KEYS.nutritionPrefs); nutritionPrefs = r ? { goal:'maintain', activity:'1.55', ...JSON.parse(r.value) } : { goal:'maintain', activity:'1.55' }; }catch(e){ nutritionPrefs = { goal:'maintain', activity:'1.55' }; }
   try{ const r = await appStorage.get(KEYS.weight); weights = r ? JSON.parse(r.value) : []; }catch(e){ weights = []; }
   try{ const r = await appStorage.get(KEYS.stepsLog); stepsLog = r ? JSON.parse(r.value) : []; }catch(e){ stepsLog = []; }
   try{ const r = await appStorage.get(KEYS.caloriesLog); caloriesLog = r ? JSON.parse(r.value) : []; }catch(e){ caloriesLog = []; }
@@ -1062,6 +1143,7 @@ async function saveRoundCompletions(){ try{ await appStorage.set(KEYS.roundCompl
 async function saveCardioPlans(){ try{ await appStorage.set(KEYS.cardioPlans, JSON.stringify(cardioPlans)); }catch(e){} }
 async function saveWodSchedule(){ try{ await appStorage.set(KEYS.wodSchedule, JSON.stringify(wodSchedule)); }catch(e){} }
 async function saveReviews(){ try{ await appStorage.set(KEYS.reviews, JSON.stringify(reviews)); }catch(e){} }
+async function saveNutritionPrefs(){ try{ await appStorage.set(KEYS.nutritionPrefs, JSON.stringify(nutritionPrefs)); }catch(e){} }
 async function saveWeights(){ try{ await appStorage.set(KEYS.weight, JSON.stringify(weights)); }catch(e){} }
 async function saveStepsLog(){ try{ await appStorage.set(KEYS.stepsLog, JSON.stringify(stepsLog)); }catch(e){} }
 async function saveCaloriesLog(){ try{ await appStorage.set(KEYS.caloriesLog, JSON.stringify(caloriesLog)); }catch(e){} }
@@ -2776,6 +2858,16 @@ document.getElementById('calendarMoveBtn').addEventListener('click', async () =>
     : `Move ${sourceLabel}'s workout to ${targetLabel}?`;
   if(confirm(msg)) await moveWorkoutToDate(selectedCalendarDate, target);
 });
+document.getElementById('calendarEditInPlanBtn').addEventListener('click', () => {
+  const { dayKey } = planForDate(selectedCalendarDate);
+  selectedPlanDay = dayKey;
+  document.querySelector('[data-tab="plan"]').click(); // reuses the normal tab-switch + renderAll()
+  const listEl = document.getElementById('planExerciseList');
+  listEl.scrollIntoView?.({behavior:'smooth', block:'start'});
+  listEl.classList.remove('just-loaded');
+  void listEl.offsetWidth; // restart the highlight animation even if it just played
+  listEl.classList.add('just-loaded');
+});
 function renderCalendar(){
   const title = document.getElementById('calendarTitle');
   const grid = document.getElementById('workoutCalendar');
@@ -3004,6 +3096,116 @@ function renderWeightList(){
   });
 }
 function renderWeightTab(){ renderChart(); renderWeightList(); renderHeightInputs(); renderStepsSection(); renderCaloriesSection(); }
+
+/* ---------- nutrition quick reference: BMR / TDEE / goal calories / macros ---------- */
+// Mifflin-St Jeor. For "other" / "prefer not to say" / unset we use the midpoint of the
+// male (+5) and female (-161) constants so the estimate isn't biased either way.
+function computeBMR(weightLb, heightIn, age, gender){
+  const kg = weightLb * 0.453592;
+  const cm = heightIn * 2.54;
+  const sexConstant = gender === 'male' ? 5 : gender === 'female' ? -161 : (5 + -161) / 2;
+  return 10 * kg + 6.25 * cm - 5 * age + sexConstant;
+}
+function calorieFloorFor(gender, bmr){
+  const generalMin = gender === 'male' ? 1500 : gender === 'female' ? 1200 : 1350;
+  return Math.max(generalMin, Math.round(bmr)); // never suggest below BMR or the general minimum
+}
+function computeNutritionPlan(){
+  const weightLb = latestLoggedWeight();
+  const heightIn = totalHeightInches();
+  const age = Number(profile.age) || null;
+  const missing = [];
+  if(!weightLb) missing.push('a logged weight');
+  if(!heightIn) missing.push('your height');
+  if(!age) missing.push('your age');
+  if(missing.length) return { missing };
+
+  const gender = profile.gender || '';
+  const activity = Number(nutritionPrefs.activity) || 1.55;
+  const bmr = computeBMR(weightLb, heightIn, age, gender);
+  const tdee = bmr * activity;
+  const goal = nutritionPrefs.goal || 'maintain';
+  const adjust = goal === 'lose' ? -500 : goal === 'gain' ? 300 : 0;
+  let target = tdee + adjust;
+  const floor = calorieFloorFor(gender, bmr);
+  let capped = false;
+  if(target < floor){ target = floor; capped = true; }
+  target = Math.round(target);
+
+  // protein: higher when cutting or building, moderate at maintenance; never more than 35% of calories
+  const proteinPerLb = goal === 'maintain' ? 0.8 : 1.0;
+  let proteinG = Math.round(weightLb * proteinPerLb);
+  const proteinCap = Math.round((target * 0.35) / 4);
+  if(proteinG > proteinCap) proteinG = proteinCap;
+  const fatG = Math.round((target * 0.25) / 9);
+  const carbG = Math.max(0, Math.round((target - proteinG * 4 - fatG * 9) / 4));
+  return { weightLb, gender, activity, bmr: Math.round(bmr), tdee: Math.round(tdee), goal, adjust, target, floor, capped, proteinG, fatG, carbG, proteinPerLb };
+}
+function renderNutritionTab(){
+  const setText = (id, v) => { const el = document.getElementById(id); if(el) el.textContent = v; };
+  if(!document.getElementById('tab-nutrition')) return;
+  document.getElementById('activityLevelInput').value = String(nutritionPrefs.activity || '1.55');
+  document.querySelectorAll('#nutritionGoalToggle button').forEach(b => b.classList.toggle('active', b.getAttribute('data-goal') === (nutritionPrefs.goal || 'maintain')));
+
+  const plan = computeNutritionPlan();
+  const missingEl = document.getElementById('nutritionMissingInfo');
+  const summaryEl = document.getElementById('nutritionInputsSummary');
+  const ids = ['bmrOut','tdeeOut','goalCaloriesOut','proteinOut','fatOut','carbOut','macroCalOut'];
+
+  if(plan.missing){
+    const m = plan.missing;
+    const joined = m.length === 1 ? m[0] : m.length === 2 ? m.join(' and ') : m.slice(0, -1).join(', ') + ', and ' + m[m.length - 1];
+    missingEl.textContent = `To calculate your numbers, add ${joined} in the BMI Tracker tab.`;
+    summaryEl.innerHTML = '';
+    ids.forEach(id => setText(id, '—'));
+    ['goalCaloriesMath','goalTodayCompare','proteinSub','fatSub','carbSub'].forEach(id => setText(id, ''));
+    document.getElementById('macroBar').innerHTML = '';
+    return;
+  }
+  missingEl.textContent = 'Pulled from your BMI Tracker info — update it there and this recalculates.';
+  const genderLabel = plan.gender === 'male' ? 'male' : plan.gender === 'female' ? 'female' : 'neutral estimate';
+  summaryEl.innerHTML = `<span><strong>${plan.weightLb} lb</strong></span><span><strong>${height.feet || 0}'${height.inches || 0}"</strong></span><span><strong>${profile.age}</strong> yrs</span><span>${genderLabel}</span>`;
+
+  setText('bmrOut', plan.bmr.toLocaleString());
+  setText('tdeeOut', plan.tdee.toLocaleString());
+  setText('goalCaloriesOut', plan.target.toLocaleString());
+  const adjText = plan.adjust === 0 ? 'Maintenance' : (plan.adjust > 0 ? `Maintenance + ${plan.adjust}` : `Maintenance − ${Math.abs(plan.adjust)}`);
+  setText('goalCaloriesMath', plan.capped
+    ? `${adjText} would fall below a safe minimum, so this is capped at ${plan.floor.toLocaleString()} (your BMR or the general minimum, whichever is higher). A bigger deficit isn't recommended without medical guidance.`
+    : `${adjText} = ${plan.tdee.toLocaleString()} ${plan.adjust >= 0 ? '+' : '−'} ${Math.abs(plan.adjust)}`);
+
+  const todayLog = caloriesLog.find(c => c.date === todayStr());
+  if(todayLog){
+    const diff = todayLog.calories - plan.target;
+    setText('goalTodayCompare', `Logged today: ${todayLog.calories.toLocaleString()} cal — about ${Math.abs(diff).toLocaleString()} ${diff >= 0 ? 'over' : 'under'} this target.`);
+  } else {
+    setText('goalTodayCompare', 'Log today\'s calories in the BMI Tracker tab to see how you compare.');
+  }
+
+  const total = plan.proteinG * 4 + plan.fatG * 9 + plan.carbG * 4;
+  setText('proteinOut', plan.proteinG); setText('fatOut', plan.fatG); setText('carbOut', plan.carbG);
+  setText('macroCalOut', total.toLocaleString());
+  const pct = kcal => total ? Math.round((kcal / total) * 100) : 0;
+  setText('proteinSub', `${pct(plan.proteinG * 4)}% of calories · ${(plan.proteinG / plan.weightLb).toFixed(2)} g/lb`);
+  setText('fatSub', `${pct(plan.fatG * 9)}% of calories`);
+  setText('carbSub', `${pct(plan.carbG * 4)}% of calories`);
+  document.getElementById('macroBar').innerHTML = total ? `
+    <div class="macro-protein" style="width:${(plan.proteinG*4/total)*100}%" title="Protein"></div>
+    <div class="macro-fat" style="width:${(plan.fatG*9/total)*100}%" title="Fat"></div>
+    <div class="macro-carb" style="width:${(plan.carbG*4/total)*100}%" title="Carbs"></div>` : '';
+}
+document.getElementById('activityLevelInput').addEventListener('change', (ev) => {
+  nutritionPrefs.activity = ev.target.value;
+  saveNutritionPrefs();
+  renderNutritionTab();
+});
+document.querySelectorAll('#nutritionGoalToggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    nutritionPrefs.goal = btn.getAttribute('data-goal');
+    saveNutritionPrefs();
+    renderNutritionTab();
+  });
+});
 
 /* ---------- steps + calories (under BMI Tracker) ---------- */
 document.getElementById('stepsDateInput').value = todayStr();
@@ -3692,7 +3894,7 @@ function buildBackupObject(){
     data: {
       entries, plan, planNames, planLinks, planRounds, planTypes, planTimeCap,
       roundCompletions, cardioPlans, wodSchedule, reviews, weights,
-      stepsLog, caloriesLog, height, profile, completions
+      stepsLog, caloriesLog, height, profile, completions, nutritionPrefs
     }
   };
 }
@@ -3737,11 +3939,12 @@ function applyImportedData(data, opts={}){
   height = data.height || { feet: null, inches: null };
   profile = data.profile || { age: null, gender: '' };
   completions = Array.isArray(data.completions) ? data.completions : [];
+  nutritionPrefs = { goal:'maintain', activity:'1.55', ...(data.nutritionPrefs || {}) };
   const p = Promise.all([
     saveEntries(), savePlan(), savePlanNames(), savePlanLinks(), savePlanRounds(),
     savePlanTypes(), savePlanTimeCap(), saveRoundCompletions(), saveCardioPlans(),
     saveWodSchedule(), saveReviews(), saveWeights(), saveStepsLog(), saveCaloriesLog(),
-    saveHeight(), saveProfile(), saveCompletions()
+    saveHeight(), saveProfile(), saveCompletions(), saveNutritionPrefs()
   ]);
   if(!opts.silent) p.then(() => renderAll());
   return p;
@@ -4078,7 +4281,7 @@ document.getElementById('addBtn').addEventListener('click', addEntry);
 document.getElementById('repsInput').addEventListener('keydown', ev => { if(ev.key==='Enter') addEntry(); });
 document.getElementById('weightInput').addEventListener('keydown', ev => { if(ev.key==='Enter') addEntry(); });
 
-function renderAll(){ renderLogTab(); renderPlanTab(); renderWeightTab(); renderCardioTab(); renderProgressTab(); renderReviewsTab(); renderAccountTab(); renderCommunityTab(); renderShareTab(); }
+function renderAll(){ renderLogTab(); renderPlanTab(); renderWeightTab(); renderNutritionTab(); renderCardioTab(); renderProgressTab(); renderReviewsTab(); renderAccountTab(); renderCommunityTab(); renderShareTab(); }
 // Beta flags — flip either to true when ready to expose it to testers.
 // Hides the tab entirely (and its content never becomes reachable); nothing else changes.
 const SHOW_ACCOUNT_TAB = false;
