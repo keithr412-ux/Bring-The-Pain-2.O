@@ -107,6 +107,13 @@
   .day-picker{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;padding-bottom:2px;}
   .day-btn{flex:0 0 auto;background:var(--surface-2);color:var(--chalk-dim);border:1px solid var(--line);border-radius:20px;padding:7px 14px;font-size:12.5px;font-weight:600;}
   .day-btn.active{background:var(--plate);color:#1B1A18;border-color:var(--plate);}
+  .wod-strip{display:flex;gap:6px;margin-bottom:6px;overflow-x:auto;padding-bottom:2px;align-items:center;}
+  .wod-chip{flex:0 0 auto;display:flex;align-items:center;gap:6px;background:var(--surface-2);color:var(--chalk-dim);border:1px solid var(--line);border-radius:16px;padding:6px 10px;font-size:12px;font-weight:600;max-width:160px;}
+  .wod-chip .wod-chip-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px;}
+  .wod-chip.active{background:var(--plate);color:#1B1A18;border-color:var(--plate);}
+  .wod-chip .wod-chip-del{flex:0 0 auto;background:none;border:none;color:inherit;opacity:0.6;font-size:13px;line-height:1;padding:0 2px;}
+  .wod-chip .wod-chip-del:hover{opacity:1;}
+  .wod-chip-add{flex:0 0 auto;background:transparent;color:var(--plate);border:1px dashed var(--plate);border-radius:16px;padding:6px 12px;font-size:12px;font-weight:700;}
   .plan-item{display:flex;align-items:center;justify-content:space-between;background:var(--surface-2);border-radius:3px;padding:9px 12px;margin-bottom:6px;cursor:pointer;transition:background 0.1s ease;}
   .plan-item:hover{background:#353128;}
   .plan-item.editing{outline:1px solid var(--plate);}
@@ -125,6 +132,9 @@
   .plan-form-actions{display:flex;gap:8px;margin-top:6px;}
   .plan-form-actions .add-btn{margin-top:0;}
   .cancel-edit-btn{background:var(--surface-2);color:var(--chalk-dim);border:1px solid var(--line);border-radius:3px;padding:12px 16px;font-size:14px;font-weight:600;}
+  .wod-remove-row{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
+  .del-wod-btn{width:100%;background:transparent;color:#e0574c;border:1px solid #5a2b27;border-radius:3px;padding:12px 16px;font-size:13.5px;font-weight:600;}
+  .del-wod-btn:hover{background:rgba(224,87,76,0.08);border-color:#e0574c;}
   .edit-hint{font-size:11.5px;color:var(--chalk-dim);margin:-4px 0 12px 0;}
   .plan-type-select{
     width:100%;background:var(--bg);border:1px solid var(--line);border-radius:3px;
@@ -152,6 +162,7 @@
   .paste-import textarea:focus{outline:none;border-color:var(--plate);}
   .parse-status{font-size:12px;color:var(--chalk-dim);margin-top:8px;}
   .parse-status.success{color:var(--plate);}
+  .source-tag{display:inline-block;font-size:9.5px;font-weight:600;letter-spacing:0.3px;text-transform:uppercase;color:var(--chalk-dim);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:1px 6px;margin-left:6px;vertical-align:middle;}
   .ex-suggest-hint{font-size:11.5px;color:var(--chalk-dim);margin:-6px 0 12px;line-height:1.5;}
   .ex-suggest-hint div:first-child{color:var(--plate);}
   .checkbox-row{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--chalk-dim);margin:2px 0 10px;user-select:none;}
@@ -180,6 +191,12 @@
   .community-post .cp-actions{display:flex;align-items:center;gap:6px;margin-top:8px;}
   .kudos-btn{background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--chalk-dim);font-weight:600;}
   .kudos-btn.kudosed{color:var(--plate);border-color:var(--plate);}
+  .calorie-day-group{background:var(--surface-2);border-radius:4px;padding:10px 12px;margin-bottom:8px;}
+  .calorie-day-header{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--chalk-dim);margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+  .calorie-day-header strong{color:var(--plate);font-family:'Oswald',sans-serif;font-size:14px;}
+  .meal-row{display:flex;align-items:center;gap:8px;padding:3px 0;font-size:12.5px;}
+  .meal-row .meal-label{flex:1;color:var(--chalk);}
+  .meal-row .meal-cal{color:var(--chalk-dim);}
   .nutrition-stat-row{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--chalk-dim);}
   .nutrition-stat-row strong{color:var(--chalk);}
   .macro-bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--surface-2);}
@@ -298,6 +315,13 @@
   .movement-row .item-actions{display:flex;gap:3px;flex-shrink:0;align-items:center;}
 
   /* Round x set execution grid */
+  .wod-exec-block{margin-bottom:18px;padding-bottom:4px;}
+  .wod-exec-block + .wod-exec-block{border-top:1px solid var(--line);padding-top:14px;}
+  .wod-exec-title{font-size:14px;font-weight:700;color:var(--chalk);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .wod-exec-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .wod-exec-type{font-size:10.5px;font-weight:600;color:var(--chalk-dim);background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:2px 8px;flex:0 0 auto;}
+  .wod-exec-del{flex:0 0 auto;margin-left:auto;background:none;border:none;color:var(--chalk-dim);opacity:0.7;font-size:18px;line-height:1;padding:2px 4px;}
+  .wod-exec-del:hover{opacity:1;color:var(--chalk);}
   .round-grid-wrap{overflow-x:auto;margin:4px 0 10px;}
   .round-grid{border-collapse:collapse;width:100%;}
   .round-grid th{font-family:'Oswald',sans-serif;font-size:10.5px;font-weight:600;color:var(--chalk-dim);padding:0 0 6px;text-align:center;min-width:30px;}
@@ -341,6 +365,8 @@
   /* Cardio plan (programmed run/walk) */
   .cardio-toggle{display:flex;gap:6px;margin-bottom:10px;}
   .cardio-toggle button{flex:1;background:var(--surface-2);color:var(--chalk-dim);border:1px solid var(--line);border-radius:3px;padding:9px;font-size:13px;font-weight:600;}
+  .meal-toggle{flex-wrap:wrap;}
+  .meal-toggle button{flex:1 1 calc(50% - 3px);min-width:0;padding:8px 4px;font-size:12px;}
   .cardio-toggle button.active{background:var(--plate);color:#1B1A18;border-color:var(--plate);}
   .cardio-target-toggle{display:flex;gap:6px;margin-bottom:10px;}
   .cardio-target-toggle button{flex:1;background:var(--bg);color:var(--chalk-dim);border:1px solid var(--line);border-radius:20px;padding:6px;font-size:11.5px;font-weight:600;}
@@ -555,6 +581,10 @@
     <div class="card">
       <h2>Training Program · Build a WOD</h2>
       <div class="day-picker" id="dayPicker"></div>
+      <div class="wod-strip" id="wodStrip"></div>
+      <div class="edit-hint" id="wodStripHint">A day can hold more than one WOD — a strength block plus a metcon, for example. Tap + WOD to add another, or pick one from the library to add it alongside what's already here.</div>
+      <div class="empty" id="wodEmptyState" style="display:none;">No WOD programmed for this day. Tap <strong>+ WOD</strong> above to start one, or paste/type a movement below.</div>
+      <div id="wodDetailFields">
       <div class="plan-name-row">
         <input type="text" id="planNameInput" list="wodNameLibrary" placeholder="WOD name — type your own or pick from the library (e.g. &quot;Fran&quot;, Push Day)" autocomplete="off">
       </div>
@@ -640,6 +670,7 @@
         <input type="url" id="planLinkInput" placeholder="Paste a link to this workout (optional)" autocomplete="off">
         <button class="cancel-edit-btn" id="planLinkSaveBtn">Save link</button>
       </div>
+      </div>
       <div class="paste-import">
         <textarea id="planPasteText" placeholder="Paste movements one per line — e.g.&#10;Run 200m&#10;Push-up 10 reps&#10;Power clean 5 reps 135lb"></textarea>
         <button class="add-btn" id="planParseBtn" style="margin-top:0;">Auto-fill movements from text</button>
@@ -670,6 +701,9 @@
       <div class="plan-form-actions">
         <button class="add-btn" id="planAddBtn">Add to plan</button>
         <button class="cancel-edit-btn" id="planCancelBtn" style="display:none;">Cancel</button>
+      </div>
+      <div class="wod-remove-row" id="wodRemoveRow" style="display:none;">
+        <button class="del-wod-btn" id="wodRemoveBtn">Remove this WOD from <span id="wodRemoveDayLabel">this day</span></button>
       </div>
     </div>
     <div class="card">
@@ -712,22 +746,86 @@
       <button class="add-btn" id="weightAddBtn">Add weight</button>
     </div>
     <div class="card">
-      <h2>Steps</h2>
-      <div class="num-row">
-        <input type="date" id="stepsDateInput">
-        <input type="number" id="stepsValueInput" placeholder="Steps" inputmode="numeric">
+      <h2>Body Composition</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">BMI alone can't tell fat loss from muscle loss. Log fat %, fat mass and muscle mass from an InBody scan, a smart scale, a tape-measure estimate, or any other source, and trend them separately.</div>
+      <div class="cardio-toggle" id="bodyCompSourceToggle">
+        <button class="active" data-source="inbody">InBody</button>
+        <button data-source="smart-scale">Smart Scale</button>
+        <button data-source="navy">Tape Measure</button>
+        <button data-source="manual">Manual</button>
       </div>
-      <button class="add-btn" id="stepsAddBtn">Add steps</button>
-      <div class="chart-wrap" id="stepsChartWrap"></div>
-      <div class="weight-list" id="stepsList"></div>
+      <div id="navyMethodFields" style="display:none;">
+        <div class="edit-hint" style="margin-top:0;">U.S. Navy circumference method — a rough body-fat estimate from a tape measure. Uses the height and gender set in the BMI card above.</div>
+        <div class="num-row">
+          <input type="number" id="navyNeckInput" placeholder="Neck (in)" inputmode="decimal" step="0.1">
+          <input type="number" id="navyWaistInput" placeholder="Waist (in)" inputmode="decimal" step="0.1">
+        </div>
+        <div class="num-row">
+          <input type="number" id="navyHipInput" placeholder="Hip (in — women only)" inputmode="decimal" step="0.1">
+          <button class="cancel-edit-btn" id="navyCalcBtn" style="flex:1;">Estimate fat %</button>
+        </div>
+        <div class="parse-status" id="navyResultHint"></div>
+      </div>
+      <div class="num-row">
+        <input type="date" id="bodyCompDateInput">
+        <input type="number" id="bodyCompWeightInput" placeholder="Weight (lb)" inputmode="decimal" step="0.1">
+      </div>
+      <div class="num-row">
+        <input type="number" id="bodyCompFatPercentInput" placeholder="Body fat %" inputmode="decimal" step="0.1">
+        <input type="number" id="bodyCompFatMassInput" placeholder="Fat mass (lb)" inputmode="decimal" step="0.1">
+      </div>
+      <div class="num-row">
+        <input type="number" id="bodyCompMuscleMassInput" placeholder="Skeletal muscle mass (lb)" inputmode="decimal" step="0.1">
+      </div>
+      <button class="cancel-edit-btn" id="bodyCompMoreToggleBtn">+ More InBody fields (visceral fat, water, BMR, segmental)</button>
+      <div id="bodyCompMoreFields" style="display:none;">
+        <div class="num-row">
+          <input type="number" id="bodyCompVisceralInput" placeholder="Visceral fat level" inputmode="numeric">
+          <input type="number" id="bodyCompWaterInput" placeholder="Body water %" inputmode="decimal" step="0.1">
+        </div>
+        <div class="num-row">
+          <input type="number" id="bodyCompBmrInput" placeholder="BMR (kcal)" inputmode="numeric">
+          <input type="number" id="bodyCompBoneInput" placeholder="Bone mass (lb)" inputmode="decimal" step="0.1">
+        </div>
+        <div class="edit-hint">Segmental lean mass (optional) — InBody's left/right breakdown, useful for spotting imbalances.</div>
+        <div class="num-row">
+          <input type="number" id="segTrunkInput" placeholder="Trunk (lb)" inputmode="decimal" step="0.1">
+        </div>
+        <div class="num-row">
+          <input type="number" id="segArmRInput" placeholder="Right arm (lb)" inputmode="decimal" step="0.1">
+          <input type="number" id="segArmLInput" placeholder="Left arm (lb)" inputmode="decimal" step="0.1">
+        </div>
+        <div class="num-row">
+          <input type="number" id="segLegRInput" placeholder="Right leg (lb)" inputmode="decimal" step="0.1">
+          <input type="number" id="segLegLInput" placeholder="Left leg (lb)" inputmode="decimal" step="0.1">
+        </div>
+      </div>
+      <button class="add-btn" id="bodyCompAddBtn">Save entry</button>
+      <div class="parse-status" id="bodyCompStatus"></div>
+
+      <div class="cardio-toggle" id="bodyCompChartToggle" style="margin-top:18px;">
+        <button class="active" data-metric="bodyFatPercent">Fat %</button>
+        <button data-metric="fatMass">Fat mass</button>
+        <button data-metric="muscleMass">Muscle mass</button>
+        <button data-metric="visceralFat">Visceral fat</button>
+      </div>
+      <div class="chart-wrap" id="bodyCompChartWrap"></div>
+      <div id="bodyCompSegmentalWrap"></div>
+      <div class="weight-list" id="bodyCompList"></div>
     </div>
     <div class="card">
       <h2>Calories</h2>
+      <div class="cardio-toggle meal-toggle" id="mealTypeToggle">
+        <button class="active" data-meal="breakfast">Breakfast</button>
+        <button data-meal="lunch">Lunch</button>
+        <button data-meal="dinner">Dinner</button>
+        <button data-meal="snack">Snack</button>
+      </div>
       <div class="num-row">
         <input type="date" id="caloriesDateInput">
         <input type="number" id="caloriesValueInput" placeholder="Calories" inputmode="numeric">
       </div>
-      <button class="add-btn" id="caloriesAddBtn">Add calories</button>
+      <button class="add-btn" id="caloriesAddBtn">Add meal</button>
       <div class="chart-wrap" id="caloriesChartWrap"></div>
       <div class="weight-list" id="caloriesList"></div>
     </div>
@@ -823,17 +921,30 @@
       </div>
     </div>
     <div class="card">
-      <h2>Program a run or walk</h2>
+      <h2>Steps</h2>
+      <div class="num-row">
+        <input type="date" id="stepsDateInput">
+        <input type="number" id="stepsValueInput" placeholder="Steps" inputmode="numeric">
+      </div>
+      <button class="add-btn" id="stepsAddBtn">Add steps</button>
+      <div class="chart-wrap" id="stepsChartWrap"></div>
+      <div class="weight-list" id="stepsList"></div>
+    </div>
+    <div class="card">
+      <h2>Program a run, walk, bike, row or jump rope</h2>
       <div class="parse-status" style="margin:-4px 0 12px 0;">Schedule a cardio session on a specific date. It'll show up on the calendar so you can see it coming and log the real result when you're done.</div>
       <div class="cardio-toggle" id="cardioActivityToggle">
         <button class="active" data-activity="run">Run</button>
         <button data-activity="walk">Walk</button>
         <button data-activity="row">Row</button>
+        <button data-activity="bike">Bike</button>
+        <button data-activity="jumprope">Jump Rope</button>
       </div>
       <div class="form-row"><input type="date" id="cardioDateInput"></div>
       <div class="cardio-target-toggle" id="cardioTargetToggle">
         <button class="active" data-target="distance">Target distance</button>
         <button data-target="duration">Target duration</button>
+        <button data-target="count" style="display:none;">Target reps</button>
       </div>
       <div class="num-row" id="cardioDistanceFields" style="margin-bottom:10px;">
         <input type="number" id="cardioDistanceInput" placeholder="Distance" inputmode="decimal" style="flex:1.3;">
@@ -844,6 +955,9 @@
       </div>
       <div class="num-row" id="cardioDurationFields" style="margin-bottom:10px;display:none;">
         <input type="number" id="cardioDurationInput" placeholder="Duration (min)" inputmode="numeric">
+      </div>
+      <div class="num-row" id="cardioCountFields" style="margin-bottom:10px;display:none;">
+        <input type="number" id="cardioCountInput" placeholder="Jump rope skips" inputmode="numeric">
       </div>
       <div class="form-row"><input type="text" id="cardioNotesInput" placeholder="Notes (optional, e.g. easy pace)" autocomplete="off"></div>
       <button class="add-btn" id="cardioAddBtn">Add to calendar</button>
@@ -995,11 +1109,22 @@
       <div class="parse-status" style="margin:-4px 0 12px 0;">This page is a Progressive Web App (PWA) — once it's hosted online, you can add it to your home screen and it opens full-screen, just like an app from the store.</div>
       <div class="install-steps">
         <div class="install-os">
-          <div class="install-os-title">📱 iPhone &amp; iPad (Safari)</div>
+          <div class="install-os-title">📱 iPhone (Safari)</div>
           <ol>
-            <li>Open this page's link in <strong>Safari</strong> (not Chrome — Add to Home Screen only works from Safari on iOS).</li>
-            <li>Tap the <strong>Share</strong> icon (the square with an arrow pointing up) in the toolbar.</li>
-            <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li>
+            <li>Open this page's link in <strong>Safari</strong> (not Chrome, not Gmail/Messages in-app browser — Add to Home Screen only shows up in actual Safari on iOS).</li>
+            <li>Find the <strong>Share</strong> icon — on iPhone it's in the toolbar <strong>along the bottom</strong> of the screen: a square with an arrow pointing straight up out of it, usually the middle icon of the three along the bottom bar.</li>
+            <li>Don't see a toolbar at all? Tap once near the bottom of the screen, or scroll the page up slightly — Safari hides the toolbar while you scroll down and brings it back when you scroll up or tap.</li>
+            <li>Tap the Share icon. A menu slides up from the bottom.</li>
+            <li>In that menu, scroll down through the row of app icons and tap <strong>Add to Home Screen</strong> (it has a small "+" square icon). If you don't see it, tap <strong>Edit Actions</strong> at the bottom of that list and add it, or just keep scrolling — it's usually a few rows down.</li>
+            <li>Tap <strong>Add</strong> in the top right corner. The app icon now appears on your home screen like any other app.</li>
+          </ol>
+        </div>
+        <div class="install-os">
+          <div class="install-os-title">📱 iPad (Safari)</div>
+          <ol>
+            <li>Open this page's link in <strong>Safari</strong> on the iPad (not Chrome).</li>
+            <li>On iPad the Share icon is in the toolbar <strong>at the top</strong> of the screen, near the address bar — same square-with-an-up-arrow icon, usually to the right of the address bar.</li>
+            <li>Tap it, then scroll down in the menu that appears and tap <strong>Add to Home Screen</strong>.</li>
             <li>Tap <strong>Add</strong> in the top right. The icon appears on your home screen.</li>
           </ol>
         </div>
@@ -1070,25 +1195,30 @@ const appStorage = {
     }catch(e){ return null; }
   }
 };
-const KEYS = { entries:'entries', plan:'plan', weight:'bodyweight', planNames:'planNames', sessionTimer:'sessionTimer', planLinks:'planLinks', planRounds:'planRounds', planTypes:'planTypes', planTimeCap:'planTimeCap', roundCompletions:'roundCompletions', cardioPlans:'cardioPlans', wodSchedule:'wodSchedule', reviews:'reviews', stepsLog:'stepsLog', caloriesLog:'caloriesLog', nutritionPrefs:'nutritionPrefs', height:'height', profile:'profile', completions:'completions' };
+const KEYS = { entries:'entries', plan:'plan', weight:'bodyweight', planNames:'planNames', sessionTimer:'sessionTimer', planLinks:'planLinks', planRounds:'planRounds', planTypes:'planTypes', planTimeCap:'planTimeCap', planWods:'planWods', roundCompletions:'roundCompletions', cardioPlans:'cardioPlans', wodSchedule:'wodSchedule', reviews:'reviews', stepsLog:'stepsLog', caloriesLog:'caloriesLog', nutritionPrefs:'nutritionPrefs', height:'height', profile:'profile', completions:'completions', bodyComp:'bodyComp' };
 let entries = [];
-let plan = {};      // { Sun:[{id,name,type,weight,reps,runDistance,runUnit,restSeconds}], Mon:[...], ... }
-let planNames = {}; // { Sun:'Rest', Mon:'Push Day', ... }
-let planLinks = {}; // { Mon: 'https://...' }
-let planRounds = {}; // { Mon: 10 }
-let planTypes = {}; // { Mon: 'rounds' | 'fortime' | 'amrap' | 'emom' }
-let planTimeCap = {}; // { Mon: 20 }  minutes, for amrap/emom
+let plan = {};      // { Sun:[{id,name,type,weight,reps,runDistance,runUnit,restSeconds,wodId}], Mon:[...], ... } — movements, tagged with which WOD block (wodId) they belong to
+let planNames = {}; // legacy, single-WOD-per-day — kept only as a migration source into planWods, mirrors first WOD of the day going forward
+let planLinks = {}; // legacy, single-WOD-per-day — kept only as a migration source into planWods
+let planRounds = {}; // legacy, single-WOD-per-day — kept only as a migration source into planWods
+let planTypes = {}; // legacy, single-WOD-per-day — kept only as a migration source into planWods
+let planTimeCap = {}; // legacy, single-WOD-per-day — kept only as a migration source into planWods
+let planWods = {}; // { Sun:[{id,name,type,rounds,timeCap,link}], Mon:[...], ... } — a day can hold MULTIPLE WODs; this is the source of truth
+let selectedWodId = null; // which WOD (within planWods[selectedPlanDay]) the Training Program builder is currently editing
 let roundCompletions = {}; // { '2026-09-18': { 'movId_r1': entryId, 'movId_r2': entryId, 'movId_round': 4 (amrap counter) } }
 let cardioPlans = []; // [{id,date,activity,targetType,distance,unit,durationMin,notes,completed,actualDistance,actualUnit,actualTimeSeconds}]
 let wodSchedule = []; // [{id,date,day}] — pins a specific calendar date to one weekday's WOD template
 let reviews = []; // [{id,date,rating,notes}]
 let nutritionPrefs = { goal: 'maintain', activity: '1.55' };
 let weights = [];   // [{id,date,weight}]
+let bodyComp = [];  // [{id,date,source,weight,bodyFatPercent,fatMass,muscleMass,visceralFat,bodyWaterPercent,bmr,boneMass,segmental:{trunk,armR,armL,legR,legL},notes}]
+let bodyCompSourceSel = 'inbody'; // which entry-form source toggle is active: inbody | smart-scale | navy | manual
+let bodyCompChartMetric = 'bodyFatPercent'; // which metric the Body Composition trend chart currently plots
 let stepsLog = [];  // [{id,date,steps}]
 let caloriesLog = []; // [{id,date,calories}]
 let height = { feet: null, inches: null };
 let profile = { age: null, gender: '' };
-let editingPlanIndex = null;
+let editingPlanId = null; // id of the movement currently being edited in the Training Program builder (null = adding new)
 let completions = [];
 let calendarView = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 let selectedCalendarDate = todayStr();
@@ -1111,12 +1241,15 @@ async function loadAll(){
   try{ const r = await appStorage.get(KEYS.planRounds); planRounds = r ? JSON.parse(r.value) : {}; }catch(e){ planRounds = {}; }
   try{ const r = await appStorage.get(KEYS.planTypes); planTypes = r ? JSON.parse(r.value) : {}; }catch(e){ planTypes = {}; }
   try{ const r = await appStorage.get(KEYS.planTimeCap); planTimeCap = r ? JSON.parse(r.value) : {}; }catch(e){ planTimeCap = {}; }
+  try{ const r = await appStorage.get(KEYS.planWods); planWods = r ? JSON.parse(r.value) : {}; }catch(e){ planWods = {}; }
+  migratePlanWods();
   try{ const r = await appStorage.get(KEYS.roundCompletions); roundCompletions = r ? JSON.parse(r.value) : {}; }catch(e){ roundCompletions = {}; }
   try{ const r = await appStorage.get(KEYS.cardioPlans); cardioPlans = r ? JSON.parse(r.value) : []; }catch(e){ cardioPlans = []; }
   try{ const r = await appStorage.get(KEYS.wodSchedule); wodSchedule = r ? JSON.parse(r.value) : []; }catch(e){ wodSchedule = []; }
   try{ const r = await appStorage.get(KEYS.reviews); reviews = r ? JSON.parse(r.value) : []; }catch(e){ reviews = []; }
   try{ const r = await appStorage.get(KEYS.nutritionPrefs); nutritionPrefs = r ? { goal:'maintain', activity:'1.55', ...JSON.parse(r.value) } : { goal:'maintain', activity:'1.55' }; }catch(e){ nutritionPrefs = { goal:'maintain', activity:'1.55' }; }
   try{ const r = await appStorage.get(KEYS.weight); weights = r ? JSON.parse(r.value) : []; }catch(e){ weights = []; }
+  try{ const r = await appStorage.get(KEYS.bodyComp); bodyComp = r ? JSON.parse(r.value) : []; }catch(e){ bodyComp = []; }
   try{ const r = await appStorage.get(KEYS.stepsLog); stepsLog = r ? JSON.parse(r.value) : []; }catch(e){ stepsLog = []; }
   try{ const r = await appStorage.get(KEYS.caloriesLog); caloriesLog = r ? JSON.parse(r.value) : []; }catch(e){ caloriesLog = []; }
   try{ const r = await appStorage.get(KEYS.height); height = r ? JSON.parse(r.value) : { feet: null, inches: null }; }catch(e){ height = { feet: null, inches: null }; }
@@ -1139,12 +1272,74 @@ async function savePlanLinks(){ try{ await appStorage.set(KEYS.planLinks, JSON.s
 async function savePlanRounds(){ try{ await appStorage.set(KEYS.planRounds, JSON.stringify(planRounds)); }catch(e){} }
 async function savePlanTypes(){ try{ await appStorage.set(KEYS.planTypes, JSON.stringify(planTypes)); }catch(e){} }
 async function savePlanTimeCap(){ try{ await appStorage.set(KEYS.planTimeCap, JSON.stringify(planTimeCap)); }catch(e){} }
+async function savePlanWods(){ try{ await appStorage.set(KEYS.planWods, JSON.stringify(planWods)); }catch(e){} }
+/* One-time, idempotent migration: fold the legacy single-WOD-per-day fields into
+   planWods[day] = [ {id,name,type,rounds,timeCap,link} ], and tag any un-tagged
+   movements in plan[day] with that WOD's id. Runs on every load but is a no-op
+   once a day already has a planWods entry (even an empty array). */
+function migratePlanWods(){
+  DAY_NAMES.forEach(day => {
+    if(planWods[day]) return;
+    const movements = plan[day] || [];
+    const hasLegacyData = movements.length || planNames[day] || planTypes[day] || planRounds[day] || planTimeCap[day] || planLinks[day];
+    if(hasLegacyData){
+      const id = newId();
+      planWods[day] = [{
+        id,
+        name: planNames[day] || '',
+        type: planTypes[day] || 'rounds',
+        rounds: planRounds[day] || 1,
+        timeCap: planTimeCap[day] || null,
+        link: planLinks[day] || null
+      }];
+      movements.forEach(m => { if(!m.wodId) m.wodId = id; });
+    } else {
+      planWods[day] = [];
+    }
+  });
+}
+/* The WOD metadata object currently selected for editing/display in Training Program. */
+function currentWod(){
+  const wods = planWods[selectedPlanDay] || [];
+  if(!wods.length) return null;
+  let w = wods.find(w => w.id === selectedWodId);
+  if(!w){ w = wods[0]; selectedWodId = w.id; }
+  return w;
+}
+/* Guarantees selectedPlanDay has at least one WOD and selectedWodId points at a real one. */
+function ensureAtLeastOneWod(){
+  if(!planWods[selectedPlanDay]) planWods[selectedPlanDay] = [];
+  if(!planWods[selectedPlanDay].length){
+    const id = newId();
+    planWods[selectedPlanDay].push({ id, name:'', type:'rounds', rounds:1, timeCap:null, link:null });
+    selectedWodId = id;
+  } else if(!planWods[selectedPlanDay].some(w => w.id === selectedWodId)){
+    selectedWodId = planWods[selectedPlanDay][0].id;
+  }
+}
+function addWodToDay(day, overrides={}){
+  if(!planWods[day]) planWods[day] = [];
+  const id = newId();
+  planWods[day].push({ id, name:'', type:'rounds', rounds:1, timeCap:null, link:null, ...overrides });
+  return id;
+}
+function removeWodFromDay(day, wodId){
+  if(!planWods[day]) return;
+  planWods[day] = planWods[day].filter(w => w.id !== wodId);
+  plan[day] = (plan[day] || []).filter(m => m.wodId !== wodId);
+  if(selectedWodId === wodId) selectedWodId = null;
+}
+function movementsForWod(day, wodId){
+  return (plan[day] || []).filter(m => m.wodId === wodId);
+}
+function wodLabel(wod, idx){ return (wod && wod.name) ? wod.name : `WOD ${idx+1}`; }
 async function saveRoundCompletions(){ try{ await appStorage.set(KEYS.roundCompletions, JSON.stringify(roundCompletions)); }catch(e){} }
 async function saveCardioPlans(){ try{ await appStorage.set(KEYS.cardioPlans, JSON.stringify(cardioPlans)); }catch(e){} }
 async function saveWodSchedule(){ try{ await appStorage.set(KEYS.wodSchedule, JSON.stringify(wodSchedule)); }catch(e){} }
 async function saveReviews(){ try{ await appStorage.set(KEYS.reviews, JSON.stringify(reviews)); }catch(e){} }
 async function saveNutritionPrefs(){ try{ await appStorage.set(KEYS.nutritionPrefs, JSON.stringify(nutritionPrefs)); }catch(e){} }
 async function saveWeights(){ try{ await appStorage.set(KEYS.weight, JSON.stringify(weights)); }catch(e){} }
+async function saveBodyComp(){ try{ await appStorage.set(KEYS.bodyComp, JSON.stringify(bodyComp)); }catch(e){} }
 async function saveStepsLog(){ try{ await appStorage.set(KEYS.stepsLog, JSON.stringify(stepsLog)); }catch(e){} }
 async function saveCaloriesLog(){ try{ await appStorage.set(KEYS.caloriesLog, JSON.stringify(caloriesLog)); }catch(e){} }
 async function saveHeight(){ try{ await appStorage.set(KEYS.height, JSON.stringify(height)); }catch(e){} }
@@ -1559,19 +1754,17 @@ function renderTodaysTotals(todayEntries){
 }
 function renderTodayPlanCard(){
   const today = todayStr();
-  const { dayKey, list } = planForDate(today);
+  const { wods } = planForDate(today);
   const card = document.getElementById('planTodayCard');
-  if(list.length === 0){ card.style.display = 'none'; return; }
+  if(!wods.length){ card.style.display = 'none'; return; }
   card.style.display = 'block';
   const titleEl = document.getElementById('planTodayTitle');
-  const titleParts = [];
-  if(planNames[dayKey]) titleParts.push(planNames[dayKey]);
-  titleParts.push(wodSummaryText(dayKey));
-  titleEl.textContent = titleParts.join(' · ');
-  titleEl.style.display = titleParts.length ? 'block' : 'none';
+  titleEl.textContent = wods.map((w, i) => `${wodLabel(w.wod, i)} (${wodSummaryText(w.wod)})`).join(' + ');
+  titleEl.style.display = 'block';
   const linkEl = document.getElementById('planTodayLink');
-  if(planLinks[dayKey]){
-    linkEl.href = planLinks[dayKey];
+  const linked = wods.find(w => w.wod.link);
+  if(linked){
+    linkEl.href = linked.wod.link;
     linkEl.style.display = 'inline-block';
   } else {
     linkEl.style.display = 'none';
@@ -1616,9 +1809,10 @@ function currentWodElapsedMs(){
   const live = wodTimerState.running ? (Date.now() - wodTimerState.startedAt) : 0;
   return wodTimerState.elapsedBeforePause + live;
 }
-function startWodTimer(dateStr, dayKey){
+function startWodTimer(dateStr, dayKey, wodId){
   if(wodTimerState) resetWodTimer();
-  wodTimerState = { dateStr, dayKey, type: planTypes[dayKey] || 'rounds', startedAt: Date.now(), elapsedBeforePause: 0, running: true, lastIntervalIndex: -1, capBeepDone: false };
+  const wod = getWodById(dayKey, wodId);
+  wodTimerState = { dateStr, dayKey, wodId, type: (wod && wod.type) || 'rounds', startedAt: Date.now(), elapsedBeforePause: 0, running: true, lastIntervalIndex: -1, capBeepDone: false, containerEl: null };
   playCountInBeep();
   wodTimerState.intervalId = setInterval(tickWodTimer, 250);
   tickWodTimer();
@@ -1642,8 +1836,10 @@ function resetWodTimer(){
 function tickWodTimer(){
   if(!wodTimerState) return;
   const elapsedSec = currentWodElapsedMs()/1000;
-  const { type, dayKey, dateStr } = wodTimerState;
-  const capSec = (Number(planTimeCap[dayKey]) || 0) * 60;
+  const { type, dayKey, dateStr, wodId } = wodTimerState;
+  const wod = getWodById(dayKey, wodId);
+  const capSec = (Number(wod && wod.timeCap) || 0) * 60;
+  const counterKey = `${wodId}__rounds_completed`;
 
   if(type === 'amrap'){
     if(capSec > 0 && elapsedSec >= capSec && !wodTimerState.capBeepDone){
@@ -1659,12 +1855,11 @@ function tickWodTimer(){
       if(idx > 0){
         playRoundBeep();
         if(!roundCompletions[dateStr]) roundCompletions[dateStr] = {};
-        const key = '__rounds_completed';
-        const cur = Number(roundCompletions[dateStr][key]) || 0;
+        const cur = Number(roundCompletions[dateStr][counterKey]) || 0;
         if(idx > cur){
-          roundCompletions[dateStr][key] = idx;
+          roundCompletions[dateStr][counterKey] = idx;
           saveRoundCompletions();
-          const amrapNum = document.getElementById('amrapCount');
+          const amrapNum = wodTimerState.containerEl ? wodTimerState.containerEl.querySelector('#amrapCount') : null;
           if(amrapNum) amrapNum.textContent = idx;
         }
       }
@@ -1684,13 +1879,14 @@ function tickWodTimer(){
   renderWodTimerDisplay();
 }
 function renderWodTimerDisplay(){
-  if(!wodTimerState) return;
-  const displayEl = document.getElementById('wodTimerDisplay');
-  const subEl = document.getElementById('wodTimerSub');
+  if(!wodTimerState || !wodTimerState.containerEl) return;
+  const displayEl = wodTimerState.containerEl.querySelector('#wodTimerDisplay');
+  const subEl = wodTimerState.containerEl.querySelector('#wodTimerSub');
   if(!displayEl || !subEl) return; // timer panel not currently on screen; state keeps ticking regardless
   const elapsedSec = currentWodElapsedMs()/1000;
-  const { type, dayKey } = wodTimerState;
-  const capSec = (Number(planTimeCap[dayKey]) || 0) * 60;
+  const { type, dayKey, wodId } = wodTimerState;
+  const wod = getWodById(dayKey, wodId);
+  const capSec = (Number(wod && wod.timeCap) || 0) * 60;
   if(type === 'amrap'){
     const remaining = capSec > 0 ? Math.max(0, capSec - elapsedSec) : elapsedSec;
     displayEl.textContent = formatSecondsToTime(Math.round(remaining));
@@ -1707,10 +1903,12 @@ function renderWodTimerDisplay(){
     subEl.textContent = capSec > 0 ? `Cap ${formatSecondsToTime(capSec)}${elapsedSec>=capSec?' — reached!':''}` : '';
   }
 }
-function wodTimerHTML(){
-  const started = !!wodTimerState;
+function wodTimerHTML(dateStr, wodId){
+  // Only ONE WOD's timer can be running at a time (wodTimerState is global) — a day with several WODs must
+  // show "Start" on every block except the one that's actually active, never "Pause" on all of them.
+  const started = !!wodTimerState && wodTimerState.dateStr === dateStr && wodTimerState.wodId === wodId;
   const running = started && wodTimerState.running;
-  const stopLabel = (wodTimerState && (wodTimerState.type === 'rounds' || wodTimerState.type === 'fortime')) ? 'Stop' : 'Pause';
+  const stopLabel = (started && (wodTimerState.type === 'rounds' || wodTimerState.type === 'fortime')) ? 'Stop' : 'Pause';
   return `
     <div class="wod-timer">
       <div class="wod-timer-display" id="wodTimerDisplay">00:00</div>
@@ -1724,15 +1922,17 @@ function wodTimerHTML(){
     </div>
   `;
 }
-function wireWodTimer(containerEl, dateStr, dayKey, refresh){
+function wireWodTimer(containerEl, dateStr, dayKey, wodId, refresh){
   const startBtn = containerEl.querySelector('#wodTimerStartBtn');
-  if(startBtn) startBtn.addEventListener('click', () => { startWodTimer(dateStr, dayKey); refresh(); });
+  if(startBtn) startBtn.addEventListener('click', () => { startWodTimer(dateStr, dayKey, wodId); wodTimerState.containerEl = containerEl; refresh(); });
   const pauseBtn = containerEl.querySelector('#wodTimerPauseBtn');
   if(pauseBtn) pauseBtn.addEventListener('click', () => { pauseWodTimer(); refresh(); });
   const resumeBtn = containerEl.querySelector('#wodTimerResumeBtn');
   if(resumeBtn) resumeBtn.addEventListener('click', () => { resumeWodTimer(); refresh(); });
   const resetBtn = containerEl.querySelector('#wodTimerResetBtn');
   if(resetBtn) resetBtn.addEventListener('click', () => { resetWodTimer(); refresh(); });
+  // this block's own timer instance is the one currently active — keep its container reference fresh across re-renders
+  if(wodTimerState && wodTimerState.dateStr === dateStr && wodTimerState.wodId === wodId) wodTimerState.containerEl = containerEl;
   renderWodTimerDisplay();
 }
 
@@ -1740,7 +1940,10 @@ function wireWodTimer(containerEl, dateStr, dayKey, refresh){
 function planForDate(dateStr){
   const scheduled = wodSchedule.find(s => s.date === dateStr);
   const dayKey = scheduled ? scheduled.day : DAY_NAMES[new Date(dateStr + 'T00:00:00').getDay()];
-  return { dayKey, list: plan[dayKey] || [], scheduled: !!scheduled };
+  const wods = (planWods[dayKey] || [])
+    .map(wod => ({ wod, list: movementsForWod(dayKey, wod.id) }))
+    .filter(w => w.list.length);
+  return { dayKey, wods, list: plan[dayKey] || [], scheduled: !!scheduled };
 }
 function toggleRoundCell(dateStr, movement, roundLabel){
   const key = `${movement.id}_${roundLabel}`;
@@ -1764,24 +1967,55 @@ function toggleRoundCell(dateStr, movement, roundLabel){
   }
   saveEntries(); saveRoundCompletions();
 }
-let roundEditState = null; // { dateStr, movement, roundLabel, containerEl, refresh } — the one round currently open for editing
+let roundEditState = null; // { dateStr, movement, roundLabel, wodId, refresh } — the one round currently open for editing
+/* A day can now hold multiple WODs: render one execution block per WOD, each with its own timer/grid. */
 function renderPlanExecution(dateStr, containerEl, onChange){
   if(!containerEl) return;
   const refresh = onChange || (() => renderPlanExecution(dateStr, containerEl, onChange));
-  const { list, dayKey } = planForDate(dateStr);
-  if(!list.length){
-    containerEl.innerHTML = '<div class="empty">No WOD programmed for this day. Build one in the Plan tab.</div>';
+  const { wods, dayKey } = planForDate(dateStr);
+  if(!wods.length){
+    containerEl.innerHTML = '<div class="empty">No WOD programmed for this day. Build one in Training Program.</div>';
     return;
   }
-  const type = planTypes[dayKey] || 'rounds';
-  const rounds = Math.max(1, Number(planRounds[dayKey]) || 1);
+  containerEl.innerHTML = wods.map((w, i) => `
+    <div class="wod-exec-block">
+      <div class="wod-exec-title">
+        <span class="wod-exec-name">${escapeHTML(wodLabel(w.wod, i))}</span>
+        <span class="wod-exec-type">${WOD_TYPE_LABELS[w.wod.type] || 'Rounds'}</span>
+        <button class="wod-exec-del" data-wod-exec-del="${w.wod.id}" title="Remove this WOD from ${dayKey}'s plan">×</button>
+      </div>
+      <div class="wod-exec-body" data-wod-exec="${w.wod.id}"></div>
+    </div>
+  `).join('');
+  wods.forEach(w => {
+    const subEl = containerEl.querySelector(`[data-wod-exec="${w.wod.id}"]`);
+    renderSingleWodExecution(dateStr, dayKey, w.wod, w.list, subEl, refresh);
+  });
+  containerEl.querySelectorAll('[data-wod-exec-del]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const wodId = btn.getAttribute('data-wod-exec-del');
+      const match = wods.find(w => w.wod.id === wodId);
+      const label = match ? wodLabel(match.wod, wods.indexOf(match)) : 'this WOD';
+      if(!confirm(`Remove "${label}" from ${dayKey}'s planned workout? This removes it from the recurring ${dayKey} plan (not just today) — any sets you've already logged stay in your history.`)) return;
+      removeWodFromDay(dayKey, wodId);
+      savePlanWods(); savePlan();
+      if(selectedWodId === wodId) selectedWodId = null;
+      refresh();
+      renderTodayPlanCard();
+    });
+  });
+}
+function renderSingleWodExecution(dateStr, dayKey, wod, list, containerEl, refresh){
+  if(!containerEl) return;
+  const type = wod.type || 'rounds';
+  const rounds = Math.max(1, Number(wod.rounds) || 1);
   const dayCompletions = roundCompletions[dateStr] || {};
+  const counterKey = `${wod.id}__rounds_completed`;
 
   if(type === 'amrap' || type === 'emom'){
-    const counterKey = '__rounds_completed';
     const completedRounds = Number(dayCompletions[counterKey]) || 0;
     containerEl.innerHTML = `
-      ${wodTimerHTML()}
+      ${wodTimerHTML(dateStr, wod.id)}
       <div class="amrap-counter">
         <button data-amrap-dec>−</button>
         <div><div class="amrap-num" id="amrapCount">${completedRounds}</div><span class="amrap-lbl">rounds complete</span></div>
@@ -1796,7 +2030,7 @@ function renderPlanExecution(dateStr, containerEl, onChange){
         `).join('')}
       </div>
     `;
-    wireWodTimer(containerEl, dateStr, dayKey, refresh);
+    wireWodTimer(containerEl, dateStr, dayKey, wod.id, refresh);
     containerEl.querySelector('[data-amrap-inc]').addEventListener('click', () => {
       if(!roundCompletions[dateStr]) roundCompletions[dateStr] = {};
       roundCompletions[dateStr][counterKey] = (Number(roundCompletions[dateStr][counterKey]) || 0) + 1;
@@ -1827,9 +2061,9 @@ function renderPlanExecution(dateStr, containerEl, onChange){
     }).join('');
     return `<tr><td class="movement-label"><div class="ex-name">${escapeHTML(item.name)}${item.supersetWithNext ? ' <span class="superset-badge">🔗</span>' : ''}</div><div class="ex-detail">${planItemDetail(item)}</div></td>${cells}</tr>`;
   }).join('');
-  const showEditor = roundEditState && roundEditState.containerEl === containerEl && roundEditState.dateStr === dateStr;
+  const showEditor = roundEditState && roundEditState.dateStr === dateStr && roundEditState.wodId === wod.id;
   containerEl.innerHTML = `
-    ${wodTimerHTML()}
+    ${wodTimerHTML(dateStr, wod.id)}
     <div class="round-progress"><strong>${doneCount}/${totalCount}</strong> sets complete</div>
     <div class="round-grid-wrap">
       <table class="round-grid">
@@ -1845,7 +2079,7 @@ function renderPlanExecution(dateStr, containerEl, onChange){
     <div class="edit-hint">Tap a logged round again to edit its weight/reps or remove it.</div>
     ${showEditor ? buildRoundEditorHTML(roundEditState) : ''}
   `;
-  wireWodTimer(containerEl, dateStr, dayKey, refresh);
+  wireWodTimer(containerEl, dateStr, dayKey, wod.id, refresh);
   containerEl.querySelectorAll('[data-movement]').forEach(btn => {
     btn.addEventListener('click', () => {
       const movement = list.find(m => m.id === btn.getAttribute('data-movement'));
@@ -1854,7 +2088,7 @@ function renderPlanExecution(dateStr, containerEl, onChange){
       const key = `${movement.id}_${roundLabel}`;
       const alreadyDone = !!(roundCompletions[dateStr] || {})[key];
       if(alreadyDone){
-        roundEditState = { dateStr, movement, roundLabel, containerEl, refresh };
+        roundEditState = { dateStr, movement, roundLabel, wodId: wod.id, refresh };
       } else {
         toggleRoundCell(dateStr, movement, roundLabel);
       }
@@ -1862,8 +2096,8 @@ function renderPlanExecution(dateStr, containerEl, onChange){
     });
   });
   containerEl.querySelector('#addRoundBtn').addEventListener('click', () => {
-    planRounds[dayKey] = rounds + 1;
-    savePlanRounds();
+    wod.rounds = rounds + 1;
+    savePlanWods();
     refresh();
   });
   containerEl.querySelector('#removeRoundBtn').addEventListener('click', () => {
@@ -1871,8 +2105,8 @@ function renderPlanExecution(dateStr, containerEl, onChange){
     const lastRoundLabel = `r${rounds}`;
     const hasLoggedSets = list.some(item => !!dayCompletions[`${item.id}_${lastRoundLabel}`]);
     if(hasLoggedSets && !confirm(`Round ${rounds} has logged sets. Removing it won't delete what you've already logged in your history, but you'll lose the checkmarks for that round here. Continue?`)) return;
-    planRounds[dayKey] = rounds - 1;
-    savePlanRounds();
+    wod.rounds = rounds - 1;
+    savePlanWods();
     refresh();
   });
   if(showEditor) wireRoundEditor(containerEl, refresh);
@@ -2258,21 +2492,24 @@ const WOD_TEMPLATES = {
     { name:'Rear Delt Fly', type:'strength', reps:12 }
   ]}
 };
+/* Loads a named library WOD into the CURRENTLY SELECTED WOD block for the selected day (replacing only
+   that WOD's own movements), rather than replacing the whole day — a day can hold more than one WOD. */
 function applyWodTemplate(name){
   const tpl = WOD_TEMPLATES[name];
   if(!tpl) return false;
   const day = selectedPlanDay;
-  planTypes[day] = tpl.wodType;
-  savePlanTypes();
+  ensureAtLeastOneWod();
+  const wod = currentWod();
+  if(!wod) return false;
+  wod.type = tpl.wodType;
   if(tpl.wodType === 'amrap' || tpl.wodType === 'emom'){
-    planTimeCap[day] = tpl.timeCapMin || 20;
-    savePlanTimeCap();
+    wod.timeCap = tpl.timeCapMin || 20;
   } else {
-    planRounds[day] = tpl.rounds || 1;
-    savePlanRounds();
+    wod.rounds = tpl.rounds || 1;
   }
-  plan[day] = tpl.movements.map(m => {
-    const item = { id: newId(), name: m.name, type: m.type, restSeconds: null, supersetWithNext: false };
+  savePlanWods();
+  const newMovements = tpl.movements.map(m => {
+    const item = { id: newId(), wodId: wod.id, name: m.name, type: m.type, restSeconds: null, supersetWithNext: false };
     if(m.type === 'cardio'){
       item.runDistance = m.runDistance;
       item.runUnit = m.runUnit;
@@ -2283,6 +2520,8 @@ function applyWodTemplate(name){
     }
     return item;
   });
+  // replace only this WOD's own movements within the day, leaving any other WODs on the same day untouched
+  plan[day] = (plan[day] || []).filter(m => m.wodId !== wod.id).concat(newMovements);
   savePlan();
   return true;
 }
@@ -2318,37 +2557,92 @@ function suggestedNextWeight(exerciseName){
   if(topRepTarget && !isNaN(topRepTarget) && last.reps >= topRepTarget) suggestion = last.weight + increment;
   return { last, suggestion };
 }
-function wodSummaryText(day){
-  const type = planTypes[day] || 'rounds';
-  const rounds = planRounds[day];
-  const cap = planTimeCap[day];
+function wodSummaryText(wod){
+  const type = (wod && wod.type) || 'rounds';
+  const rounds = wod && wod.rounds;
+  const cap = wod && wod.timeCap;
   if(type === 'amrap') return `AMRAP ${cap ? cap+' min' : ''}`.trim();
   if(type === 'emom') return `EMOM ${cap ? cap+' min' : ''}`.trim();
   if(type === 'fortime') return `For Time${rounds ? ` · ${rounds} rounds` : ''}`;
   return rounds ? `${rounds} round${rounds===1?'':'s'}` : 'Rounds';
 }
+function getWodById(day, wodId){ return (planWods[day] || []).find(w => w.id === wodId); }
 
 /* ---------- weekly plan: WOD builder ---------- */
 function ensureDayDefaults(day){
   if(!plan[day]) plan[day] = [];
-  if(!planTypes[day]) planTypes[day] = 'rounds';
-  if(!planRounds[day]) planRounds[day] = 1;
+  if(!planWods[day]) planWods[day] = [];
+  // NOTE: a day with zero WODs is a valid state (nothing programmed / rest day) — don't force-create one here.
+  // ensureAtLeastOneWod() is only called from the handlers that actually add content (+ WOD, template, paste, add movement).
+  if(!planWods[day].some(w => w.id === selectedWodId)) selectedWodId = planWods[day][0] ? planWods[day][0].id : null;
 }
 function renderDayPicker(){
   const wrap = document.getElementById('dayPicker');
-  wrap.innerHTML = DAY_NAMES.map(day => `
-    <button class="day-btn ${day===selectedPlanDay?'active':''}" data-day="${day}">${day}${planNames[day] ? `<span class="day-plan-tag">${escapeHTML(planNames[day])}</span>` : ''}</button>
-  `).join('');
+  wrap.innerHTML = DAY_NAMES.map(day => {
+    const wods = planWods[day] || [];
+    const tag = wods.length === 1 ? wods[0].name : (wods.length > 1 ? `${wods.length} WODs` : '');
+    return `<button class="day-btn ${day===selectedPlanDay?'active':''}" data-day="${day}">${day}${tag ? `<span class="day-plan-tag">${escapeHTML(tag)}</span>` : ''}</button>`;
+  }).join('');
   wrap.querySelectorAll('[data-day]').forEach(btn => {
     btn.addEventListener('click', () => {
       selectedPlanDay = btn.getAttribute('data-day');
+      selectedWodId = null;
       cancelMovementEdit();
       renderPlanTab();
     });
   });
 }
+/* Shared "remove this WOD" flow for the Training Program builder — used by both the x on a WOD chip
+   and the "Remove this WOD" button shown once a WOD is selected/built. Confirms, deletes, re-renders. */
+function removeWodFromBuilder(day, wodId){
+  const wodsNow = planWods[day] || [];
+  const w = wodsNow.find(x => x.id === wodId);
+  const label = w ? wodLabel(w, wodsNow.indexOf(w)) : 'this WOD';
+  const msg = wodsNow.length <= 1
+    ? `Remove "${label}" and its movements from ${day}? This leaves ${day} with no WOD programmed.`
+    : `Remove "${label}" and its movements from ${day}?`;
+  if(!confirm(msg)) return;
+  removeWodFromDay(day, wodId);
+  savePlanWods(); savePlan();
+  cancelMovementEdit();
+  renderPlanTab();
+  renderTodayPlanCard();
+}
+function renderWodStrip(){
+  const wrap = document.getElementById('wodStrip');
+  const wods = planWods[selectedPlanDay] || [];
+  wrap.innerHTML = wods.map((w, i) => `
+    <div class="wod-chip ${w.id===selectedWodId?'active':''}" data-wod-select="${w.id}">
+      <span class="wod-chip-label">${escapeHTML(wodLabel(w, i))}</span>
+      <button class="wod-chip-del" data-wod-del="${w.id}" title="Remove this WOD">×</button>
+    </div>
+  `).join('') + `<button class="wod-chip-add" id="wodAddBtn">+ WOD</button>`;
+  wrap.querySelectorAll('[data-wod-select]').forEach(chip => {
+    chip.addEventListener('click', (ev) => {
+      if(ev.target.closest('[data-wod-del]')) return;
+      selectedWodId = chip.getAttribute('data-wod-select');
+      cancelMovementEdit();
+      renderPlanTab();
+    });
+  });
+  wrap.querySelectorAll('[data-wod-del]').forEach(btn => {
+    btn.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      removeWodFromBuilder(selectedPlanDay, btn.getAttribute('data-wod-del'));
+    });
+  });
+  document.getElementById('wodAddBtn').addEventListener('click', () => {
+    selectedWodId = addWodToDay(selectedPlanDay);
+    savePlanWods();
+    cancelMovementEdit();
+    renderPlanTab();
+    renderTodayPlanCard();
+    document.getElementById('planNameInput').focus();
+  });
+}
 function renderWodTypeGrid(){
-  const type = planTypes[selectedPlanDay] || 'rounds';
+  const wod = currentWod();
+  const type = (wod && wod.type) || 'rounds';
   document.querySelectorAll('#wodTypeGrid [data-wodtype]').forEach(btn => {
     btn.classList.toggle('active', btn.getAttribute('data-wodtype') === type);
   });
@@ -2358,8 +2652,10 @@ function renderWodTypeGrid(){
 }
 document.querySelectorAll('#wodTypeGrid [data-wodtype]').forEach(btn => {
   btn.addEventListener('click', () => {
-    planTypes[selectedPlanDay] = btn.getAttribute('data-wodtype');
-    savePlanTypes();
+    const wod = currentWod();
+    if(!wod) return;
+    wod.type = btn.getAttribute('data-wodtype');
+    savePlanWods();
     renderWodTypeGrid();
     renderTodayPlanCard();
   });
@@ -2372,14 +2668,17 @@ function renderWodNameTemplateHint(name){
 }
 document.getElementById('planNameInput').addEventListener('input', (ev) => {
   const name = ev.target.value;
-  planNames[selectedPlanDay] = name;
-  savePlanNames();
+  const wod = currentWod();
+  if(!wod) return;
+  wod.name = name;
+  savePlanWods();
   renderDayPicker();
+  renderWodStrip();
   renderWodNameTemplateHint(name);
   if(WOD_TEMPLATES[name]){
-    const existing = plan[selectedPlanDay] || [];
+    const existing = movementsForWod(selectedPlanDay, selectedWodId);
     const proceed = existing.length
-      ? confirm(`Load the standard "${name}" movements? This replaces the ${existing.length} movement${existing.length===1?'':'s'} already in ${selectedPlanDay}'s plan. Suggested weights come from your own history where you have any — everything stays editable after.`)
+      ? confirm(`Load the standard "${name}" movements? This replaces the ${existing.length} movement${existing.length===1?'':'s'} already in this WOD. Suggested weights come from your own history where you have any — everything stays editable after.`)
       : true;
     if(proceed){
       applyWodTemplate(name);
@@ -2394,24 +2693,32 @@ document.getElementById('planNameInput').addEventListener('input', (ev) => {
   }
 });
 document.getElementById('planRoundsInput').addEventListener('input', (ev) => {
-  planRounds[selectedPlanDay] = ev.target.value ? Number(ev.target.value) : 1;
-  savePlanRounds();
+  const wod = currentWod();
+  if(!wod) return;
+  wod.rounds = ev.target.value ? Number(ev.target.value) : 1;
+  savePlanWods();
 });
 document.getElementById('planTimeCapInput').addEventListener('input', (ev) => {
-  planTimeCap[selectedPlanDay] = ev.target.value ? Number(ev.target.value) : null;
-  savePlanTimeCap();
+  const wod = currentWod();
+  if(!wod) return;
+  wod.timeCap = ev.target.value ? Number(ev.target.value) : null;
+  savePlanWods();
 });
 document.getElementById('planLinkSaveBtn').addEventListener('click', () => {
   const url = normalizeUrl(document.getElementById('planLinkInput').value);
   if(!url) return;
-  planLinks[selectedPlanDay] = url;
-  savePlanLinks();
+  const wod = currentWod();
+  if(!wod) return;
+  wod.link = url;
+  savePlanWods();
   document.getElementById('planLinkInput').value = '';
   renderPlanTab();
 });
 document.getElementById('savedLinkDelBtn').addEventListener('click', () => {
-  delete planLinks[selectedPlanDay];
-  savePlanLinks();
+  const wod = currentWod();
+  if(!wod) return;
+  wod.link = null;
+  savePlanWods();
   renderPlanTab();
 });
 document.getElementById('planTypeInput').addEventListener('change', (ev) => {
@@ -2433,7 +2740,7 @@ document.getElementById('planExerciseInput').addEventListener('input', () => {
   updatePlanExerciseHint();
   const exName = document.getElementById('planExerciseInput').value.trim();
   const lib = exerciseLibraryLookup(exName);
-  if(lib && editingPlanIndex == null){
+  if(lib && editingPlanId == null){
     const typeSelect = document.getElementById('planTypeInput');
     typeSelect.value = lib.category === 'cardio' ? 'cardio' : 'strength';
     typeSelect.dispatchEvent(new Event('change'));
@@ -2500,6 +2807,8 @@ document.getElementById('planParseBtn').addEventListener('click', () => {
   const status = document.getElementById('planParseStatus');
   if(!lines.length){ status.textContent = 'Paste some movements first.'; status.classList.remove('success'); return; }
   if(!plan[selectedPlanDay]) plan[selectedPlanDay] = [];
+  ensureAtLeastOneWod();
+  const wod = currentWod();
   let roundsHint = null, added = 0;
   lines.forEach(line => {
     const parsed = parsePlanLine(line);
@@ -2507,13 +2816,14 @@ document.getElementById('planParseBtn').addEventListener('click', () => {
     if(parsed._roundsHint) roundsHint = parsed._roundsHint;
     if(parsed._roundsOnly) return;
     delete parsed._roundsHint;
+    parsed.wodId = selectedWodId;
     plan[selectedPlanDay].push(parsed);
     added++;
   });
-  if(roundsHint){
-    planRounds[selectedPlanDay] = roundsHint;
+  if(roundsHint && wod){
+    wod.rounds = roundsHint;
     document.getElementById('planRoundsInput').value = roundsHint;
-    savePlanRounds();
+    savePlanWods();
   }
   savePlan();
   document.getElementById('planPasteText').value = '';
@@ -2524,53 +2834,59 @@ document.getElementById('planParseBtn').addEventListener('click', () => {
 });
 
 function renderMovementList(){
-  const list = plan[selectedPlanDay] || [];
+  const list = movementsForWod(selectedPlanDay, selectedWodId);
   const wrap = document.getElementById('planExerciseList');
   if(!list.length){
     wrap.innerHTML = '<div class="empty">No movements yet. Add one below, or paste a workout above.</div>';
     return;
   }
   wrap.innerHTML = list.map((item, i) => `
-    <div class="movement-row ${editingPlanIndex===i?'editing':''} ${item.supersetWithNext?'superset-linked':''}" data-movement-index="${i}">
+    <div class="movement-row ${editingPlanId===item.id?'editing':''} ${item.supersetWithNext?'superset-linked':''}" data-movement-id="${item.id}">
       <div class="movement-num">${i+1}</div>
       <div class="item-main">
         <div class="ex-name">${escapeHTML(item.name)}${item.supersetWithNext ? ' <span class="superset-badge">🔗 superset</span>' : ''}</div>
         <div class="ex-detail">${planItemDetail(item)}</div>
       </div>
       <div class="item-actions">
-        <button class="reorder-btn" data-move-up="${i}" ${i===0?'disabled':''} title="Move up">↑</button>
-        <button class="reorder-btn" data-move-down="${i}" ${i===list.length-1?'disabled':''} title="Move down">↓</button>
-        <button class="reorder-btn" data-move-del="${i}" title="Remove">×</button>
+        <button class="reorder-btn" data-move-up="${item.id}" ${i===0?'disabled':''} title="Move up">↑</button>
+        <button class="reorder-btn" data-move-down="${item.id}" ${i===list.length-1?'disabled':''} title="Move down">↓</button>
+        <button class="reorder-btn" data-move-del="${item.id}" title="Remove">×</button>
       </div>
     </div>
   `).join('');
-  wrap.querySelectorAll('[data-movement-index]').forEach(row => {
+  wrap.querySelectorAll('[data-movement-id]').forEach(row => {
     row.addEventListener('click', (ev) => {
       if(ev.target.closest('[data-move-up],[data-move-down],[data-move-del]')) return;
-      startMovementEdit(Number(row.getAttribute('data-movement-index')));
+      startMovementEdit(row.getAttribute('data-movement-id'));
     });
   });
-  wrap.querySelectorAll('[data-move-up]').forEach(btn => btn.addEventListener('click', (ev) => { ev.stopPropagation(); moveMovement(Number(btn.getAttribute('data-move-up')), -1); }));
-  wrap.querySelectorAll('[data-move-down]').forEach(btn => btn.addEventListener('click', (ev) => { ev.stopPropagation(); moveMovement(Number(btn.getAttribute('data-move-down')), 1); }));
-  wrap.querySelectorAll('[data-move-del]').forEach(btn => btn.addEventListener('click', (ev) => { ev.stopPropagation(); deleteMovement(Number(btn.getAttribute('data-move-del'))); }));
+  wrap.querySelectorAll('[data-move-up]').forEach(btn => btn.addEventListener('click', (ev) => { ev.stopPropagation(); moveMovement(btn.getAttribute('data-move-up'), -1); }));
+  wrap.querySelectorAll('[data-move-down]').forEach(btn => btn.addEventListener('click', (ev) => { ev.stopPropagation(); moveMovement(btn.getAttribute('data-move-down'), 1); }));
+  wrap.querySelectorAll('[data-move-del]').forEach(btn => btn.addEventListener('click', (ev) => { ev.stopPropagation(); deleteMovement(btn.getAttribute('data-move-del')); }));
 }
-function moveMovement(i, dir){
-  const list = plan[selectedPlanDay] || [];
+function moveMovement(movementId, dir){
+  const scoped = movementsForWod(selectedPlanDay, selectedWodId);
+  const i = scoped.findIndex(m => m.id === movementId);
   const j = i + dir;
-  if(j < 0 || j >= list.length) return;
-  [list[i], list[j]] = [list[j], list[i]];
+  if(i < 0 || j < 0 || j >= scoped.length) return;
+  const dayList = plan[selectedPlanDay] || [];
+  const realI = dayList.indexOf(scoped[i]);
+  const realJ = dayList.indexOf(scoped[j]);
+  [dayList[realI], dayList[realJ]] = [dayList[realJ], dayList[realI]];
   savePlan(); renderMovementList(); renderTodayPlanCard();
 }
-function deleteMovement(i){
-  const list = plan[selectedPlanDay] || [];
-  list.splice(i, 1);
-  if(editingPlanIndex === i) cancelMovementEdit();
+function deleteMovement(movementId){
+  const dayList = plan[selectedPlanDay] || [];
+  const realI = dayList.findIndex(m => m.id === movementId);
+  if(realI < 0) return;
+  dayList.splice(realI, 1);
+  if(editingPlanId === movementId) cancelMovementEdit();
   savePlan(); renderMovementList(); renderTodayPlanCard();
 }
-function startMovementEdit(i){
-  const item = (plan[selectedPlanDay] || [])[i];
+function startMovementEdit(movementId){
+  const item = (plan[selectedPlanDay] || []).find(m => m.id === movementId);
   if(!item) return;
-  editingPlanIndex = i;
+  editingPlanId = movementId;
   document.getElementById('planExerciseInput').value = item.name;
   document.getElementById('planTypeInput').value = item.type || 'strength';
   document.getElementById('planTypeInput').dispatchEvent(new Event('change'));
@@ -2587,7 +2903,7 @@ function startMovementEdit(i){
   document.getElementById('planExerciseInput').scrollIntoView?.({behavior:'smooth', block:'center'});
 }
 function cancelMovementEdit(){
-  editingPlanIndex = null;
+  editingPlanId = null;
   document.getElementById('planExerciseInput').value = '';
   document.getElementById('planWeightInput').value = '';
   document.getElementById('planRepsInput').value = '';
@@ -2599,13 +2915,21 @@ function cancelMovementEdit(){
   document.getElementById('planExerciseSuggestHint').innerHTML = '';
 }
 document.getElementById('planCancelBtn').addEventListener('click', () => { cancelMovementEdit(); renderMovementList(); });
+document.getElementById('wodRemoveBtn').addEventListener('click', () => {
+  const wod = currentWod();
+  if(!wod) return;
+  removeWodFromBuilder(selectedPlanDay, wod.id);
+});
 document.getElementById('planAddBtn').addEventListener('click', () => {
   const name = document.getElementById('planExerciseInput').value.trim();
   if(!name){ document.getElementById('planExerciseInput').focus(); return; }
   const type = document.getElementById('planTypeInput').value;
   const rest = document.getElementById('planRestInput').value;
   const supersetWithNext = document.getElementById('planSupersetInput').checked;
-  const item = { id: (editingPlanIndex != null && plan[selectedPlanDay][editingPlanIndex]) ? plan[selectedPlanDay][editingPlanIndex].id : newId(), name, type, restSeconds: rest ? Number(rest) : null, supersetWithNext };
+  ensureAtLeastOneWod();
+  const dayList = plan[selectedPlanDay] || (plan[selectedPlanDay] = []);
+  const existingIdx = editingPlanId != null ? dayList.findIndex(m => m.id === editingPlanId) : -1;
+  const item = { id: existingIdx >= 0 ? dayList[existingIdx].id : newId(), wodId: selectedWodId, name, type, restSeconds: rest ? Number(rest) : null, supersetWithNext };
   if(type === 'cardio'){
     const dist = document.getElementById('planRunDistanceInput').value;
     item.runDistance = dist ? Number(dist) : null;
@@ -2616,9 +2940,8 @@ document.getElementById('planAddBtn').addEventListener('click', () => {
     item.weight = (type === 'strength' && weight) ? Number(weight) : null;
     item.reps = reps ? Number(reps) : null;
   }
-  if(!plan[selectedPlanDay]) plan[selectedPlanDay] = [];
-  if(editingPlanIndex != null) plan[selectedPlanDay][editingPlanIndex] = item;
-  else plan[selectedPlanDay].push(item);
+  if(existingIdx >= 0) dayList[existingIdx] = item;
+  else dayList.push(item);
   savePlan();
   cancelMovementEdit();
   renderMovementList();
@@ -2658,22 +2981,28 @@ document.getElementById('wodScheduleAddBtn').addEventListener('click', () => {
 function renderPlanTab(){
   ensureDayDefaults(selectedPlanDay);
   renderDayPicker();
-  document.getElementById('planNameInput').value = planNames[selectedPlanDay] || '';
-  renderWodNameTemplateHint(planNames[selectedPlanDay] || '');
-  document.getElementById('planRoundsInput').value = planRounds[selectedPlanDay] || '';
-  document.getElementById('planTimeCapInput').value = planTimeCap[selectedPlanDay] || '';
+  renderWodStrip();
+  const wod = currentWod();
+  document.getElementById('wodEmptyState').style.display = wod ? 'none' : 'block';
+  document.getElementById('wodDetailFields').style.display = wod ? '' : 'none';
+  document.getElementById('wodRemoveRow').style.display = wod ? 'block' : 'none';
+  document.getElementById('wodRemoveDayLabel').textContent = selectedPlanDay;
+  document.getElementById('planNameInput').value = (wod && wod.name) || '';
+  renderWodNameTemplateHint((wod && wod.name) || '');
+  document.getElementById('planRoundsInput').value = (wod && wod.rounds) || '';
+  document.getElementById('planTimeCapInput').value = (wod && wod.timeCap) || '';
   renderWodTypeGrid();
   const linkRow = document.getElementById('savedLinkRow');
-  if(planLinks[selectedPlanDay]){
+  if(wod && wod.link){
     linkRow.style.display = 'flex';
     const a = document.getElementById('savedLinkAnchor');
-    a.href = planLinks[selectedPlanDay];
-    a.textContent = planLinks[selectedPlanDay];
+    a.href = wod.link;
+    a.textContent = wod.link;
   } else {
     linkRow.style.display = 'none';
   }
   renderMovementList();
-  document.getElementById('scheduleWodNameLabel').textContent = planNames[selectedPlanDay] || `${selectedPlanDay}'s WOD`;
+  document.getElementById('scheduleWodNameLabel').textContent = (wod && wod.name) || `${selectedPlanDay}'s WOD`;
   renderWodScheduleList();
 }
 
@@ -2861,6 +3190,7 @@ document.getElementById('calendarMoveBtn').addEventListener('click', async () =>
 document.getElementById('calendarEditInPlanBtn').addEventListener('click', () => {
   const { dayKey } = planForDate(selectedCalendarDate);
   selectedPlanDay = dayKey;
+  selectedWodId = null;
   document.querySelector('[data-tab="plan"]').click(); // reuses the normal tab-switch + renderAll()
   const listEl = document.getElementById('planExerciseList');
   listEl.scrollIntoView?.({behavior:'smooth', block:'start'});
@@ -2924,14 +3254,12 @@ function renderCalendar(){
   }
 
   const planSection = document.getElementById('calendarPlanSection');
-  const { dayKey, list, scheduled } = planForDate(selectedCalendarDate);
-  if(list.length){
+  const { wods, scheduled } = planForDate(selectedCalendarDate);
+  if(wods.length){
     planSection.style.display = 'block';
-    const titleParts = [];
-    if(planNames[dayKey]) titleParts.push(planNames[dayKey]);
-    titleParts.push(wodSummaryText(dayKey));
+    const wodNames = wods.map((w, i) => `${wodLabel(w.wod, i)} (${wodSummaryText(w.wod)})`).join(' + ');
     const prefix = scheduled ? 'Scheduled WOD' : `${DAY_NAMES_FULL[new Date(selectedCalendarDate+'T00:00:00').getDay()]}'s WOD`;
-    document.getElementById('calendarPlanTitle').textContent = `${prefix} · ${titleParts.join(' · ')}`;
+    document.getElementById('calendarPlanTitle').textContent = `${prefix} · ${wodNames}`;
     renderPlanExecution(selectedCalendarDate, document.getElementById('calendarPlanExecution'), () => renderCalendar());
   } else {
     planSection.style.display = 'none';
@@ -3095,7 +3423,7 @@ function renderWeightList(){
     btn.addEventListener('click', () => deleteWeight(btn.getAttribute('data-wdel')));
   });
 }
-function renderWeightTab(){ renderChart(); renderWeightList(); renderHeightInputs(); renderStepsSection(); renderCaloriesSection(); }
+function renderWeightTab(){ renderChart(); renderWeightList(); renderHeightInputs(); renderCaloriesSection(); renderBodyCompSection(); }
 
 /* ---------- nutrition quick reference: BMR / TDEE / goal calories / macros ---------- */
 // Mifflin-St Jeor. For "other" / "prefer not to say" / unset we use the midpoint of the
@@ -3174,12 +3502,13 @@ function renderNutritionTab(){
     ? `${adjText} would fall below a safe minimum, so this is capped at ${plan.floor.toLocaleString()} (your BMR or the general minimum, whichever is higher). A bigger deficit isn't recommended without medical guidance.`
     : `${adjText} = ${plan.tdee.toLocaleString()} ${plan.adjust >= 0 ? '+' : '−'} ${Math.abs(plan.adjust)}`);
 
-  const todayLog = caloriesLog.find(c => c.date === todayStr());
-  if(todayLog){
-    const diff = todayLog.calories - plan.target;
-    setText('goalTodayCompare', `Logged today: ${todayLog.calories.toLocaleString()} cal — about ${Math.abs(diff).toLocaleString()} ${diff >= 0 ? 'over' : 'under'} this target.`);
+  const todayMeals = caloriesLog.filter(c => c.date === todayStr());
+  if(todayMeals.length){
+    const todayTotal = todayMeals.reduce((s,c) => s + c.calories, 0);
+    const diff = todayTotal - plan.target;
+    setText('goalTodayCompare', `Logged today (${todayMeals.length} meal${todayMeals.length===1?'':'s'}): ${todayTotal.toLocaleString()} cal — about ${Math.abs(diff).toLocaleString()} ${diff >= 0 ? 'over' : 'under'} this target.`);
   } else {
-    setText('goalTodayCompare', 'Log today\'s calories in the BMI Tracker tab to see how you compare.');
+    setText('goalTodayCompare', 'Log today\'s meals in the BMI Tracker tab to see how you compare.');
   }
 
   const total = plan.proteinG * 4 + plan.fatG * 9 + plan.carbG * 4;
@@ -3235,29 +3564,61 @@ function renderStepsSection(){
   `).join('');
   wrap.querySelectorAll('[data-sdel]').forEach(btn => btn.addEventListener('click', () => deleteSteps(btn.getAttribute('data-sdel'))));
 }
+const MEAL_ORDER = ['breakfast','lunch','dinner','snack','other'];
+const MEAL_LABELS = { breakfast:'Breakfast', lunch:'Lunch', dinner:'Dinner', snack:'Snack', other:'Other' };
+let mealTypeSel = 'breakfast';
+document.querySelectorAll('#mealTypeToggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    mealTypeSel = btn.getAttribute('data-meal');
+    document.querySelectorAll('#mealTypeToggle button').forEach(b => b.classList.toggle('active', b === btn));
+  });
+});
 function addCalories(){
   const date = document.getElementById('caloriesDateInput').value || todayStr();
   const val = document.getElementById('caloriesValueInput').value;
   if(!val) return;
-  caloriesLog = caloriesLog.filter(c => c.date !== date); // one total per day
-  caloriesLog.push({ id: newId(), date, calories: Number(val) });
+  const meal = mealTypeSel;
+  caloriesLog = caloriesLog.filter(c => !(c.date === date && (c.meal || 'other') === meal)); // one entry per meal per day, replacing if re-logged
+  caloriesLog.push({ id: newId(), date, meal, calories: Number(val) });
   caloriesLog.sort((a,b) => a.date.localeCompare(b.date));
   document.getElementById('caloriesValueInput').value = '';
-  saveCaloriesLog(); renderCaloriesSection();
+  saveCaloriesLog(); renderCaloriesSection(); renderNutritionTab();
 }
-function deleteCalories(id){ caloriesLog = caloriesLog.filter(c => c.id !== id); saveCaloriesLog(); renderCaloriesSection(); }
+function deleteCalories(id){ caloriesLog = caloriesLog.filter(c => c.id !== id); saveCaloriesLog(); renderCaloriesSection(); renderNutritionTab(); }
 document.getElementById('caloriesAddBtn').addEventListener('click', addCalories);
 document.getElementById('caloriesValueInput').addEventListener('keydown', ev => { if(ev.key==='Enter') addCalories(); });
+function caloriesByDate(){
+  const map = {};
+  caloriesLog.forEach(c => { (map[c.date] = map[c.date] || []).push(c); });
+  return map;
+}
 function renderCaloriesSection(){
-  document.getElementById('caloriesChartWrap').innerHTML = buildTrendSVG(
-    caloriesLog.map(c => ({ date: c.date, value: c.calories })), v => Math.round(v).toLocaleString()
-  );
+  const byDate = caloriesByDate();
+  const trendData = Object.keys(byDate).sort().map(date => ({
+    date, value: byDate[date].reduce((sum,c) => sum + c.calories, 0)
+  }));
+  document.getElementById('caloriesChartWrap').innerHTML = buildTrendSVG(trendData, v => Math.round(v).toLocaleString());
+
   const wrap = document.getElementById('caloriesList');
-  if(caloriesLog.length === 0){ wrap.innerHTML = ''; return; }
-  const rev = [...caloriesLog].sort((a,b) => b.date.localeCompare(a.date));
-  wrap.innerHTML = rev.map(c => `
-    <div class="entry"><div class="info"><div class="ex-name">${c.calories.toLocaleString()} cal</div><div class="ex-detail">${formatDateLabel(c.date)}</div></div><button class="del" data-cdel="${c.id}">×</button></div>
-  `).join('');
+  const dates = Object.keys(byDate).sort().reverse();
+  if(!dates.length){ wrap.innerHTML = ''; return; }
+  wrap.innerHTML = dates.map(date => {
+    const meals = [...byDate[date]].sort((a,b) => MEAL_ORDER.indexOf(a.meal || 'other') - MEAL_ORDER.indexOf(b.meal || 'other'));
+    const total = meals.reduce((s,c) => s + c.calories, 0);
+    const mealRows = meals.map(c => `
+      <div class="meal-row">
+        <span class="meal-label">${MEAL_LABELS[c.meal] || 'Other'}</span>
+        <span class="meal-cal">${c.calories.toLocaleString()} cal</span>
+        <button class="del" data-cdel="${c.id}">×</button>
+      </div>
+    `).join('');
+    return `
+      <div class="calorie-day-group">
+        <div class="calorie-day-header"><span>${formatDateLabel(date)}</span><strong>${total.toLocaleString()} cal</strong></div>
+        ${mealRows}
+      </div>
+    `;
+  }).join('');
   wrap.querySelectorAll('[data-cdel]').forEach(btn => btn.addEventListener('click', () => deleteCalories(btn.getAttribute('data-cdel'))));
 }
 
@@ -3331,6 +3692,167 @@ document.getElementById('heightInchesInput').addEventListener('input', saveHeigh
 document.getElementById('ageInput').addEventListener('input', saveProfileFromInputs);
 document.getElementById('genderInput').addEventListener('change', saveProfileFromInputs);
 document.getElementById('weightValueInput').addEventListener('input', renderBmiReadout);
+
+/* ---------- body composition: fat mass, muscle mass, visceral fat, segmental lean, etc. ---------- */
+// U.S. Navy circumference method (Hodgdon-Beckett, 1984) — a rough body-fat % estimate from tape measurements.
+// This is the INCHES-calibrated form of the regression (not the 495/(1.0324 - ...) - 450 density form, which
+// is calibrated for centimeters — plugging inches into those cm coefficients silently gives numbers that are
+// far too low). Verified against the published worked example: 69in height, 16in neck, 34in waist -> ~15.9%.
+function computeNavyBodyFat(gender, heightIn, neck, waist, hip){
+  if(!heightIn || !neck || !waist) return null;
+  if(gender === 'female'){
+    if(!hip || (waist + hip - neck) <= 0) return null;
+    return 163.205 * Math.log10(waist + hip - neck) - 97.684 * Math.log10(heightIn) - 78.387;
+  }
+  if((waist - neck) <= 0) return null;
+  return 86.010 * Math.log10(waist - neck) - 70.041 * Math.log10(heightIn) + 36.76;
+}
+document.querySelectorAll('#bodyCompSourceToggle [data-source]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    bodyCompSourceSel = btn.getAttribute('data-source');
+    document.querySelectorAll('#bodyCompSourceToggle [data-source]').forEach(b => b.classList.toggle('active', b === btn));
+    document.getElementById('navyMethodFields').style.display = bodyCompSourceSel === 'navy' ? 'block' : 'none';
+  });
+});
+document.getElementById('navyCalcBtn').addEventListener('click', () => {
+  const hintEl = document.getElementById('navyResultHint');
+  const heightIn = totalHeightInches();
+  const neck = Number(document.getElementById('navyNeckInput').value) || null;
+  const waist = Number(document.getElementById('navyWaistInput').value) || null;
+  const hip = Number(document.getElementById('navyHipInput').value) || null;
+  hintEl.classList.remove('success');
+  if(!heightIn){ hintEl.textContent = 'Enter your height in the BMI card above first.'; return; }
+  if(!neck || !waist){ hintEl.textContent = 'Enter neck and waist measurements.'; return; }
+  const gender = profile.gender === 'female' ? 'female' : 'male';
+  if(gender === 'female' && !hip){ hintEl.textContent = "Enter hip measurement too (required for the women's formula)."; return; }
+  const pct = computeNavyBodyFat(gender, heightIn, neck, waist, hip);
+  if(pct == null || !isFinite(pct) || pct <= 0){ hintEl.textContent = "Couldn't calculate from those measurements — double-check the numbers."; return; }
+  document.getElementById('bodyCompFatPercentInput').value = pct.toFixed(1);
+  hintEl.textContent = `Estimated ${pct.toFixed(1)}% body fat (${gender === 'female' ? "women's" : "men's"} formula) — filled into Body fat % below. Rough estimate; InBody/DEXA are more accurate.`;
+  hintEl.classList.add('success');
+});
+document.getElementById('bodyCompMoreToggleBtn').addEventListener('click', () => {
+  const wrap = document.getElementById('bodyCompMoreFields');
+  const showing = wrap.style.display !== 'none';
+  wrap.style.display = showing ? 'none' : 'block';
+  document.getElementById('bodyCompMoreToggleBtn').textContent = showing ? '+ More InBody fields (visceral fat, water, BMR, segmental)' : '− Hide extra fields';
+});
+function clearBodyCompForm(){
+  ['bodyCompFatPercentInput','bodyCompFatMassInput','bodyCompMuscleMassInput','bodyCompVisceralInput','bodyCompWaterInput','bodyCompBmrInput','bodyCompBoneInput','segTrunkInput','segArmRInput','segArmLInput','segLegRInput','segLegLInput','navyNeckInput','navyWaistInput','navyHipInput'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.value = '';
+  });
+  document.getElementById('navyResultHint').textContent = '';
+}
+function addBodyComp(){
+  const statusEl = document.getElementById('bodyCompStatus');
+  const date = document.getElementById('bodyCompDateInput').value || todayStr();
+  const weight = Number(document.getElementById('bodyCompWeightInput').value) || null;
+  let fatPercent = Number(document.getElementById('bodyCompFatPercentInput').value) || null;
+  let fatMass = Number(document.getElementById('bodyCompFatMassInput').value) || null;
+  const muscleMass = Number(document.getElementById('bodyCompMuscleMassInput').value) || null;
+  const visceralFat = Number(document.getElementById('bodyCompVisceralInput').value) || null;
+  const bodyWaterPercent = Number(document.getElementById('bodyCompWaterInput').value) || null;
+  const bmr = Number(document.getElementById('bodyCompBmrInput').value) || null;
+  const boneMass = Number(document.getElementById('bodyCompBoneInput').value) || null;
+  const segTrunk = Number(document.getElementById('segTrunkInput').value) || null;
+  const segArmR = Number(document.getElementById('segArmRInput').value) || null;
+  const segArmL = Number(document.getElementById('segArmLInput').value) || null;
+  const segLegR = Number(document.getElementById('segLegRInput').value) || null;
+  const segLegL = Number(document.getElementById('segLegLInput').value) || null;
+
+  if(!weight && !fatPercent && !fatMass && !muscleMass){
+    statusEl.textContent = 'Enter at least a weight, body fat % or muscle mass.';
+    statusEl.classList.remove('success');
+    return;
+  }
+  // cross-derive fat % <-> fat mass when only one is given and we have a weight to work from
+  if(weight && fatPercent && !fatMass) fatMass = round2(weight * fatPercent / 100);
+  else if(weight && fatMass && !fatPercent) fatPercent = round2((fatMass / weight) * 100);
+
+  const segmental = (segTrunk || segArmR || segArmL || segLegR || segLegL)
+    ? { trunk: segTrunk, armR: segArmR, armL: segArmL, legR: segLegR, legL: segLegL }
+    : null;
+
+  bodyComp.push({
+    id: newId(), date, source: bodyCompSourceSel, weight, bodyFatPercent: fatPercent, fatMass,
+    muscleMass, visceralFat, bodyWaterPercent, bmr, boneMass, segmental
+  });
+  bodyComp.sort((a,b) => a.date.localeCompare(b.date));
+  saveBodyComp();
+  document.getElementById('bodyCompWeightInput').value = '';
+  clearBodyCompForm();
+  statusEl.textContent = 'Saved.';
+  statusEl.classList.add('success');
+  renderBodyCompSection();
+}
+function deleteBodyComp(id){ bodyComp = bodyComp.filter(b => b.id !== id); saveBodyComp(); renderBodyCompSection(); }
+document.getElementById('bodyCompAddBtn').addEventListener('click', addBodyComp);
+
+const BODY_COMP_METRICS = {
+  bodyFatPercent: { label: 'Body fat %', unit: '%', fmt: v => v.toFixed(1) },
+  fatMass: { label: 'Fat mass', unit: ' lb', fmt: v => v.toFixed(1) },
+  muscleMass: { label: 'Skeletal muscle mass', unit: ' lb', fmt: v => v.toFixed(1) },
+  visceralFat: { label: 'Visceral fat level', unit: '', fmt: v => v.toFixed(0) }
+};
+document.querySelectorAll('#bodyCompChartToggle [data-metric]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    bodyCompChartMetric = btn.getAttribute('data-metric');
+    document.querySelectorAll('#bodyCompChartToggle [data-metric]').forEach(b => b.classList.toggle('active', b === btn));
+    renderBodyCompChart();
+  });
+});
+function renderBodyCompChart(){
+  const meta = BODY_COMP_METRICS[bodyCompChartMetric];
+  const data = bodyComp.filter(b => b[bodyCompChartMetric] != null).map(b => ({ date: b.date, value: b[bodyCompChartMetric] }));
+  document.getElementById('bodyCompChartWrap').innerHTML = data.length
+    ? buildTrendSVG(data, v => `${meta.fmt(v)}${meta.unit}`)
+    : `<div class="empty">No ${meta.label.toLowerCase()} entries yet.</div>`;
+}
+function renderBodyCompSegmental(){
+  const wrap = document.getElementById('bodyCompSegmentalWrap');
+  const latest = [...bodyComp].reverse().find(b => b.segmental);
+  if(!latest){ wrap.innerHTML = ''; return; }
+  const s = latest.segmental;
+  const pairDiff = (r, l) => (r != null && l != null && (r+l) > 0) ? Math.abs(r - l) / ((r+l)/2) * 100 : null;
+  const armDiff = pairDiff(s.armR, s.armL);
+  const legDiff = pairDiff(s.legR, s.legL);
+  const row = (label, val) => val != null ? `<div class="entry"><div class="info"><div class="ex-name">${label}</div></div><div class="ex-detail">${val.toFixed(1)} lb</div></div>` : '';
+  wrap.innerHTML = `
+    <div class="edit-hint" style="margin-top:14px;">Segmental lean mass — ${formatDateLabel(latest.date)}</div>
+    ${row('Trunk', s.trunk)}
+    ${row('Right arm', s.armR)}
+    ${row('Left arm', s.armL)}
+    ${armDiff != null ? `<div class="parse-status${armDiff <= 10 ? ' success' : ''}">Arm balance: ${armDiff.toFixed(1)}% difference${armDiff > 10 ? ' — worth keeping an eye on' : ''}</div>` : ''}
+    ${row('Right leg', s.legR)}
+    ${row('Left leg', s.legL)}
+    ${legDiff != null ? `<div class="parse-status${legDiff <= 10 ? ' success' : ''}">Leg balance: ${legDiff.toFixed(1)}% difference${legDiff > 10 ? ' — worth keeping an eye on' : ''}</div>` : ''}
+  `;
+}
+const BODY_COMP_SOURCE_LABELS = { inbody:'InBody', 'smart-scale':'Smart Scale', navy:'Tape Measure', manual:'Manual' };
+function renderBodyCompList(){
+  const wrap = document.getElementById('bodyCompList');
+  if(!bodyComp.length){ wrap.innerHTML = ''; return; }
+  const rev = [...bodyComp].sort((a,b) => b.date.localeCompare(a.date));
+  wrap.innerHTML = rev.map(b => {
+    const parts = [];
+    if(b.weight) parts.push(`${b.weight} lb`);
+    if(b.bodyFatPercent != null) parts.push(`${b.bodyFatPercent.toFixed(1)}% fat`);
+    if(b.fatMass != null) parts.push(`${b.fatMass.toFixed(1)} lb fat`);
+    if(b.muscleMass != null) parts.push(`${b.muscleMass.toFixed(1)} lb muscle`);
+    if(b.visceralFat != null) parts.push(`VF ${b.visceralFat}`);
+    return `<div class="entry"><div class="info"><div class="ex-name">${formatDateLabel(b.date)} <span class="source-tag">${BODY_COMP_SOURCE_LABELS[b.source] || 'Manual'}</span></div><div class="ex-detail">${parts.join(' · ') || 'No details'}</div></div><button class="del" data-bcdel="${b.id}">×</button></div>`;
+  }).join('');
+  wrap.querySelectorAll('[data-bcdel]').forEach(btn => {
+    btn.addEventListener('click', () => deleteBodyComp(btn.getAttribute('data-bcdel')));
+  });
+}
+function renderBodyCompSection(){
+  if(!document.getElementById('bodyCompDateInput').value) document.getElementById('bodyCompDateInput').value = todayStr();
+  renderBodyCompChart();
+  renderBodyCompSegmental();
+  renderBodyCompList();
+}
 
 /* ---------- GPS run tracking (Geolocation API, no external service) ---------- */
 let gpsTrackState = null; // { watchId, tickInterval, points:[{lat,lon}], startedAt, distanceMeters }
@@ -3411,10 +3933,26 @@ document.getElementById('gpsDiscardBtn').addEventListener('click', () => {
 /* ---------- cardio tab: program run/walk sessions, linked to the calendar ---------- */
 document.getElementById('cardioDateInput').value = todayStr();
 document.getElementById('wodScheduleDateInput').value = todayStr();
+// Activities that are naturally measured in reps/skips rather than distance.
+const CARDIO_COUNT_ACTIVITIES = ['jumprope'];
+function updateCardioTargetOptionsForActivity(){
+  const isCountActivity = CARDIO_COUNT_ACTIVITIES.includes(cardioActivitySel);
+  const distBtn = document.querySelector('#cardioTargetToggle [data-target="distance"]');
+  const countBtn = document.querySelector('#cardioTargetToggle [data-target="count"]');
+  if(distBtn) distBtn.style.display = isCountActivity ? 'none' : '';
+  if(countBtn) countBtn.style.display = isCountActivity ? '' : 'none';
+  if(isCountActivity && cardioTargetSel === 'distance') cardioTargetSel = 'count';
+  if(!isCountActivity && cardioTargetSel === 'count') cardioTargetSel = 'distance';
+  document.querySelectorAll('#cardioTargetToggle button').forEach(b => b.classList.toggle('active', b.getAttribute('data-target') === cardioTargetSel));
+  document.getElementById('cardioDistanceFields').style.display = cardioTargetSel === 'distance' ? 'flex' : 'none';
+  document.getElementById('cardioDurationFields').style.display = cardioTargetSel === 'duration' ? 'flex' : 'none';
+  document.getElementById('cardioCountFields').style.display = cardioTargetSel === 'count' ? 'flex' : 'none';
+}
 document.querySelectorAll('#cardioActivityToggle button').forEach(btn => {
   btn.addEventListener('click', () => {
     cardioActivitySel = btn.getAttribute('data-activity');
     document.querySelectorAll('#cardioActivityToggle button').forEach(b => b.classList.toggle('active', b === btn));
+    updateCardioTargetOptionsForActivity();
   });
 });
 document.querySelectorAll('#cardioTargetToggle button').forEach(btn => {
@@ -3423,8 +3961,10 @@ document.querySelectorAll('#cardioTargetToggle button').forEach(btn => {
     document.querySelectorAll('#cardioTargetToggle button').forEach(b => b.classList.toggle('active', b === btn));
     document.getElementById('cardioDistanceFields').style.display = cardioTargetSel === 'distance' ? 'flex' : 'none';
     document.getElementById('cardioDurationFields').style.display = cardioTargetSel === 'duration' ? 'flex' : 'none';
+    document.getElementById('cardioCountFields').style.display = cardioTargetSel === 'count' ? 'flex' : 'none';
   });
 });
+updateCardioTargetOptionsForActivity();
 function addCardioPlan(){
   const date = document.getElementById('cardioDateInput').value || todayStr();
   const notes = document.getElementById('cardioNotesInput').value.trim();
@@ -3434,6 +3974,10 @@ function addCardioPlan(){
     if(!distance){ document.getElementById('cardioDistanceInput').focus(); return; }
     entry.distance = Number(distance);
     entry.unit = document.getElementById('cardioDistanceUnitInput').value;
+  } else if(cardioTargetSel === 'count'){
+    const count = document.getElementById('cardioCountInput').value;
+    if(!count){ document.getElementById('cardioCountInput').focus(); return; }
+    entry.count = Number(count);
   } else {
     const duration = document.getElementById('cardioDurationInput').value;
     if(!duration){ document.getElementById('cardioDurationInput').focus(); return; }
@@ -3443,20 +3987,27 @@ function addCardioPlan(){
   cardioPlans.sort((a,b) => a.date.localeCompare(b.date));
   document.getElementById('cardioDistanceInput').value = '';
   document.getElementById('cardioDurationInput').value = '';
+  document.getElementById('cardioCountInput').value = '';
   document.getElementById('cardioNotesInput').value = '';
   saveCardioPlans(); renderCardioTab(); renderCalendar();
 }
 document.getElementById('cardioAddBtn').addEventListener('click', addCardioPlan);
 
-const CARDIO_ACTIVITY_LABELS = { run:'Run', walk:'Walk', row:'Row' };
+const CARDIO_ACTIVITY_LABELS = { run:'Run', walk:'Walk', row:'Row', bike:'Bike', jumprope:'Jump Rope' };
 function cardioItemHTML(c){
   const targetText = c.targetType === 'duration'
     ? `${c.durationMin} min`
+    : c.targetType === 'count'
+    ? `${c.count} reps`
     : `${c.distance} ${c.unit === 'mi' ? 'mi' : 'm'}`;
   let actualText = '';
   if(c.completed){
     const bits = [];
-    if(c.actualDistance) bits.push(`${c.actualDistance} ${c.actualUnit === 'mi' ? 'mi' : 'm'}`);
+    if(c.targetType === 'count'){
+      if(c.actualCount) bits.push(`${c.actualCount} reps`);
+    } else if(c.actualDistance){
+      bits.push(`${c.actualDistance} ${c.actualUnit === 'mi' ? 'mi' : 'm'}`);
+    }
     if(c.actualTimeSeconds) bits.push(`in ${formatSecondsToTime(c.actualTimeSeconds)}`);
     actualText = bits.length ? ` · done: ${bits.join(' ')}` : ' · done';
   }
@@ -3488,17 +4039,31 @@ function wireCardioItemButtons(containerEl, onChange){
     btn.addEventListener('click', () => {
       const c = cardioPlans.find(x => x.id === btn.getAttribute('data-cardio-complete'));
       if(!c) return;
-      const defaultDist = c.distance || '';
-      const distance = prompt(`Actual distance (${(c.unit || 'mi') === 'mi' ? 'mi' : 'm'}):`, defaultDist);
-      if(distance === null) return;
-      const time = prompt('Actual time (mm:ss, optional):', '');
-      c.completed = true;
-      c.actualDistance = distance ? Number(distance) : null;
-      c.actualUnit = c.unit || 'mi';
-      c.actualTimeSeconds = time ? parseTimeToSeconds(time) : null;
-      if(c.actualDistance){
-        entries.unshift({ id: newId(), date: c.date, exercise: CARDIO_ACTIVITY_LABELS[c.activity] || 'Run', type: 'cardio', distance: c.actualDistance, unit: c.actualUnit, timeSeconds: c.actualTimeSeconds });
-        saveEntries();
+      if(c.targetType === 'count'){
+        const defaultCount = c.count || '';
+        const actualCount = prompt('Actual reps/skips:', defaultCount);
+        if(actualCount === null) return;
+        const time = prompt('Actual time (mm:ss, optional):', '');
+        c.completed = true;
+        c.actualCount = actualCount ? Number(actualCount) : null;
+        c.actualTimeSeconds = time ? parseTimeToSeconds(time) : null;
+        if(c.actualCount){
+          entries.unshift({ id: newId(), date: c.date, exercise: CARDIO_ACTIVITY_LABELS[c.activity] || 'Jump Rope', type: 'cardio', reps: c.actualCount, timeSeconds: c.actualTimeSeconds });
+          saveEntries();
+        }
+      } else {
+        const defaultDist = c.distance || '';
+        const distance = prompt(`Actual distance (${(c.unit || 'mi') === 'mi' ? 'mi' : 'm'}):`, defaultDist);
+        if(distance === null) return;
+        const time = prompt('Actual time (mm:ss, optional):', '');
+        c.completed = true;
+        c.actualDistance = distance ? Number(distance) : null;
+        c.actualUnit = c.unit || 'mi';
+        c.actualTimeSeconds = time ? parseTimeToSeconds(time) : null;
+        if(c.actualDistance){
+          entries.unshift({ id: newId(), date: c.date, exercise: CARDIO_ACTIVITY_LABELS[c.activity] || 'Run', type: 'cardio', distance: c.actualDistance, unit: c.actualUnit, timeSeconds: c.actualTimeSeconds });
+          saveEntries();
+        }
       }
       saveCardioPlans();
       renderCardioTab();
@@ -3508,6 +4073,7 @@ function wireCardioItemButtons(containerEl, onChange){
   });
 }
 function renderCardioTab(){
+  renderStepsSection();
   const wrap = document.getElementById('cardioPlanList');
   if(!wrap) return;
   if(!cardioPlans.length){
@@ -3761,7 +4327,8 @@ function generateSuggestions(){
 
   const nextDay = suggestNextWorkoutDay();
   if(nextDay && (nextDay.gap === Infinity || nextDay.gap >= 5)){
-    const label = planNames[nextDay.day] || `${nextDay.day}'s WOD`;
+    const dayWods = planWods[nextDay.day] || [];
+    const label = dayWods.length ? dayWods.map((w,i) => wodLabel(w,i)).join(' + ') : `${nextDay.day}'s WOD`;
     const gapText = nextDay.gap === Infinity ? "hasn't been trained yet" : `hasn't been trained in ${nextDay.gap} days`;
     list.push({icon:'📅', text:`"${label}" (${nextDay.day}) ${gapText} — might be worth prioritizing next.`});
   }
@@ -3892,8 +4459,8 @@ function buildBackupObject(){
     version: 1,
     exportedAt: new Date().toISOString(),
     data: {
-      entries, plan, planNames, planLinks, planRounds, planTypes, planTimeCap,
-      roundCompletions, cardioPlans, wodSchedule, reviews, weights,
+      entries, plan, planNames, planLinks, planRounds, planTypes, planTimeCap, planWods,
+      roundCompletions, cardioPlans, wodSchedule, reviews, weights, bodyComp,
       stepsLog, caloriesLog, height, profile, completions, nutritionPrefs
     }
   };
@@ -3929,11 +4496,14 @@ function applyImportedData(data, opts={}){
   planRounds = data.planRounds || {};
   planTypes = data.planTypes || {};
   planTimeCap = data.planTimeCap || {};
+  planWods = data.planWods || {};
+  migratePlanWods(); // fills planWods from the legacy fields above for older backups that predate multi-WOD days
   roundCompletions = data.roundCompletions || {};
   cardioPlans = Array.isArray(data.cardioPlans) ? data.cardioPlans : [];
   wodSchedule = Array.isArray(data.wodSchedule) ? data.wodSchedule : [];
   reviews = Array.isArray(data.reviews) ? data.reviews : [];
   weights = Array.isArray(data.weights) ? data.weights : [];
+  bodyComp = Array.isArray(data.bodyComp) ? data.bodyComp : [];
   stepsLog = Array.isArray(data.stepsLog) ? data.stepsLog : [];
   caloriesLog = Array.isArray(data.caloriesLog) ? data.caloriesLog : [];
   height = data.height || { feet: null, inches: null };
@@ -3942,8 +4512,8 @@ function applyImportedData(data, opts={}){
   nutritionPrefs = { goal:'maintain', activity:'1.55', ...(data.nutritionPrefs || {}) };
   const p = Promise.all([
     saveEntries(), savePlan(), savePlanNames(), savePlanLinks(), savePlanRounds(),
-    savePlanTypes(), savePlanTimeCap(), saveRoundCompletions(), saveCardioPlans(),
-    saveWodSchedule(), saveReviews(), saveWeights(), saveStepsLog(), saveCaloriesLog(),
+    savePlanTypes(), savePlanTimeCap(), savePlanWods(), saveRoundCompletions(), saveCardioPlans(),
+    saveWodSchedule(), saveReviews(), saveWeights(), saveBodyComp(), saveStepsLog(), saveCaloriesLog(),
     saveHeight(), saveProfile(), saveCompletions(), saveNutritionPrefs()
   ]);
   if(!opts.silent) p.then(() => renderAll());
