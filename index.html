@@ -174,6 +174,18 @@
   .pr-card .pr-num{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--plate);}
   .pr-card .pr-lbl{font-size:11px;color:var(--chalk-dim);margin-top:2px;}
   .pr-card .pr-sub{font-size:10.5px;color:var(--chalk-dim);margin-top:4px;opacity:0.85;}
+  .adherence-bar-wrap{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+  .adherence-bar-label{font-size:11.5px;color:var(--chalk-dim);}
+  .adherence-bar-val{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;color:var(--chalk);}
+  .adherence-bar-track{background:var(--surface-2);border-radius:20px;height:8px;overflow:hidden;}
+  .adherence-bar-fill{background:var(--plate);height:100%;border-radius:20px;}
+  /* Load/distance comparisons (elephants, whales, Manhattan) — simple dot-row icons in
+     this app's own palette, standing in for the reference pack's SVG elephant/whale art. */
+  .bignum{font-family:'Oswald',sans-serif;font-size:32px;font-weight:700;color:var(--plate);line-height:1;margin:4px 0;}
+  .bignum .u{font-size:14px;font-weight:600;color:var(--chalk-dim);margin-left:6px;}
+  .cmp-dots{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0;}
+  .cmp-dot{width:18px;height:18px;border-radius:4px;display:inline-block;flex:none;}
+  .cmp-title{font-family:'Oswald',sans-serif;font-size:14.5px;font-weight:600;color:var(--chalk);margin-top:2px;}
   .install-steps{display:flex;flex-direction:column;gap:14px;}
   .install-os{background:var(--surface-2);border-radius:4px;padding:12px 14px;}
   .install-os-title{font-family:'Oswald',sans-serif;font-size:13.5px;font-weight:600;color:var(--plate);margin-bottom:6px;}
@@ -211,6 +223,10 @@
   .leaderboard-row .lb-rank{font-family:'Oswald',sans-serif;font-weight:700;color:var(--plate);width:22px;text-align:center;flex-shrink:0;}
   .leaderboard-row .lb-name{flex:1;font-size:13px;color:var(--chalk);font-weight:600;}
   .leaderboard-row .lb-time{font-family:'Oswald',sans-serif;font-size:14px;color:var(--plate);font-weight:700;}
+  .leaderboard-row.me{outline:1px solid var(--plate);}
+  .leaderboard-row .lb-metrics{display:flex;flex-direction:column;align-items:flex-end;flex-shrink:0;}
+  .leaderboard-row .lb-metric-main{font-family:'Oswald',sans-serif;font-size:14px;color:var(--plate);font-weight:700;}
+  .leaderboard-row .lb-metric-sub{font-size:11px;color:var(--chalk-dim);margin-top:1px;}
   .notes-textarea::placeholder{color:var(--chalk-dim);}
   .notes-textarea:focus{outline:none;border-color:var(--plate);}
   .star-rating{display:flex;gap:6px;margin:2px 0 14px;}
@@ -241,8 +257,37 @@
   .weight-list{margin-top:14px;}
   .bmi-readout{background:var(--surface-2);border-radius:4px;padding:18px;text-align:center;margin-bottom:16px;}
   .bmi-readout .bmi-num{font-family:'Oswald',sans-serif;font-size:40px;font-weight:700;color:var(--plate);line-height:1;}
-  .bmi-readout .bmi-cat{font-size:13px;font-weight:600;color:var(--chalk);margin-top:6px;}
+  .bmi-readout .bmi-cat{font-size:13px;font-weight:700;margin-top:6px;display:inline-block;padding:2px 9px;border-radius:10px;}
+  .bmi-readout .bmi-cat.bmi-under{color:#6fb8e0;background:rgba(111,184,224,0.12);}
+  .bmi-readout .bmi-cat.bmi-normal{color:#5ec98c;background:rgba(94,201,140,0.12);}
+  .bmi-readout .bmi-cat.bmi-over{color:#e0a23c;background:rgba(224,162,60,0.12);}
+  .bmi-readout .bmi-cat.bmi-obese{color:#e0574c;background:rgba(224,87,76,0.12);}
+  .bmi-readout .bmi-range{font-size:12px;color:var(--chalk-dim);margin-top:7px;}
+  .bmi-readout .bmi-bf-line{font-size:12px;color:var(--chalk);margin-top:3px;}
+  .bmi-readout .bmi-cross-note{font-size:12px;color:var(--chalk);background:var(--surface-2);border-radius:4px;padding:8px 10px;margin-top:9px;line-height:1.4;}
   .bmi-readout .bmi-hint{font-size:12px;color:var(--chalk-dim);margin-top:8px;}
+  .bmi-gauge-wrap{background:var(--surface-2);border-radius:4px;padding:16px 16px 12px;margin-bottom:16px;}
+  .bmi-gauge-svg{width:100%;max-width:280px;height:auto;display:block;margin:0 auto;}
+  .gauge-legend-row{display:flex;justify-content:space-between;padding:0 4px;margin-top:-4px;flex-wrap:wrap;gap:6px;}
+  .gauge-legend-row .gauge-legend-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--chalk-dim);}
+  .gauge-legend-row .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;display:inline-block;}
+  .bodycomp-donut-row{background:var(--surface-2);border-radius:4px;padding:16px;display:flex;align-items:center;gap:16px;}
+  .bodycomp-donut-svg{width:130px;height:130px;flex-shrink:0;}
+  .donut-legend{display:flex;flex-direction:column;gap:9px;flex:1;min-width:0;}
+  .donut-legend-row{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .donut-legend-label{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--chalk);min-width:0;}
+  .donut-legend-label .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;display:inline-block;}
+  .donut-legend-val{font-family:'Oswald',sans-serif;font-size:12.5px;font-weight:600;color:var(--chalk);white-space:nowrap;}
+  .ctl-chip-row{display:flex;flex-wrap:wrap;gap:0;}
+  .ctl-chip{display:inline-flex;align-items:center;gap:6px;background:var(--surface-2);border:1px solid #3A3733;border-radius:20px;padding:6px 12px;margin:0 6px 8px 0;font-size:11.5px;color:var(--chalk-dim);cursor:pointer;font-family:'Inter',sans-serif;}
+  .ctl-chip .ctl-dot{width:8px;height:8px;border-radius:50%;background:var(--ctl-color);flex-shrink:0;}
+  .ctl-chip.active{color:var(--chalk);border-color:var(--ctl-color);}
+  .ctl-chip.off .ctl-dot{opacity:0.35;}
+  .ctl-chip.disabled{opacity:0.4;cursor:default;}
+  .ctl-chip .ctl-val{font-weight:700;color:var(--chalk);}
+  .ctl-chip .ctl-trend{margin-left:1px;}
+  .ctl-chip .ctl-trend.good{color:#5ec98c;}
+  .ctl-chip .ctl-trend.bad{color:#e0574c;}
 
 
   /* Log sub-tabs, calendar, workout editor, and completion */
@@ -340,9 +385,9 @@
   .wod-timer-sub{font-size:11.5px;color:var(--chalk-dim);margin-top:4px;min-height:14px;}
   .wod-timer-controls{display:flex;gap:8px;justify-content:center;margin-top:12px;}
   .wod-timer-controls button{min-width:90px;}
-  .gps-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
-  .gps-stat{background:var(--surface-2);border-radius:4px;padding:12px 6px;text-align:center;}
-  .gps-stat .gps-num{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--plate);}
+  .gps-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
+  .gps-stat{background:var(--surface-2);border-radius:4px;padding:12px 4px;text-align:center;}
+  .gps-stat .gps-num{font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;color:var(--plate);}
   .gps-stat .gps-lbl{font-size:10.5px;color:var(--chalk-dim);margin-top:2px;}
   .round-stepper{display:flex;align-items:center;justify-content:center;gap:14px;background:var(--surface-2);border-radius:4px;padding:10px;margin:10px 0 2px;}
   .round-step-btn{width:34px;height:34px;border-radius:4px;background:var(--bg);border:1px solid var(--plate);color:var(--plate);font-size:18px;font-weight:700;line-height:1;flex-shrink:0;}
@@ -419,10 +464,11 @@
     <button class="tab-btn" data-tab="nutrition">Nutrition</button>
     <button class="tab-btn" data-tab="steps">Cardio</button>
     <button class="tab-btn" data-tab="progress">Progress</button>
-    <button class="tab-btn" data-tab="reviews">Reviews</button>
     <button class="tab-btn" data-tab="community">Community</button>
     <button class="tab-btn" data-tab="account">Account</button>
     <button class="tab-btn" data-tab="share">Share</button>
+    <!-- Not shown in the bottom nav on purpose — reached only via the "Private training" row on the Account tab. -->
+    <button class="tab-btn" data-tab="private" style="display:none;">Private</button>
   </div>
 
   <div class="tab-panel active" id="tab-log">
@@ -570,6 +616,10 @@
         <button class="add-btn" id="completeWorkoutBtn">Complete workout</button>
         <div class="parse-status" id="completeMessage"></div>
       </div>
+      <div class="card" id="completeVolumeCard" style="display:none;">
+        <h2>This session's volume</h2>
+        <div id="completeVolumeSummary"></div>
+      </div>
       <div class="card">
         <h2>Completed workouts</h2>
         <div id="completionHistory"></div>
@@ -611,6 +661,16 @@
         <option value="Kelly">
         <option value="Lynne">
         <option value="Nicole">
+        <option value="Amanda">
+        <option value="Nasty Girls">
+        <option value="Frelen">
+        <option value="Grettel">
+        <option value="Ingrid">
+        <option value="Barbara Ann">
+        <option value="Lyla">
+        <option value="Ellen">
+        <option value="Andi">
+        <option value="Lane">
         <!-- CrossFit Hero WODs -->
         <option value="Murph">
         <option value="DT">
@@ -622,6 +682,24 @@
         <option value="Jason">
         <option value="Badger">
         <option value="Tommy V">
+        <option value="Nate">
+        <option value="Hansen">
+        <option value="Erin">
+        <option value="The Seven">
+        <option value="Arnie">
+        <option value="Ryan">
+        <option value="Forrest">
+        <option value="Wittman">
+        <option value="Jack">
+        <option value="Bull">
+        <option value="White">
+        <option value="Tyler">
+        <option value="Danny">
+        <option value="Nutts">
+        <option value="Paul">
+        <option value="Griff">
+        <option value="Rankel">
+        <option value="McGhee">
         <!-- CrossFit Open / other well-known WODs -->
         <option value="The Chief">
         <option value="Fight Gone Bad">
@@ -719,8 +797,10 @@
 
   <div class="tab-panel" id="tab-weight">
     <div class="card">
-      <h2>BMI</h2>
+      <h2>Body Composition &amp; BMI</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">BMI alone can't tell fat loss from muscle loss. Log weight here for BMI, and fat %, fat mass and muscle mass below from an InBody scan, a smart scale, a tape-measure estimate, or any other source — then watch them together in the combined trend below.</div>
       <div class="bmi-readout" id="bmiReadout"></div>
+      <div class="bmi-gauge-wrap" id="bmiGaugeWrap"></div>
       <div class="plan-name-row">
         <div class="num-row" style="margin-bottom:0;">
           <input type="number" id="heightFeetInput" placeholder="Height (ft)" inputmode="numeric">
@@ -744,10 +824,8 @@
         <input type="number" id="weightValueInput" placeholder="Weight (lb)" inputmode="decimal">
       </div>
       <button class="add-btn" id="weightAddBtn">Add weight</button>
-    </div>
-    <div class="card">
-      <h2>Body Composition</h2>
-      <div class="parse-status" style="margin:-4px 0 12px 0;">BMI alone can't tell fat loss from muscle loss. Log fat %, fat mass and muscle mass from an InBody scan, a smart scale, a tape-measure estimate, or any other source, and trend them separately.</div>
+
+      <div class="edit-hint" style="margin-top:18px;">Body composition entry</div>
       <div class="cardio-toggle" id="bodyCompSourceToggle">
         <button class="active" data-source="inbody">InBody</button>
         <button data-source="smart-scale">Smart Scale</button>
@@ -803,7 +881,17 @@
       <button class="add-btn" id="bodyCompAddBtn">Save entry</button>
       <div class="parse-status" id="bodyCompStatus"></div>
 
-      <div class="cardio-toggle" id="bodyCompChartToggle" style="margin-top:18px;">
+      <div class="edit-hint" style="margin-top:20px;">Combined trend — BMI, body fat %, muscle mass, steps</div>
+      <div class="parse-status" style="margin:-4px 0 10px 0;">Each line is scaled to its own range so you can compare trend direction and shape at a glance — tap a chip to show/hide it; actual latest values are on the chips themselves.</div>
+      <div class="ctl-chip-row" id="combinedTrendLegend"></div>
+      <div class="chart-wrap" id="combinedTrendChartWrap"></div>
+
+      <div class="edit-hint" style="margin-top:20px;">Composition snapshot</div>
+      <div class="parse-status" style="margin:-4px 0 10px 0;">Your latest logged entry, as a share of total weight — fat mass, muscle mass and everything else (bone, water, organs) are real parts of one whole, which is why this works as a donut (BMI itself doesn't — it's a single number on a range, not parts of a whole, so it's a gauge above instead).</div>
+      <div id="bodyCompDonutWrap"></div>
+
+      <div class="edit-hint" style="margin-top:20px;">Single-metric detail</div>
+      <div class="cardio-toggle" id="bodyCompChartToggle" style="margin-top:10px;">
         <button class="active" data-metric="bodyFatPercent">Fat %</button>
         <button data-metric="fatMass">Fat mass</button>
         <button data-metric="muscleMass">Muscle mass</button>
@@ -907,18 +995,33 @@
   <div class="tab-panel" id="tab-steps">
     <div class="card">
       <h2>Track a run live (GPS)</h2>
-      <div class="parse-status" style="margin:-4px 0 12px 0;" id="gpsIntroText">Uses your phone's location to track distance and pace in real time — works best outdoors with a clear sky view. Needs to be served over https (GitHub Pages is fine); it won't work opening the file directly.</div>
+      <div class="parse-status" style="margin:-4px 0 12px 0;" id="gpsIntroText">Uses your phone's location to track distance, pace, and elevation in real time — works best outdoors with a clear sky view. Needs to be served over https (GitHub Pages is fine); it won't work opening the file directly.</div>
       <div id="gpsIdleView">
-        <button class="add-btn" id="gpsStartBtn">▶ Start GPS run</button>
+        <div class="cardio-toggle" id="gpsActivityToggle">
+          <button class="active" data-gpstype="run">Run</button>
+          <button data-gpstype="walk">Walk</button>
+        </div>
+        <button class="add-btn" id="gpsStartBtn">▶ Start GPS tracking</button>
       </div>
       <div id="gpsTrackingView" style="display:none;">
         <div class="gps-stats" id="gpsTrackerStats"></div>
+        <svg id="gpsRouteSvg" viewBox="0 0 300 220" style="width:100%;height:auto;border-radius:4px;margin-bottom:10px;display:block;background:var(--surface-2);"></svg>
         <div class="parse-status" id="gpsStatus"></div>
         <div class="plan-form-actions">
           <button class="add-btn" id="gpsStopSaveBtn">Stop &amp; save</button>
           <button class="cancel-edit-btn" id="gpsDiscardBtn">Discard</button>
         </div>
       </div>
+    </div>
+    <div class="card" id="gpsSavedSummaryCard" style="display:none;">
+      <h2>Activity saved</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Where this went:</div>
+      <div id="gpsSavedSummaryList"></div>
+    </div>
+    <div class="card" id="gpsActivityLogCard">
+      <h2>Activity log</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Saved runs and walks with a route sketch, mile splits, GPX export, and an optional privacy zone that hides the first and last 0.2 mi of the route — handy if your runs start or end at home.</div>
+      <div id="gpsActivityList"></div>
     </div>
     <div class="card">
       <h2>Steps</h2>
@@ -970,6 +1073,41 @@
 
   <div class="tab-panel" id="tab-progress">
     <div class="card">
+      <h2>Overall progress</h2>
+      <div class="pr-grid" id="overallProgressGrid"></div>
+      <div id="overallProgressAdherence" style="margin-top:10px;"></div>
+    </div>
+    <div class="card">
+      <h2>Strength &amp; cardio</h2>
+      <div class="cardio-toggle" id="progressPeriodToggle">
+        <button class="active" data-period="week">Week</button>
+        <button data-period="month">4 weeks</button>
+      </div>
+      <div class="cardio-toggle" id="progressSectionToggle">
+        <button class="active" data-section="strength">Strength</button>
+        <button data-section="cardio">Cardio</button>
+      </div>
+      <div id="progressStrengthPanel"></div>
+      <div id="progressCardioPanel" style="display:none;"></div>
+    </div>
+    <div class="card">
+      <h2>Suggestions</h2>
+      <div id="suggestionsList"></div>
+    </div>
+    <div class="card">
+      <h2>Rate a workout</h2>
+      <div class="form-row"><input type="date" id="reviewDateInput"></div>
+      <div class="star-rating" id="reviewStars">
+        <button type="button" data-star="1">★</button>
+        <button type="button" data-star="2">★</button>
+        <button type="button" data-star="3">★</button>
+        <button type="button" data-star="4">★</button>
+        <button type="button" data-star="5">★</button>
+      </div>
+      <div class="form-row"><textarea class="notes-textarea" id="reviewNotesInput" placeholder="How did it feel? What would you change next time?"></textarea></div>
+      <button class="add-btn" id="reviewSaveBtn" style="margin-top:10px;">Save review</button>
+    </div>
+    <div class="card">
       <h2>Exercise progress</h2>
       <div class="form-row"><select class="plan-type-select" id="progressExerciseSelect" style="margin-bottom:0;"></select></div>
     </div>
@@ -985,28 +1123,8 @@
       <h2>History</h2>
       <div id="progressHistoryList"></div>
     </div>
-  </div>
-
-  <div class="tab-panel" id="tab-reviews">
     <div class="card">
-      <h2>Rate a workout</h2>
-      <div class="form-row"><input type="date" id="reviewDateInput"></div>
-      <div class="star-rating" id="reviewStars">
-        <button type="button" data-star="1">★</button>
-        <button type="button" data-star="2">★</button>
-        <button type="button" data-star="3">★</button>
-        <button type="button" data-star="4">★</button>
-        <button type="button" data-star="5">★</button>
-      </div>
-      <div class="form-row"><textarea class="notes-textarea" id="reviewNotesInput" placeholder="How did it feel? What would you change next time?"></textarea></div>
-      <button class="add-btn" id="reviewSaveBtn" style="margin-top:10px;">Save review</button>
-    </div>
-    <div class="card">
-      <h2>Suggestions</h2>
-      <div id="suggestionsList"></div>
-    </div>
-    <div class="card">
-      <h2>Past reviews</h2>
+      <h2>Workout reviews</h2>
       <div id="reviewsList"></div>
     </div>
   </div>
@@ -1014,10 +1132,15 @@
   <div class="tab-panel" id="tab-account">
     <div class="card" id="firebaseSetupCard">
       <h2>Connect Firebase</h2>
-      <div class="parse-status" style="margin:-4px 0 12px 0;">Paste the <code>firebaseConfig</code> object from your Firebase project's web app settings (Project settings → your app → SDK setup and configuration). This is stored only on this device — you'll paste it again on your other devices, but you only sign up/log in once per account.</div>
-      <div class="form-row"><textarea class="notes-textarea" id="firebaseConfigInput" placeholder='{&#10;  "apiKey": "...",&#10;  "authDomain": "...",&#10;  "projectId": "...",&#10;  ...&#10;}' style="min-height:120px;font-family:monospace;font-size:12px;"></textarea></div>
-      <button class="add-btn" id="firebaseConfigSaveBtn">Save &amp; connect</button>
-      <div class="parse-status" id="firebaseConfigStatus"></div>
+      <div id="firebaseSetupForm">
+        <div class="parse-status" style="margin:-4px 0 12px 0;">Paste the <code>firebaseConfig</code> object from your Firebase project's web app settings (Project settings → your app → SDK setup and configuration). This is stored only on this device — you'll paste it again on your other devices, but you only sign up/log in once per account.</div>
+        <div class="form-row"><textarea class="notes-textarea" id="firebaseConfigInput" placeholder='{&#10;  "apiKey": "...",&#10;  "authDomain": "...",&#10;  "projectId": "...",&#10;  ...&#10;}' style="min-height:120px;font-family:monospace;font-size:12px;"></textarea></div>
+        <button class="add-btn" id="firebaseConfigSaveBtn">Save &amp; connect</button>
+        <div class="parse-status" id="firebaseConfigStatus"></div>
+      </div>
+      <div id="firebaseSetupBrokenNotice" style="display:none;">
+        <div class="parse-status">Accounts aren't available right now — something's misconfigured on our end. Everything else in the app still works offline and saves normally on this device; try again later or let whoever set this up know.</div>
+      </div>
     </div>
 
     <div class="card" id="accountLoggedOutCard" style="display:none;">
@@ -1043,15 +1166,34 @@
         <button class="cancel-edit-btn" id="authLogoutBtn">Log out</button>
       </div>
     </div>
+
+    <div class="card">
+      <h2>Private training</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Optional, off by default — a daily energy check-in and lighter-day workout suggestions, kept separate from the rest of the app. Opens on its own screen.</div>
+      <button class="cancel-edit-btn" id="openPrivateTrainingBtn">Open Private training</button>
+    </div>
   </div>
 
   <div class="tab-panel" id="tab-community">
     <div class="card" id="communityLoggedOutNotice" style="display:none;">
       <h2>Community</h2>
-      <div class="parse-status">Log in from the Account tab to share wins and see what others are posting.</div>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Community is optional and needs a free account so posts can be matched to a name and synced between everyone in the group. Nothing here affects your personal tracking — Log, BMI, Nutrition, etc. all keep working fully offline either way.</div>
+      <div class="install-steps">
+        <div class="install-os">
+          <div class="install-os-title">How to get in</div>
+          <ol>
+            <li>Open the <strong>Account</strong> tab.</li>
+            <li>The first time anyone uses this, <strong>Sign up</strong> with an email and a password (6+ characters) — this is your own personal login, not shared with coworkers.</li>
+            <li>Already have an account from another device? Use <strong>Log in</strong> instead with the same email and password.</li>
+            <li>Once logged in, come back to this Community tab — Share a win, the Feed, Leaderboard, and Group Challenge all unlock automatically.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="parse-status">Logging in only connects this device to your account for syncing and community features — your workout data stays private to you unless you choose to post it here.</div>
     </div>
     <div class="card" id="communityComposerCard" style="display:none;">
       <h2>Share a win</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Posts here go into the public Feed below, visible to everyone logged in to the app — not just a specific team. Pick <strong>Personal record</strong> for a new PR, <strong>Workout / WOD</strong> for how a session went, or <strong>General</strong> for anything else (a milestone, a question, encouragement). Title is required; details are optional but give people context to react to.</div>
       <select class="plan-type-select" id="communityTypeInput">
         <option value="pr">Personal record</option>
         <option value="wod">Workout / WOD</option>
@@ -1064,6 +1206,7 @@
     </div>
     <div class="card" id="leaderboardPostCard" style="display:none;">
       <h2>Post a benchmark time</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Posts a time to the shared Leaderboard below for a named benchmark WOD (Fran, Murph, etc.) — pick one from the list, or choose <strong>Other</strong> to type in a custom WOD name. Enter your time as <strong>mm:ss</strong> (e.g. "4:32" for 4 minutes 32 seconds). Every post you submit stays on the board, so post your best time, not every attempt — there's no overwrite or edit, only new entries.</div>
       <div class="num-row">
         <select class="plan-type-select" id="leaderboardWodPostSelect" style="margin-bottom:0;"></select>
         <input type="text" id="leaderboardTimeInput" placeholder="mm:ss" inputmode="numeric" style="max-width:100px;">
@@ -1074,12 +1217,54 @@
     </div>
     <div class="card" id="leaderboardViewCard" style="display:none;">
       <h2>Leaderboard</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Use the dropdown to switch which benchmark WOD you're viewing. Fastest time ranks #1; the top 10 posted times for that WOD are shown.</div>
       <div class="form-row"><select class="plan-type-select" id="leaderboardWodSelect" style="margin-bottom:0;"></select></div>
       <div id="leaderboardList"></div>
     </div>
     <div class="card" id="communityFeedCard" style="display:none;">
       <h2>Feed</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Everyone's shared wins, newest first. Tap 👍 on a post to give kudos — tap again to take it back. Nothing you post here is private; only share what you're comfortable with coworkers or other users seeing.</div>
       <div id="communityFeedList"></div>
+    </div>
+
+    <div class="card" id="challengeSetupCard" style="display:none;">
+      <h2>Group Challenge</h2>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Create or join a private body-composition challenge with coworkers. Only your <strong>% body fat change</strong> and <strong>fat mass lost</strong> since you joined are ever shared with the group — your actual weight, body fat %, and BMI never leave this device.</div>
+      <div class="install-steps">
+        <div class="install-os">
+          <div class="install-os-title">Starting a new challenge</div>
+          <ol>
+            <li>Type a name (e.g. "Q4 Wellness Challenge") and tap <strong>Create a challenge</strong>.</li>
+            <li>You'll get a 6-character <strong>join code</strong> — it appears at the top of the challenge once it's created.</li>
+            <li>Send that code to coworkers however you'd normally share a code (Slack, text, email). Anyone with the code can join — there's no separate invite list to manage.</li>
+            <li>You're automatically a member of the challenge you create, same as anyone who joins with the code.</li>
+          </ol>
+        </div>
+        <div class="install-os">
+          <div class="install-os-title">Joining a coworker's challenge</div>
+          <ol>
+            <li>Get the join code from whoever created it.</li>
+            <li>Type the code into the <strong>Join code</strong> field (not case-sensitive) and tap <strong>Join with code</strong>.</li>
+            <li>You can only be in one challenge at a time — leave your current one first if you want to switch.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="form-row"><input type="text" id="challengeNameInput" placeholder="Challenge name (e.g. Q4 Wellness Challenge)" autocomplete="off"></div>
+      <button class="add-btn" id="challengeCreateBtn">Create a challenge</button>
+      <div class="form-row" style="margin-top:16px;"><input type="text" id="challengeJoinCodeInput" placeholder="Join code from a coworker" autocomplete="off" style="text-transform:uppercase;"></div>
+      <button class="cancel-edit-btn" id="challengeJoinBtn">Join with code</button>
+      <div class="parse-status" id="challengeSetupStatus"></div>
+    </div>
+
+    <div class="card" id="challengeActiveCard" style="display:none;">
+      <h2 id="challengeActiveTitle">Group Challenge</h2>
+      <div class="parse-status" id="challengeJoinCodeLabel" style="margin:-4px 0 12px 0;"></div>
+      <div class="parse-status" id="challengeBaselineStatus" style="margin-bottom:12px;"></div>
+      <div class="parse-status" id="challengeRankingNote" style="margin-bottom:12px;"></div>
+      <div id="challengeMetricPicker" style="margin-bottom:14px;"></div>
+      <div id="challengeLeaderboard"></div>
+      <button class="cancel-edit-btn" id="challengeLeaveBtn" style="margin-top:14px;">Leave challenge</button>
+      <div class="parse-status" id="challengeActiveStatus">Leaving removes you from the dashboard and stops sharing your changes — your logged body composition data itself is untouched and stays right here on your device.</div>
     </div>
   </div>
 
@@ -1172,6 +1357,22 @@
     </div>
   </div>
 
+  <div class="tab-panel" id="tab-private">
+    <div class="card">
+      <div class="header" style="margin-bottom:10px;">
+        <h2 style="margin:0;">Private training</h2>
+        <button class="small-btn" id="privateBackBtn">← Back to Account</button>
+      </div>
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Off by default. Nothing here is shared with coworkers, Community, or anyone you share progress with — not even whether you use it.</div>
+      <div class="cardio-toggle" id="privateViewToggle">
+        <button class="active" data-privateview="today">Today</button>
+        <button data-privateview="settings">Settings</button>
+      </div>
+    </div>
+    <div id="privateTodayView"></div>
+    <div id="privateSettingsView" style="display:none;"></div>
+  </div>
+
   <div class="footer-note">Saved automatically on this device.</div>
 </div>
 
@@ -1195,7 +1396,7 @@ const appStorage = {
     }catch(e){ return null; }
   }
 };
-const KEYS = { entries:'entries', plan:'plan', weight:'bodyweight', planNames:'planNames', sessionTimer:'sessionTimer', planLinks:'planLinks', planRounds:'planRounds', planTypes:'planTypes', planTimeCap:'planTimeCap', planWods:'planWods', roundCompletions:'roundCompletions', cardioPlans:'cardioPlans', wodSchedule:'wodSchedule', reviews:'reviews', stepsLog:'stepsLog', caloriesLog:'caloriesLog', nutritionPrefs:'nutritionPrefs', height:'height', profile:'profile', completions:'completions', bodyComp:'bodyComp' };
+const KEYS = { entries:'entries', plan:'plan', weight:'bodyweight', planNames:'planNames', sessionTimer:'sessionTimer', planLinks:'planLinks', planRounds:'planRounds', planTypes:'planTypes', planTimeCap:'planTimeCap', planWods:'planWods', roundCompletions:'roundCompletions', cardioPlans:'cardioPlans', wodSchedule:'wodSchedule', reviews:'reviews', stepsLog:'stepsLog', caloriesLog:'caloriesLog', nutritionPrefs:'nutritionPrefs', height:'height', profile:'profile', completions:'completions', bodyComp:'bodyComp', activeChallenge:'activeChallenge', lastBackupAt:'lastBackupAt', gpsActivities:'gpsActivities', cycleSettings:'cycleSettings', cycleCheckins:'cycleCheckins' };
 let entries = [];
 let plan = {};      // { Sun:[{id,name,type,weight,reps,runDistance,runUnit,restSeconds,wodId}], Mon:[...], ... } — movements, tagged with which WOD block (wodId) they belong to
 let planNames = {}; // legacy, single-WOD-per-day — kept only as a migration source into planWods, mirrors first WOD of the day going forward
@@ -1226,6 +1427,30 @@ const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 let selectedPlanDay = DAY_NAMES[new Date().getDay()];
 let cardioActivitySel = 'run';
 let cardioTargetSel = 'distance';
+// Group Challenge — a private, coworker-scoped body-composition challenge.
+// Stored locally only: { id, name, joinCode, joinedAt, baselineBodyFatPercent, baselineFatMass, baselineDate }.
+// The baseline numbers never leave this device — only the *change* since baseline is ever pushed to Firestore.
+let activeChallenge = null;
+let challengeMembersCache = []; // [{id (uid), displayName, bodyFatPercentChange, fatMassChange, updatedAt}]
+let unsubChallenge = null;
+let unsubChallengeDoc = null;
+let challengeSyncTimer = null;
+// This app only saves to THIS device/browser — there's no account by default.
+// Clearing this browser's site data (a common "try clearing your cache" fix,
+// or switching phones) wipes it. lastBackupAt just powers a gentle reminder
+// to export a backup file periodically, which is the only thing that survives that.
+let lastBackupAt = null;
+// GPS run/walk activities (Cardio tab). Each: {id,date,type,distanceMi,durationSeconds,
+// route:[{lat,lon}], elevGainFt, splits:[secPerMile...], privacyZone, endedAt}.
+// Syncs through the same Firebase user-doc mechanism as everything else.
+let gpsActivities = [];
+// Private cycle-aware training (Account tab). Off by default. Syncs through the same
+// Firebase user-doc mechanism as everything else — under this user's own doc, same as
+// the rest of the app's data (see firestore.rules: users/{uid} is private to that uid).
+let cycleSettings = { enabled: false, lastPeriodStart: '', cycleLength: 28, pinHash: null, pinSalt: null };
+let cycleCheckins = {}; // { '2026-10-03': { energy: 1-5, accepted: true|false|null } }
+let cycleUnlocked = false; // this device's session only — never persisted
+let cycleView = 'today'; // 'today' | 'settings'
 
 /* ---------- persistence ---------- */
 async function loadAll(){
@@ -1250,18 +1475,24 @@ async function loadAll(){
   try{ const r = await appStorage.get(KEYS.nutritionPrefs); nutritionPrefs = r ? { goal:'maintain', activity:'1.55', ...JSON.parse(r.value) } : { goal:'maintain', activity:'1.55' }; }catch(e){ nutritionPrefs = { goal:'maintain', activity:'1.55' }; }
   try{ const r = await appStorage.get(KEYS.weight); weights = r ? JSON.parse(r.value) : []; }catch(e){ weights = []; }
   try{ const r = await appStorage.get(KEYS.bodyComp); bodyComp = r ? JSON.parse(r.value) : []; }catch(e){ bodyComp = []; }
+  try{ const r = await appStorage.get(KEYS.activeChallenge); activeChallenge = r ? JSON.parse(r.value) : null; }catch(e){ activeChallenge = null; }
+  try{ const r = await appStorage.get(KEYS.lastBackupAt); lastBackupAt = r ? r.value : null; }catch(e){ lastBackupAt = null; }
   try{ const r = await appStorage.get(KEYS.stepsLog); stepsLog = r ? JSON.parse(r.value) : []; }catch(e){ stepsLog = []; }
   try{ const r = await appStorage.get(KEYS.caloriesLog); caloriesLog = r ? JSON.parse(r.value) : []; }catch(e){ caloriesLog = []; }
   try{ const r = await appStorage.get(KEYS.height); height = r ? JSON.parse(r.value) : { feet: null, inches: null }; }catch(e){ height = { feet: null, inches: null }; }
   try{ const r = await appStorage.get(KEYS.profile); profile = r ? JSON.parse(r.value) : { age: null, gender: '' }; }catch(e){ profile = { age: null, gender: '' }; }
   try{ const r = await appStorage.get(KEYS.completions); completions = r ? JSON.parse(r.value) : []; }catch(e){ completions = []; }
+  try{ const r = await appStorage.get(KEYS.gpsActivities); gpsActivities = r ? JSON.parse(r.value) : []; }catch(e){ gpsActivities = []; }
+  try{ const r = await appStorage.get(KEYS.cycleSettings); cycleSettings = r ? { enabled:false, lastPeriodStart:'', cycleLength:28, pinHash:null, pinSalt:null, ...JSON.parse(r.value) } : { enabled:false, lastPeriodStart:'', cycleLength:28, pinHash:null, pinSalt:null }; }catch(e){ cycleSettings = { enabled:false, lastPeriodStart:'', cycleLength:28, pinHash:null, pinSalt:null }; }
+  try{ const r = await appStorage.get(KEYS.cycleCheckins); cycleCheckins = r ? JSON.parse(r.value) : {}; }catch(e){ cycleCheckins = {}; }
   try{
     const r = await appStorage.get(KEYS.sessionTimer);
     sessionTimer = r ? JSON.parse(r.value) : null;
     if(!sessionTimer || sessionTimer.date !== todayStr()){
-      sessionTimer = { date: todayStr(), elapsedSeconds: 0, running: false, startedAt: null };
+      sessionTimer = { date: todayStr(), elapsedSeconds: 0, running: false, startedAt: null, stopped: false };
     }
-  }catch(e){ sessionTimer = { date: todayStr(), elapsedSeconds: 0, running: false, startedAt: null }; }
+    if(sessionTimer.stopped == null) sessionTimer.stopped = false; // older saved timers predate the Complete-freezes-it fix
+  }catch(e){ sessionTimer = { date: todayStr(), elapsedSeconds: 0, running: false, startedAt: null, stopped: false }; }
   renderAll();
   initSessionTimerDisplay();
 }
@@ -1340,12 +1571,17 @@ async function saveReviews(){ try{ await appStorage.set(KEYS.reviews, JSON.strin
 async function saveNutritionPrefs(){ try{ await appStorage.set(KEYS.nutritionPrefs, JSON.stringify(nutritionPrefs)); }catch(e){} }
 async function saveWeights(){ try{ await appStorage.set(KEYS.weight, JSON.stringify(weights)); }catch(e){} }
 async function saveBodyComp(){ try{ await appStorage.set(KEYS.bodyComp, JSON.stringify(bodyComp)); }catch(e){} }
+async function saveActiveChallenge(){ try{ await appStorage.set(KEYS.activeChallenge, JSON.stringify(activeChallenge)); }catch(e){} }
+async function saveLastBackupAt(){ try{ await appStorage.set(KEYS.lastBackupAt, lastBackupAt); }catch(e){} }
 async function saveStepsLog(){ try{ await appStorage.set(KEYS.stepsLog, JSON.stringify(stepsLog)); }catch(e){} }
 async function saveCaloriesLog(){ try{ await appStorage.set(KEYS.caloriesLog, JSON.stringify(caloriesLog)); }catch(e){} }
 async function saveHeight(){ try{ await appStorage.set(KEYS.height, JSON.stringify(height)); }catch(e){} }
 async function saveProfile(){ try{ await appStorage.set(KEYS.profile, JSON.stringify(profile)); }catch(e){} }
 async function saveCompletions(){ try{ await appStorage.set(KEYS.completions, JSON.stringify(completions)); }catch(e){} }
 async function saveSessionTimer(){ try{ await appStorage.set(KEYS.sessionTimer, JSON.stringify(sessionTimer)); }catch(e){} }
+async function saveGpsActivities(){ try{ await appStorage.set(KEYS.gpsActivities, JSON.stringify(gpsActivities)); }catch(e){} }
+async function saveCycleSettings(){ try{ await appStorage.set(KEYS.cycleSettings, JSON.stringify(cycleSettings)); }catch(e){} }
+async function saveCycleCheckins(){ try{ await appStorage.set(KEYS.cycleCheckins, JSON.stringify(cycleCheckins)); }catch(e){} }
 
 /* ---------- helpers ---------- */
 function todayStr(){ return new Date().toLocaleDateString('en-CA'); }
@@ -1382,6 +1618,69 @@ function formatSecondsToTime(total){
   if(h > 0) return `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
   return `${m}:${String(s).padStart(2,'0')}`;
 }
+function formatActiveHM(sec){
+  const mins = Math.max(0, Math.round((sec || 0) / 60));
+  const h = Math.floor(mins / 60), m = mins % 60;
+  return h ? `${h}h ${String(m).padStart(2,'0')}m` : `${m}m`;
+}
+
+/* ---------- load & distance comparisons (elephants, whales, Manhattan) ----------
+   Ratio math and ladder thresholds ported as-is from the reference pack's btp-data.js
+   (LADDER / compare() / compareText() / AVG_LADDER / avgCompare()) and btp-progress.html's
+   renderCardio() (MANHATTAN_MI constant + ratio text). The reference pack's inline SVG
+   elephant/whale/bowling-ball artwork was intentionally NOT ported — replaced below with a
+   plain dot-row using this app's own --plate/--chalk-dim palette, per the brief. */
+const LOAD_LADDER = [
+  { key:'bear', name:'grizzly bear', plural:'grizzly bears', lb:600 },
+  { key:'car', name:'Smart car', plural:'Smart cars', lb:2000 },
+  { key:'hippo', name:'hippo', plural:'hippos', lb:3500 },
+  { key:'truck', name:'pickup truck', plural:'pickup trucks', lb:5000 },
+  { key:'elephant', name:'African elephant', plural:'African elephants', lb:12000 },
+  { key:'trex', name:'T. rex', plural:'T. rexes', lb:18000 },
+  { key:'whale', name:'humpback whale', plural:'humpback whales', lb:70000 }
+];
+const AVG_LOAD_LADDER = [
+  { lb:15, name:'a bowling ball' }, { lb:30, name:'a corgi' }, { lb:70, name:'a Labrador retriever' },
+  { lb:130, name:'a Great Dane' }, { lb:250, name:'a refrigerator' }
+];
+const MANHATTAN_MI = 13.4;
+// Elephant is the default rung. If the total is far from one elephant, pick whichever
+// rung the ratio lands closest to — ratio-driven, so a big enough 4-week total naturally
+// reaches "whale" without any period-specific special-casing.
+function compareLoadToLadder(totalLb){
+  if(!(totalLb > 0)) return null;
+  const elephant = LOAD_LADDER[4];
+  let r = totalLb / elephant.lb, pick = elephant;
+  if(r < 0.8 || r > 8){
+    let bestD = Infinity;
+    LOAD_LADDER.forEach(it => {
+      const d = Math.abs(Math.log((totalLb / it.lb) / 3));
+      if(d < bestD){ bestD = d; pick = it; }
+    });
+  }
+  return { item: pick, ratio: totalLb / pick.lb };
+}
+function compareLoadText(c){
+  const r = Math.max(0.1, c.ratio), t = r.toFixed(1);
+  return `Like lifting ${t} ${t === '1.0' ? c.item.name : c.item.plural}`;
+}
+function avgLoadCompare(avgLb){
+  let pick = AVG_LOAD_LADDER[0], bestD = Infinity;
+  AVG_LOAD_LADDER.forEach(it => {
+    const d = Math.abs(Math.log(Math.max(avgLb, 1) / it.lb));
+    if(d < bestD){ bestD = d; pick = it; }
+  });
+  return pick.name;
+}
+// Simple dot-row visual standing in for the reference pack's icon row: one square dot per
+// whole unit (capped at 8) plus a partial dot sized to the remaining fraction.
+function loadUnitsHTML(ratio, color){
+  const whole = Math.floor(ratio), frac = ratio - whole, full = Math.min(8, whole);
+  let out = '';
+  for(let i=0;i<full;i++) out += `<span class="cmp-dot" style="background:${color};"></span>`;
+  if(frac >= 0.04 && whole < 8) out += `<span class="cmp-dot" style="background:${color};opacity:${Math.max(.15, frac).toFixed(2)};"></span>`;
+  return `<div class="cmp-dots">${out}</div>`;
+}
 document.getElementById('logTypeInput').addEventListener('change', (ev) => {
   const isCardio = ev.target.value === 'cardio';
   document.getElementById('logStrengthFields').style.display = isCardio ? 'none' : 'flex';
@@ -1390,14 +1689,17 @@ document.getElementById('logTypeInput').addEventListener('change', (ev) => {
 });
 
 /* ---------- tabs ---------- */
+function switchToTab(name){
+  const btn = document.querySelector(`.tab-btn[data-tab="${name}"]`);
+  if(!btn) return;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+  renderAll();
+}
 document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
-    renderAll(); // re-render everything so every tab reflects the latest data, not just whatever was current at last edit
-  });
+  btn.addEventListener('click', () => switchToTab(btn.dataset.tab));
 });
 
 /* ---------- rest timer ---------- */
@@ -1556,7 +1858,10 @@ document.querySelectorAll('#tabataConfig input').forEach(el => {
 resetTabataTimer();
 
 /* ---------- session stopwatch ---------- */
-let sessionTimer = { date: todayStr(), elapsedSeconds: 0, running: false, startedAt: null };
+// `stopped` is permanent once the workout is marked Complete (see completeWorkoutBtn
+// handler below) — start()/resume() become no-ops until the timer is reset for a new
+// workout. This is what makes the "timer keeps running after Complete" bug impossible.
+let sessionTimer = { date: todayStr(), elapsedSeconds: 0, running: false, startedAt: null, stopped: false };
 let sessionTickInterval = null;
 
 function currentSessionSeconds(){
@@ -1570,17 +1875,37 @@ function renderSessionDisplay(){
   const h = Math.floor(total/3600), m = Math.floor((total%3600)/60), s = total%60;
   document.getElementById('sessionTimerDisplay').textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
   document.getElementById('sessionTimerDisplay').classList.toggle('running', sessionTimer.running);
+  const startBtn = document.getElementById('sessionStartBtn');
+  startBtn.disabled = sessionTimer.stopped;
+  startBtn.style.opacity = sessionTimer.stopped ? '.5' : '1';
+  if(sessionTimer.stopped) startBtn.textContent = 'Workout completed';
 }
 function initSessionTimerDisplay(){
   renderSessionDisplay();
-  document.getElementById('sessionStartBtn').textContent = sessionTimer.running ? 'Pause' : 'Start';
-  if(sessionTimer.running) startSessionTick();
+  if(!sessionTimer.stopped){
+    document.getElementById('sessionStartBtn').textContent = sessionTimer.running ? 'Pause' : 'Start';
+    if(sessionTimer.running) startSessionTick();
+  }
 }
 function startSessionTick(){
   clearInterval(sessionTickInterval);
   sessionTickInterval = setInterval(renderSessionDisplay, 1000);
 }
+// Freezes the session timer for good — called from the Complete button handler.
+// After this, start()/resume() (below) do nothing until sessionResetBtn starts a new one.
+function stopSessionTimerPermanently(){
+  if(sessionTimer.running){
+    sessionTimer.elapsedSeconds = currentSessionSeconds();
+    sessionTimer.running = false;
+    sessionTimer.startedAt = null;
+    clearInterval(sessionTickInterval);
+  }
+  sessionTimer.stopped = true;
+  renderSessionDisplay();
+  saveSessionTimer();
+}
 document.getElementById('sessionStartBtn').addEventListener('click', () => {
+  if(sessionTimer.stopped) return; // permanent once a workout is marked Complete
   if(sessionTimer.running){
     sessionTimer.elapsedSeconds = currentSessionSeconds();
     sessionTimer.running = false;
@@ -1598,7 +1923,7 @@ document.getElementById('sessionStartBtn').addEventListener('click', () => {
 });
 document.getElementById('sessionResetBtn').addEventListener('click', () => {
   clearInterval(sessionTickInterval);
-  sessionTimer = { date: todayStr(), elapsedSeconds: 0, running: false, startedAt: null };
+  sessionTimer = { date: todayStr(), elapsedSeconds: 0, running: false, startedAt: null, stopped: false };
   document.getElementById('sessionStartBtn').textContent = 'Start';
   renderSessionDisplay();
   saveSessionTimer();
@@ -1668,8 +1993,23 @@ function updateExerciseSuggestHint(){
   }
 }
 document.getElementById('exerciseInput').addEventListener('input', updateExerciseSuggestHint);
+// A day counts toward the streak if ANYTHING was logged that day — not just a
+// strength/cardio set. Logging steps, a body comp entry, a meal, or finishing
+// a session all count. Narrowing this to "entries" only was why the streak
+// could look like it reset even on days you were actually active in the app.
+function allActiveDates(){
+  const dates = new Set();
+  entries.forEach(e => { if(e.date) dates.add(e.date); });
+  weights.forEach(w => { if(w.date) dates.add(w.date); });
+  bodyComp.forEach(b => { if(b.date) dates.add(b.date); });
+  stepsLog.forEach(s => { if(s.date) dates.add(s.date); });
+  caloriesLog.forEach(c => { if(c.date) dates.add(c.date); });
+  completions.forEach(c => { if(c.date) dates.add(c.date); });
+  cardioPlans.forEach(c => { if(c.completed && c.date) dates.add(c.date); });
+  return dates;
+}
 function computeStreak(){
-  const days = [...new Set(entries.map(e => e.date))].sort().reverse();
+  const days = [...allActiveDates()].sort().reverse();
   if(days.length === 0) return 0;
   const today = todayStr();
   const yesterday = addDaysStr(today, -1);
@@ -2346,9 +2686,13 @@ const EXERCISE_LIBRARY = [
 // (e.g. Fran's 21-15-9) since each round can only hold one target reps value here;
 // tap round 2 / round 3 afterward to edit those rounds down to 15 / 9, etc.
 const WOD_TEMPLATES = {
-  'Fran': { wodType:'fortime', rounds:3, movements:[
+  'Fran': { wodType:'fortime', rounds:1, movements:[
     { name:'Thruster', type:'strength', reps:21 },
-    { name:'Pull-up', type:'reps', reps:21 }
+    { name:'Pull-up', type:'reps', reps:21 },
+    { name:'Thruster', type:'strength', reps:15 },
+    { name:'Pull-up', type:'reps', reps:15 },
+    { name:'Thruster', type:'strength', reps:9 },
+    { name:'Pull-up', type:'reps', reps:9 }
   ]},
   'Grace': { wodType:'fortime', rounds:1, movements:[
     { name:'Clean and Jerk', type:'strength', reps:30 }
@@ -2363,9 +2707,17 @@ const WOD_TEMPLATES = {
     { name:'Push-up', type:'reps', reps:10 },
     { name:'Air Squat', type:'reps', reps:15 }
   ]},
-  'Annie': { wodType:'fortime', rounds:5, movements:[
+  'Annie': { wodType:'fortime', rounds:1, movements:[
     { name:'Double-Unders', type:'reps', reps:50 },
-    { name:'Sit-up', type:'reps', reps:50 }
+    { name:'Sit-up', type:'reps', reps:50 },
+    { name:'Double-Unders', type:'reps', reps:40 },
+    { name:'Sit-up', type:'reps', reps:40 },
+    { name:'Double-Unders', type:'reps', reps:30 },
+    { name:'Sit-up', type:'reps', reps:30 },
+    { name:'Double-Unders', type:'reps', reps:20 },
+    { name:'Sit-up', type:'reps', reps:20 },
+    { name:'Double-Unders', type:'reps', reps:10 },
+    { name:'Sit-up', type:'reps', reps:10 }
   ]},
   'Karen': { wodType:'fortime', rounds:1, movements:[
     { name:'Wall Ball', type:'strength', reps:150 }
@@ -2392,6 +2744,312 @@ const WOD_TEMPLATES = {
     { name:'Push-up', type:'reps', reps:100 },
     { name:'Sit-up', type:'reps', reps:100 },
     { name:'Air Squat', type:'reps', reps:100 }
+  ]},
+  'Diane': { wodType:'fortime', rounds:1, movements:[
+    { name:'Deadlift', type:'strength', reps:21 },
+    { name:'Handstand Push-up', type:'reps', reps:21 },
+    { name:'Deadlift', type:'strength', reps:15 },
+    { name:'Handstand Push-up', type:'reps', reps:15 },
+    { name:'Deadlift', type:'strength', reps:9 },
+    { name:'Handstand Push-up', type:'reps', reps:9 }
+  ]},
+  'Elizabeth': { wodType:'fortime', rounds:1, movements:[
+    { name:'Clean', type:'strength', reps:21 },
+    { name:'Ring Dip', type:'reps', reps:21 },
+    { name:'Clean', type:'strength', reps:15 },
+    { name:'Ring Dip', type:'reps', reps:15 },
+    { name:'Clean', type:'strength', reps:9 },
+    { name:'Ring Dip', type:'reps', reps:9 }
+  ]},
+  'Isabel': { wodType:'fortime', rounds:1, movements:[
+    { name:'Snatch', type:'strength', reps:30 }
+  ]},
+  'Linda': { wodType:'fortime', rounds:10, movements:[
+    { name:'Deadlift', type:'strength', reps:10 },
+    { name:'Bench Press', type:'strength', reps:10 },
+    { name:'Clean', type:'strength', reps:10 }
+  ]},
+  'Mary': { wodType:'amrap', timeCapMin:20, movements:[
+    { name:'Handstand Push-up', type:'reps', reps:5 },
+    { name:'Pistol Squat', type:'reps', reps:10 },
+    { name:'Pull-up', type:'reps', reps:15 }
+  ]},
+  'Nancy': { wodType:'fortime', rounds:5, movements:[
+    { name:'Run', type:'cardio', runDistance:400, runUnit:'m' },
+    { name:'Overhead Squat', type:'strength', reps:15 }
+  ]},
+  'Barbara': { wodType:'fortime', rounds:5, movements:[
+    { name:'Pull-up', type:'reps', reps:20 },
+    { name:'Push-up', type:'reps', reps:30 },
+    { name:'Sit-up', type:'reps', reps:40 },
+    { name:'Air Squat', type:'reps', reps:50 }
+  ]},
+  'Chelsea': { wodType:'emom', timeCapMin:30, movements:[
+    { name:'Pull-up', type:'reps', reps:5 },
+    { name:'Push-up', type:'reps', reps:10 },
+    { name:'Air Squat', type:'reps', reps:15 }
+  ]},
+  'Eva': { wodType:'fortime', rounds:5, movements:[
+    { name:'Run', type:'cardio', runDistance:800, runUnit:'m' },
+    { name:'Kettlebell Swing', type:'strength', reps:30 },
+    { name:'Pull-up', type:'reps', reps:30 }
+  ]},
+  'Kelly': { wodType:'fortime', rounds:5, movements:[
+    { name:'Run', type:'cardio', runDistance:400, runUnit:'m' },
+    { name:'Box Jump', type:'reps', reps:30 },
+    { name:'Wall Ball', type:'strength', reps:30 }
+  ]},
+  'Lynne': { wodType:'rounds', rounds:5, movements:[
+    { name:'Bench Press', type:'strength', reps:10 },
+    { name:'Pull-up', type:'reps', reps:10 }
+  ]},
+  'Nicole': { wodType:'amrap', timeCapMin:20, movements:[
+    { name:'Run', type:'cardio', runDistance:400, runUnit:'m' },
+    { name:'Pull-up', type:'reps', reps:10 }
+  ]},
+  'Amanda': { wodType:'fortime', rounds:1, movements:[
+    { name:'Muscle-up', type:'reps', reps:9 },
+    { name:'Squat Snatch', type:'strength', reps:9 },
+    { name:'Muscle-up', type:'reps', reps:7 },
+    { name:'Squat Snatch', type:'strength', reps:7 },
+    { name:'Muscle-up', type:'reps', reps:5 },
+    { name:'Squat Snatch', type:'strength', reps:5 }
+  ]},
+  'Nasty Girls': { wodType:'fortime', rounds:3, movements:[
+    { name:'Air Squat', type:'reps', reps:50 },
+    { name:'Muscle-up', type:'reps', reps:7 },
+    { name:'Hang Power Clean', type:'strength', reps:10 }
+  ]},
+  'Frelen': { wodType:'fortime', rounds:5, movements:[
+    { name:'Run', type:'cardio', runDistance:800, runUnit:'m' },
+    { name:'Dumbbell Thruster', type:'strength', reps:15 },
+    { name:'Pull-up', type:'reps', reps:15 }
+  ]},
+  'Grettel': { wodType:'fortime', rounds:10, movements:[
+    { name:'Clean and Jerk', type:'strength', reps:3 },
+    { name:'Burpee Over the Bar', type:'reps', reps:3 }
+  ]},
+  'Ingrid': { wodType:'fortime', rounds:10, movements:[
+    { name:'Snatch', type:'strength', reps:3 },
+    { name:'Burpee Over the Bar', type:'reps', reps:3 }
+  ]},
+  'Barbara Ann': { wodType:'fortime', rounds:5, movements:[
+    { name:'Handstand Push-up', type:'reps', reps:20 },
+    { name:'Deadlift', type:'strength', reps:30 },
+    { name:'Sit-up', type:'reps', reps:40 },
+    { name:'Double-Unders', type:'reps', reps:50 }
+  ]},
+  'Lyla': { wodType:'fortime', rounds:10, movements:[
+    { name:'Muscle-up', type:'reps', reps:10 },
+    { name:'Clean and Jerk', type:'strength', reps:10 }
+  ]},
+  'Ellen': { wodType:'fortime', rounds:3, movements:[
+    { name:'Burpee', type:'reps', reps:20 },
+    { name:'Dumbbell Snatch', type:'strength', reps:21 },
+    { name:'Dumbbell Thruster', type:'strength', reps:12 }
+  ]},
+  'Andi': { wodType:'fortime', rounds:1, movements:[
+    { name:'Hang Power Snatch', type:'strength', reps:100 },
+    { name:'Push Press', type:'strength', reps:100 },
+    { name:'Sumo Deadlift High Pull', type:'strength', reps:100 },
+    { name:'Front Squat', type:'strength', reps:100 }
+  ]},
+  'Lane': { wodType:'rounds', rounds:5, movements:[
+    { name:'Hang Power Snatch', type:'strength', reps:10 },
+    { name:'Handstand Push-up', type:'reps', reps:10 }
+  ]},
+  'Nate': { wodType:'amrap', timeCapMin:20, movements:[
+    { name:'Muscle-up', type:'reps', reps:2 },
+    { name:'Handstand Push-up', type:'reps', reps:4 },
+    { name:'Kettlebell Swing', type:'strength', reps:8 }
+  ]},
+  'Hansen': { wodType:'fortime', rounds:5, movements:[
+    { name:'Kettlebell Swing', type:'strength', reps:30 },
+    { name:'Burpee', type:'reps', reps:30 },
+    { name:'GHD Sit-up', type:'reps', reps:30 }
+  ]},
+  'Erin': { wodType:'fortime', rounds:5, movements:[
+    { name:'Dumbbell Split Clean', type:'strength', reps:15 },
+    { name:'Pull-up', type:'reps', reps:21 }
+  ]},
+  'The Seven': { wodType:'fortime', rounds:7, movements:[
+    { name:'Handstand Push-up', type:'reps', reps:7 },
+    { name:'Thruster', type:'strength', reps:7 },
+    { name:'Knees-to-Elbows', type:'reps', reps:7 },
+    { name:'Deadlift', type:'strength', reps:7 },
+    { name:'Burpee', type:'reps', reps:7 },
+    { name:'Kettlebell Swing', type:'strength', reps:7 },
+    { name:'Pull-up', type:'reps', reps:7 }
+  ]},
+  'Arnie': { wodType:'fortime', rounds:1, movements:[
+    { name:'Turkish Get-up', type:'strength', reps:21 },
+    { name:'Kettlebell Swing', type:'strength', reps:50 },
+    { name:'Overhead Squat', type:'strength', reps:21 },
+    { name:'Kettlebell Swing', type:'strength', reps:50 },
+    { name:'Overhead Squat', type:'strength', reps:21 },
+    { name:'Kettlebell Swing', type:'strength', reps:50 },
+    { name:'Turkish Get-up', type:'strength', reps:21 }
+  ]},
+  'Ryan': { wodType:'fortime', rounds:5, movements:[
+    { name:'Muscle-up', type:'reps', reps:7 },
+    { name:'Burpee', type:'reps', reps:21 }
+  ]},
+  'Forrest': { wodType:'fortime', rounds:3, movements:[
+    { name:'L Pull-up', type:'reps', reps:20 },
+    { name:'Toes-to-Bar', type:'reps', reps:30 },
+    { name:'Burpee', type:'reps', reps:40 },
+    { name:'Run', type:'cardio', runDistance:800, runUnit:'m' }
+  ]},
+  'Wittman': { wodType:'fortime', rounds:7, movements:[
+    { name:'Kettlebell Swing', type:'strength', reps:15 },
+    { name:'Power Clean', type:'strength', reps:15 },
+    { name:'Box Jump', type:'reps', reps:15 }
+  ]},
+  'Jack': { wodType:'amrap', timeCapMin:20, movements:[
+    { name:'Push Press', type:'strength', reps:10 },
+    { name:'Kettlebell Swing', type:'strength', reps:10 },
+    { name:'Box Jump', type:'reps', reps:10 }
+  ]},
+  'Bull': { wodType:'fortime', rounds:2, movements:[
+    { name:'Double-Unders', type:'reps', reps:200 },
+    { name:'Overhead Squat', type:'strength', reps:50 },
+    { name:'Pull-up', type:'reps', reps:50 },
+    { name:'Run', type:'cardio', runDistance:1, runUnit:'mi' }
+  ]},
+  'White': { wodType:'fortime', rounds:5, movements:[
+    { name:'Rope Climb', type:'reps', reps:3 },
+    { name:'Toes-to-Bar', type:'reps', reps:10 },
+    { name:'Overhead Walking Lunge', type:'reps', reps:21 },
+    { name:'Run', type:'cardio', runDistance:400, runUnit:'m' }
+  ]},
+  'Tyler': { wodType:'fortime', rounds:5, movements:[
+    { name:'Muscle-up', type:'reps', reps:7 },
+    { name:'Sumo Deadlift High Pull', type:'strength', reps:21 }
+  ]},
+  'Danny': { wodType:'amrap', timeCapMin:20, movements:[
+    { name:'Box Jump', type:'reps', reps:30 },
+    { name:'Push Press', type:'strength', reps:20 },
+    { name:'Pull-up', type:'reps', reps:30 }
+  ]},
+  'Nutts': { wodType:'fortime', rounds:1, movements:[
+    { name:'Handstand Push-up', type:'reps', reps:10 },
+    { name:'Deadlift', type:'strength', reps:15 },
+    { name:'Box Jump', type:'reps', reps:25 },
+    { name:'Pull-up', type:'reps', reps:50 },
+    { name:'Wall Ball', type:'strength', reps:100 },
+    { name:'Double-Unders', type:'reps', reps:200 },
+    { name:'Run', type:'cardio', runDistance:400, runUnit:'m' }
+  ]},
+  'Paul': { wodType:'fortime', rounds:5, movements:[
+    { name:'Double-Unders', type:'reps', reps:50 },
+    { name:'Knees-to-Elbows', type:'reps', reps:35 },
+    { name:'Overhead Walk (20 yd)', type:'reps', reps:1 }
+  ]},
+  'Griff': { wodType:'fortime', rounds:1, movements:[
+    { name:'Run', type:'cardio', runDistance:800, runUnit:'m' },
+    { name:'Run Backwards', type:'cardio', runDistance:400, runUnit:'m' },
+    { name:'Run', type:'cardio', runDistance:800, runUnit:'m' },
+    { name:'Run Backwards', type:'cardio', runDistance:400, runUnit:'m' }
+  ]},
+  'Rankel': { wodType:'amrap', timeCapMin:20, movements:[
+    { name:'Deadlift', type:'strength', reps:6 },
+    { name:'Burpee Pull-up', type:'reps', reps:7 },
+    { name:'Kettlebell Swing', type:'strength', reps:10 },
+    { name:'Run', type:'cardio', runDistance:200, runUnit:'m' }
+  ]},
+  'McGhee': { wodType:'amrap', timeCapMin:30, movements:[
+    { name:'Deadlift', type:'strength', reps:5 },
+    { name:'Push-up', type:'reps', reps:13 },
+    { name:'Box Jump', type:'reps', reps:9 }
+  ]},
+  'Randy': { wodType:'fortime', rounds:1, movements:[
+    { name:'Power Snatch', type:'strength', reps:75 }
+  ]},
+  'Josh': { wodType:'fortime', rounds:1, movements:[
+    { name:'Overhead Squat', type:'strength', reps:21 },
+    { name:'Pull-up', type:'reps', reps:42 },
+    { name:'Overhead Squat', type:'strength', reps:15 },
+    { name:'Pull-up', type:'reps', reps:30 },
+    { name:'Overhead Squat', type:'strength', reps:9 },
+    { name:'Pull-up', type:'reps', reps:18 }
+  ]},
+  'JT': { wodType:'fortime', rounds:1, movements:[
+    { name:'Handstand Push-up', type:'reps', reps:21 },
+    { name:'Ring Dip', type:'reps', reps:21 },
+    { name:'Push-up', type:'reps', reps:21 },
+    { name:'Handstand Push-up', type:'reps', reps:15 },
+    { name:'Ring Dip', type:'reps', reps:15 },
+    { name:'Push-up', type:'reps', reps:15 },
+    { name:'Handstand Push-up', type:'reps', reps:9 },
+    { name:'Ring Dip', type:'reps', reps:9 },
+    { name:'Push-up', type:'reps', reps:9 }
+  ]},
+  'Michael': { wodType:'fortime', rounds:3, movements:[
+    { name:'Run', type:'cardio', runDistance:800, runUnit:'m' },
+    { name:'Back Extension', type:'reps', reps:50 },
+    { name:'Sit-up', type:'reps', reps:50 }
+  ]},
+  'Daniel': { wodType:'fortime', rounds:1, movements:[
+    { name:'Pull-up', type:'reps', reps:50 },
+    { name:'Run', type:'cardio', runDistance:400, runUnit:'m' },
+    { name:'Thruster', type:'strength', reps:21 },
+    { name:'Run', type:'cardio', runDistance:800, runUnit:'m' },
+    { name:'Thruster', type:'strength', reps:21 },
+    { name:'Run', type:'cardio', runDistance:400, runUnit:'m' },
+    { name:'Pull-up', type:'reps', reps:50 }
+  ]},
+  'Jason': { wodType:'fortime', rounds:1, movements:[
+    { name:'Air Squat', type:'reps', reps:100 },
+    { name:'Muscle-up', type:'reps', reps:5 },
+    { name:'Air Squat', type:'reps', reps:75 },
+    { name:'Muscle-up', type:'reps', reps:10 },
+    { name:'Air Squat', type:'reps', reps:50 },
+    { name:'Muscle-up', type:'reps', reps:15 },
+    { name:'Air Squat', type:'reps', reps:25 },
+    { name:'Muscle-up', type:'reps', reps:20 }
+  ]},
+  'Badger': { wodType:'fortime', rounds:3, movements:[
+    { name:'Squat Clean', type:'strength', reps:30 },
+    { name:'Pull-up', type:'reps', reps:30 },
+    { name:'Run', type:'cardio', runDistance:800, runUnit:'m' }
+  ]},
+  'Tommy V': { wodType:'fortime', rounds:1, movements:[
+    { name:'Thruster', type:'strength', reps:21 },
+    { name:'Rope Climb', type:'reps', reps:12 },
+    { name:'Thruster', type:'strength', reps:15 },
+    { name:'Rope Climb', type:'reps', reps:9 },
+    { name:'Thruster', type:'strength', reps:9 },
+    { name:'Rope Climb', type:'reps', reps:6 }
+  ]},
+  'The Chief': { wodType:'rounds', rounds:5, movements:[
+    { name:'Power Clean', type:'strength', reps:3 },
+    { name:'Push-up', type:'reps', reps:6 },
+    { name:'Air Squat', type:'reps', reps:9 }
+  ]},
+  'Fight Gone Bad': { wodType:'rounds', rounds:3, movements:[
+    { name:'Wall Ball', type:'strength', reps:15 },
+    { name:'Sumo Deadlift High Pull', type:'strength', reps:15 },
+    { name:'Box Jump', type:'reps', reps:15 },
+    { name:'Push Press', type:'strength', reps:15 },
+    { name:'Row', type:'cardio', runDistance:250, runUnit:'m' }
+  ]},
+  'Filthy Fifty': { wodType:'fortime', rounds:1, movements:[
+    { name:'Box Jump', type:'reps', reps:50 },
+    { name:'Jumping Pull-up', type:'reps', reps:50 },
+    { name:'Kettlebell Swing', type:'strength', reps:50 },
+    { name:'Walking Lunge', type:'reps', reps:50 },
+    { name:'Knees-to-Elbows', type:'reps', reps:50 },
+    { name:'Push Press', type:'strength', reps:50 },
+    { name:'Back Extension', type:'reps', reps:50 },
+    { name:'Wall Ball', type:'strength', reps:50 },
+    { name:'Burpee', type:'reps', reps:50 },
+    { name:'Double-Unders', type:'reps', reps:50 }
+  ]},
+  'Tabata Something Else': { wodType:'rounds', rounds:1, movements:[
+    { name:'Pull-up', type:'reps', reps:15 },
+    { name:'Push-up', type:'reps', reps:15 },
+    { name:'Sit-up', type:'reps', reps:15 },
+    { name:'Air Squat', type:'reps', reps:15 }
   ]},
   'Push Day': { wodType:'rounds', rounds:3, movements:[
     { name:'Bench Press', type:'strength', reps:8 },
@@ -3326,9 +3984,44 @@ function renderCompleteTab(){
     const rev = [...completions].sort((a,b)=>b.completedAt.localeCompare(a.completedAt));
     history.innerHTML = rev.map(c => `<div class="entry"><div class="info"><div class="ex-name">${formatDateLabel(c.date)}</div><div class="ex-detail">${c.sets} sets · ${formatSecondsToTime(c.durationSeconds)} · completed ${new Date(c.completedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}</div></div></div>`).join('');
   }
+  renderCompleteVolumeSummary(todayEntries);
+}
+// "Workout complete" volume summary: this session's (today's) total lb lifted, the
+// elephant/whale comparison, and a per-exercise lb breakdown (sets x reps x weight,
+// summed per exercise name) — same weight*reps volume math renderTodaysTotals() already
+// uses for the Log tab's "lb lifted today" stat, just grouped by exercise here too.
+function renderCompleteVolumeSummary(todayEntries){
+  const card = document.getElementById('completeVolumeCard');
+  const host = document.getElementById('completeVolumeSummary');
+  if(!card || !host) return;
+  const strengthEntries = todayEntries.filter(e => e.type === 'strength' && e.weight);
+  if(!strengthEntries.length){ card.style.display = 'none'; return; }
+  card.style.display = 'block';
+  let totalVolume = 0;
+  const byExercise = {};
+  strengthEntries.forEach(e => {
+    const vol = (e.weight || 0) * (e.reps || 0);
+    totalVolume += vol;
+    byExercise[e.exercise] = (byExercise[e.exercise] || 0) + vol;
+  });
+  const cmp = compareLoadToLadder(totalVolume);
+  const rows = Object.keys(byExercise).sort((a,b) => byExercise[b] - byExercise[a]).map(name =>
+    `<div class="entry" style="margin-bottom:6px;"><div class="info"><div class="ex-name">${escapeHTML(name)}</div></div><div class="ex-detail">${Math.round(byExercise[name]).toLocaleString()} lb</div></div>`
+  ).join('');
+  host.innerHTML = `
+    <div class="bignum">${Math.round(totalVolume).toLocaleString()}<span class="u">lb</span></div>
+    ${cmp ? `${loadUnitsHTML(cmp.ratio, 'var(--plate)')}<div class="cmp-title">${compareLoadText(cmp)}</div>` : ''}
+    <div style="margin-top:14px;">
+      <div class="ex-detail" style="margin-bottom:6px;">Volume per exercise</div>
+      ${rows}
+    </div>
+  `;
 }
 document.getElementById('completeWorkoutBtn').addEventListener('click', () => {
   const today = todayStr();
+  // 1. Stop the session timer FOR GOOD, before anything else — this is what the old
+  //    code was missing, and why the timer could keep ticking past Complete.
+  stopSessionTimerPermanently();
   const duration = sessionDurationSeconds();
   const todayEntries = entriesForDate(today);
   if(!todayEntries.length || duration <= 0) return;
@@ -3341,12 +4034,22 @@ document.getElementById('completeWorkoutBtn').addEventListener('click', () => {
   const idx = completions.findIndex(c => c.date === today);
   if(idx >= 0) completions[idx] = record;
   else completions.push(record);
+  // 2. Save the completion BEFORE anything reads/displays the streak. The streak itself
+  //    is derived live from saved data (computeStreak() -> allActiveDates()), never a
+  //    stored counter, so as long as the record above is saved first it cannot miss
+  //    this Complete press — but the render below still has to happen for the person to
+  //    actually see it update without switching tabs away and back.
   saveCompletions();
   const msg = document.getElementById('completeMessage');
   msg.textContent = 'Workout completed and logged successfully.';
   msg.classList.add('success');
   renderCompleteTab();
   renderCalendar();
+  // 3. Streak (Log tab) and Active time (Progress tab, via completions[].durationSeconds)
+  //    both refresh immediately, right here on Complete — not just next time those tabs
+  //    happen to be opened.
+  renderLogTab();
+  renderProgressTab();
 });
 
 /* ---------- log sub-tabs ---------- */
@@ -3410,6 +4113,97 @@ function renderChart(){
     weights.map(w => ({ date: w.date, value: w.weight })), v => v
   );
 }
+
+/* ---------- combined trend: BMI + body composition (+ steps) overlaid on one chart ----------
+   Each series is plotted on its own normalized 0–100% range (true date-scaled x-axis,
+   independently-scaled y per series) so very different units — a BMI around 20–35, body
+   fat around 10–40%, muscle mass in lb, steps in the thousands — can share one chart
+   without a fake shared axis. The chips below double as the legend: they show the real
+   latest value and a colored trend arrow (green = moving the healthy direction). */
+function buildMultiTrendSVG(seriesList){
+  const withEnoughData = seriesList.filter(s => s.data.length >= 2);
+  if(!withEnoughData.length){
+    return '<div class="empty">Log at least two entries for one of the selected metrics to see a trend line.</div>';
+  }
+  const w = 480, h = 200, pad = 28;
+  let minTime = Infinity, maxTime = -Infinity;
+  withEnoughData.forEach(s => s.data.forEach(d => {
+    const t = new Date(d.date + 'T00:00:00').getTime();
+    if(t < minTime) minTime = t;
+    if(t > maxTime) maxTime = t;
+  }));
+  const timeRange = (maxTime - minTime) || 1;
+  const xFor = (dateStr) => pad + ((new Date(dateStr + 'T00:00:00').getTime() - minTime) / timeRange) * (w - pad*2);
+  const seriesSVG = withEnoughData.map(s => {
+    const sorted = [...s.data].sort((a,b) => a.date.localeCompare(b.date));
+    const vals = sorted.map(d => d.value);
+    const min = Math.min(...vals), max = Math.max(...vals);
+    const range = (max - min) || 1;
+    const points = sorted.map(d => {
+      const x = xFor(d.date);
+      const y = h - pad - ((d.value - min) / range) * (h - pad*2);
+      return [x, y];
+    });
+    const pathD = points.map((p,i) => (i===0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+    const dots = points.map(p => `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3" fill="${s.color}"/>`).join('');
+    return `<path d="${pathD}" fill="none" stroke="${s.color}" stroke-width="2.5"/>${dots}`;
+  }).join('');
+  return `
+    <svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+      <line x1="${pad}" y1="${pad}" x2="${w-pad}" y2="${pad}" stroke="#3A3733" stroke-width="1"/>
+      <line x1="${pad}" y1="${h-pad}" x2="${w-pad}" y2="${h-pad}" stroke="#3A3733" stroke-width="1"/>
+      ${seriesSVG}
+    </svg>
+  `;
+}
+function combinedTrendSeriesDefs(){
+  const heightIn = totalHeightInches();
+  return [
+    { key:'bmi', name:'BMI', color:'#E7C13A', goodDirection:'down', fmt: v => v.toFixed(1),
+      data: heightIn ? weights.map(w => ({ date: w.date, value: computeBMI(w.weight) })).filter(d => d.value != null) : [] },
+    { key:'bodyFat', name:'Body fat %', color:'#e0574c', goodDirection:'down', fmt: v => v.toFixed(1) + '%',
+      data: bodyComp.filter(b => b.bodyFatPercent != null).map(b => ({ date: b.date, value: b.bodyFatPercent })) },
+    { key:'muscle', name:'Muscle mass', color:'#5ec98c', goodDirection:'up', fmt: v => v.toFixed(1) + ' lb',
+      data: bodyComp.filter(b => b.muscleMass != null).map(b => ({ date: b.date, value: b.muscleMass })) },
+    { key:'steps', name:'Steps', color:'#6fb8e0', goodDirection:'up', fmt: v => Math.round(v).toLocaleString(),
+      data: stepsLog.map(s => ({ date: s.date, value: s.steps })) }
+  ];
+}
+let combinedTrendActiveKeys = new Set(['bmi', 'bodyFat', 'muscle']);
+function renderCombinedTrendChart(){
+  const chartWrap = document.getElementById('combinedTrendChartWrap');
+  const legendWrap = document.getElementById('combinedTrendLegend');
+  if(!chartWrap || !legendWrap) return;
+  const defs = combinedTrendSeriesDefs();
+  const active = defs.filter(d => combinedTrendActiveKeys.has(d.key) && d.data.length);
+  chartWrap.innerHTML = buildMultiTrendSVG(active);
+  legendWrap.innerHTML = defs.map(d => {
+    const has = d.data.length > 0;
+    const isActive = combinedTrendActiveKeys.has(d.key);
+    const sorted = [...d.data].sort((a,b) => a.date.localeCompare(b.date));
+    const latest = sorted[sorted.length - 1];
+    const prev = sorted[sorted.length - 2];
+    let trendHTML = '';
+    if(latest && prev && latest.value !== prev.value){
+      const delta = latest.value - prev.value;
+      const improved = d.goodDirection === 'down' ? delta < 0 : delta > 0;
+      trendHTML = `<span class="ctl-trend ${improved ? 'good' : 'bad'}">${delta > 0 ? '▲' : '▼'}</span>`;
+    }
+    return `
+      <button type="button" class="ctl-chip ${isActive ? 'active' : 'off'} ${has ? '' : 'disabled'}" data-ctl-key="${d.key}" style="--ctl-color:${d.color};" ${has ? '' : 'disabled'}>
+        <span class="ctl-dot"></span>${d.name}
+        ${latest ? `<span class="ctl-val">${d.fmt(latest.value)}</span>${trendHTML}` : '<span class="ctl-val">No data</span>'}
+      </button>
+    `;
+  }).join('');
+  legendWrap.querySelectorAll('[data-ctl-key]:not([disabled])').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.getAttribute('data-ctl-key');
+      if(combinedTrendActiveKeys.has(key)) combinedTrendActiveKeys.delete(key); else combinedTrendActiveKeys.add(key);
+      renderCombinedTrendChart();
+    });
+  });
+}
 function renderWeightList(){
   const wrap = document.getElementById('weightList');
   if(weights.length === 0){ wrap.innerHTML = ''; return; }
@@ -3423,7 +4217,7 @@ function renderWeightList(){
     btn.addEventListener('click', () => deleteWeight(btn.getAttribute('data-wdel')));
   });
 }
-function renderWeightTab(){ renderChart(); renderWeightList(); renderHeightInputs(); renderCaloriesSection(); renderBodyCompSection(); }
+function renderWeightTab(){ renderChart(); renderWeightList(); renderHeightInputs(); renderCaloriesSection(); renderBodyCompSection(); renderCombinedTrendChart(); }
 
 /* ---------- nutrition quick reference: BMR / TDEE / goal calories / macros ---------- */
 // Mifflin-St Jeor. For "other" / "prefer not to say" / unset we use the midpoint of the
@@ -3547,9 +4341,9 @@ function addSteps(){
   stepsLog.push({ id: newId(), date, steps: Number(val) });
   stepsLog.sort((a,b) => a.date.localeCompare(b.date));
   document.getElementById('stepsValueInput').value = '';
-  saveStepsLog(); renderStepsSection();
+  saveStepsLog(); renderStepsSection(); renderCombinedTrendChart();
 }
-function deleteSteps(id){ stepsLog = stepsLog.filter(s => s.id !== id); saveStepsLog(); renderStepsSection(); }
+function deleteSteps(id){ stepsLog = stepsLog.filter(s => s.id !== id); saveStepsLog(); renderStepsSection(); renderCombinedTrendChart(); }
 document.getElementById('stepsAddBtn').addEventListener('click', addSteps);
 document.getElementById('stepsValueInput').addEventListener('keydown', ev => { if(ev.key==='Enter') addSteps(); });
 function renderStepsSection(){
@@ -3626,16 +4420,167 @@ function totalHeightInches(){
   if(height.feet == null && height.inches == null) return null;
   return (Number(height.feet) || 0) * 12 + (Number(height.inches) || 0);
 }
-function bmiCategory(bmi){
-  if(bmi < 18.5) return 'Underweight';
-  if(bmi < 25) return 'Normal weight';
-  if(bmi < 30) return 'Overweight';
-  return 'Obese';
+const BMI_CATEGORIES = [
+  { max: 18.5, label: 'Underweight', cls: 'bmi-under' },
+  { max: 25,   label: 'Normal weight', cls: 'bmi-normal' },
+  { max: 30,   label: 'Overweight', cls: 'bmi-over' },
+  { max: Infinity, label: 'Obese', cls: 'bmi-obese' }
+];
+function bmiCategoryInfo(bmi){ return BMI_CATEGORIES.find(c => bmi < c.max); }
+function bmiCategory(bmi){ return bmiCategoryInfo(bmi).label; } // kept for anything else that only wants the label
+// Healthy BMI (18.5–24.9) translated back into a weight range for this height.
+function healthyWeightRangeLb(heightIn){
+  if(!heightIn) return null;
+  return {
+    lo: Math.round(18.5 * heightIn * heightIn / 703),
+    hi: Math.round(24.9 * heightIn * heightIn / 703)
+  };
+}
+// Rough ACE-style "acceptable, not overfat" body-fat % ceiling, by gender.
+// Used only to flag the classic BMI false positive: a muscular build with a
+// high BMI but a normal/athletic body fat % isn't actually "overweight."
+const BODY_FAT_ACCEPTABLE_CEILING = { male: 24, female: 31 };
+function bmiBodyFatCrossNote(bmiCat, bodyFatPercent, gender){
+  if(bodyFatPercent == null) return null;
+  const ceiling = BODY_FAT_ACCEPTABLE_CEILING[gender];
+  if(ceiling == null) return null; // unknown/other/not-specified gender — thresholds aren't reliable enough to guess
+  if((bmiCat === 'Overweight' || bmiCat === 'Obese') && bodyFatPercent <= ceiling){
+    return 'Your body fat % is in a healthy/athletic range — this BMI is likely reading a muscular build, not excess fat.';
+  }
+  return null;
 }
 function computeBMI(weightLb){
   const inches = totalHeightInches();
   if(!inches || !weightLb) return null;
   return (703 * weightLb) / (inches * inches);
+}
+/* ---------- BMI gauge + body composition donut (single point-in-time snapshot visuals) ---------- */
+function polarToCartesian(cx, cy, r, angleDeg){
+  const a = (angleDeg * Math.PI) / 180;
+  return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+}
+function arcPath(cx, cy, r, startAngle, endAngle){
+  const start = polarToCartesian(cx, cy, r, startAngle);
+  const end = polarToCartesian(cx, cy, r, endAngle);
+  const largeArc = (endAngle - startAngle) > 180 ? 1 : 0;
+  return `M ${start.x.toFixed(2)} ${start.y.toFixed(2)} A ${r} ${r} 0 ${largeArc} 1 ${end.x.toFixed(2)} ${end.y.toFixed(2)}`;
+}
+const BMI_GAUGE_BANDS = [
+  { label: 'Underweight', from: 15, to: 18.5, color: '#6fb8e0' },
+  { label: 'Normal', from: 18.5, to: 25, color: '#5ec98c' },
+  { label: 'Overweight', from: 25, to: 30, color: '#e0a23c' },
+  { label: 'Obese', from: 30, to: 40, color: '#e0574c' }
+];
+// BMI isn't "parts of a whole," so a true pie/donut doesn't fit it the way body
+// composition does — this draws it as a gauge/arc instead: still round and
+// scannable at a glance, but showing where one number falls across a range.
+function buildBmiGaugeSVG(bmi, catLabel, baselineBmi){
+  const gcx = 140, gcy = 140, gr = 100;
+  const angleFor = (b) => 180 + ((Math.min(40, Math.max(15, b)) - 15) / (40 - 15)) * 180;
+  const bands = BMI_GAUGE_BANDS.map(b =>
+    `<path d="${arcPath(gcx, gcy, gr, angleFor(b.from), angleFor(b.to))}" fill="none" stroke="${b.color}" stroke-width="20" stroke-linecap="butt"/>`
+  ).join('');
+  const needleAngle = angleFor(bmi);
+  const tip = polarToCartesian(gcx, gcy, gr - 28, needleAngle);
+  // Baseline marker: a short tick across the band at the BMI you started at,
+  // so progress along the gauge reads against where you began, not just the
+  // fixed red/amber/green zones. Skipped when it would land right on top of
+  // today's needle (nothing to show yet, or no meaningful change).
+  const showBaselineTick = baselineBmi != null && Math.abs(baselineBmi - bmi) >= 0.1;
+  let baselineTick = '';
+  if(showBaselineTick){
+    const baseAngle = angleFor(baselineBmi);
+    const inner = polarToCartesian(gcx, gcy, gr - 12, baseAngle);
+    const outer = polarToCartesian(gcx, gcy, gr + 12, baseAngle);
+    baselineTick = `<line x1="${inner.x.toFixed(2)}" y1="${inner.y.toFixed(2)}" x2="${outer.x.toFixed(2)}" y2="${outer.y.toFixed(2)}" stroke="#EDE8DF" stroke-width="2.5" stroke-dasharray="1,2.5" stroke-linecap="round" opacity="0.85"/>`;
+  }
+  const legend = BMI_GAUGE_BANDS.map(b =>
+    `<div class="gauge-legend-item"><span class="dot" style="background:${b.color}"></span>${b.label}</div>`
+  ).join('');
+  const baselineCaption = showBaselineTick
+    ? `<div class="gauge-legend-row" style="margin-top:2px;"><span class="gauge-legend-item"><span class="dot" style="background:#EDE8DF;opacity:0.85;"></span>Dashed tick = started at ${baselineBmi.toFixed(1)}</span></div>`
+    : '';
+  return `
+    <svg viewBox="0 0 280 170" class="bmi-gauge-svg">
+      ${bands}
+      ${baselineTick}
+      <line x1="140" y1="140" x2="${tip.x.toFixed(2)}" y2="${tip.y.toFixed(2)}" stroke="#EDE8DF" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="140" cy="140" r="6" fill="#EDE8DF"/>
+      <text x="140" y="118" text-anchor="middle" font-family="'Oswald',sans-serif" font-size="30" font-weight="700" fill="#E7C13A">${bmi.toFixed(1)}</text>
+      <text x="140" y="138" text-anchor="middle" font-size="11" fill="#EDE8DF" font-weight="700">${catLabel.toUpperCase()}</text>
+    </svg>
+    <div class="gauge-legend-row">${legend}</div>
+    ${baselineCaption}
+  `;
+}
+// Fat mass, muscle mass and "other" (bone, water, organs) are genuine parts of
+// one whole (total body weight), so a donut fits here, unlike the BMI gauge above.
+function buildBodyCompDonutSVG(entry, baselineEntry){
+  if(!entry) return null;
+  const weightLb = entry.weight || latestLoggedWeight();
+  if(!weightLb) return null;
+  const fatPct = entry.bodyFatPercent != null ? entry.bodyFatPercent
+    : (entry.fatMass != null ? (entry.fatMass / weightLb) * 100 : null);
+  const musclePct = entry.muscleMass != null ? (entry.muscleMass / weightLb) * 100 : null;
+  if(fatPct == null && musclePct == null) return null;
+  // "Started at" baseline sub-line: the first-ever logged fat % (or fat mass,
+  // if % wasn't logged that day), only shown once there's a different, later
+  // entry to compare it against.
+  let baselineLine = '';
+  if(baselineEntry && baselineEntry.date !== entry.date){
+    const baseWeightLb = baselineEntry.weight || weightLb;
+    const baseFatPct = baselineEntry.bodyFatPercent != null ? baselineEntry.bodyFatPercent
+      : (baselineEntry.fatMass != null && baseWeightLb ? (baselineEntry.fatMass / baseWeightLb) * 100 : null);
+    if(baseFatPct != null && fatPct != null){
+      baselineLine = `<div class="donut-legend-row" style="margin-top:4px;opacity:0.75;"><div class="donut-legend-label">Started at (${formatDateLabel(baselineEntry.date)})</div><div class="donut-legend-val">${baseFatPct.toFixed(0)}% fat</div></div>`;
+    }
+  }
+  const fp = fatPct || 0, mp = musclePct || 0;
+  const otherPct = Math.max(0, 100 - fp - mp);
+  const slices = [
+    { label: 'Fat mass', pct: fp, color: '#e0574c' },
+    { label: 'Muscle mass', pct: mp, color: '#5ec98c' },
+    { label: 'Other (bone, water, organs)', pct: otherPct, color: '#A8A19A' }
+  ].filter(s => s.pct > 0);
+  let cum = -90;
+  const cx = 90, cy = 90, r = 70;
+  const segs = slices.map(s => {
+    const start = cum, end = cum + (s.pct / 100) * 360;
+    cum = end;
+    return `<path d="${arcPath(cx, cy, r, start, Math.min(end, start + 359.9))}" fill="none" stroke="${s.color}" stroke-width="26"/>`;
+  }).join('');
+  const legend = slices.map(s => `
+    <div class="donut-legend-row">
+      <div class="donut-legend-label"><span class="dot" style="background:${s.color}"></span>${s.label}</div>
+      <div class="donut-legend-val">${s.pct.toFixed(0)}% · ${Math.round(weightLb * s.pct / 100)} lb</div>
+    </div>
+  `).join('');
+  return `
+    <div class="bodycomp-donut-row">
+      <svg viewBox="0 0 180 180" class="bodycomp-donut-svg">
+        ${segs}
+        <text x="90" y="84" text-anchor="middle" font-family="'Oswald',sans-serif" font-size="26" font-weight="700" fill="#EDE8DF">${Math.round(weightLb)}</text>
+        <text x="90" y="104" text-anchor="middle" font-size="11" fill="#A8A19A">total lb</text>
+      </svg>
+      <div class="donut-legend">${legend}${baselineLine}</div>
+    </div>
+  `;
+}
+function renderBmiGauge(bmi, catLabel, baselineBmi){
+  const wrap = document.getElementById('bmiGaugeWrap');
+  if(!wrap) return;
+  if(bmi == null){ wrap.innerHTML = ''; return; }
+  wrap.innerHTML = buildBmiGaugeSVG(bmi, catLabel, baselineBmi);
+}
+function renderBodyCompDonut(){
+  const wrap = document.getElementById('bodyCompDonutWrap');
+  if(!wrap) return;
+  const latest = bodyComp.length ? [...bodyComp].sort((a,b) => a.date.localeCompare(b.date)).slice(-1)[0] : null;
+  const baseline = bodyComp.length ? [...bodyComp].sort((a,b) => a.date.localeCompare(b.date))[0] : null;
+  const svg = buildBodyCompDonutSVG(latest, baseline);
+  wrap.innerHTML = svg
+    ? `<div class="edit-hint" style="margin-top:0;margin-bottom:8px;">As of ${formatDateLabel(latest.date)}</div>${svg}`
+    : `<div class="empty">Log body fat %, fat mass or muscle mass above to see your composition breakdown.</div>`;
 }
 function latestLoggedWeight(){
   if(weights.length === 0) return null;
@@ -3648,22 +4593,44 @@ function renderBmiReadout(){
   const inches = totalHeightInches();
   if(!inches){
     el.innerHTML = `<div class="bmi-hint">Enter your height below to calculate BMI.</div>`;
+    renderBmiGauge(null);
     return;
   }
   if(!weightLb){
     el.innerHTML = `<div class="bmi-hint">Log a weight below to calculate BMI.</div>`;
+    renderBmiGauge(null);
     return;
   }
   const bmi = computeBMI(weightLb);
+  const catInfo = bmiCategoryInfo(bmi);
   const profileBits = [];
   if(profile.age) profileBits.push(`age ${profile.age}`);
   if(profile.gender && profile.gender !== 'na') profileBits.push(profile.gender);
   const profileText = profileBits.length ? `, ${profileBits.join(', ')}` : '';
+
+  const range = healthyWeightRangeLb(inches);
+  const rangeLine = range ? `<div class="bmi-range">Healthy BMI range for ${height.feet || 0}'${height.inches || 0}": ${range.lo}–${range.hi} lb</div>` : '';
+
+  const latestBF = latestBodyCompValues();
+  const bfLine = (latestBF && latestBF.bodyFatPercent != null)
+    ? `<div class="bmi-bf-line">Body fat: ${latestBF.bodyFatPercent.toFixed(1)}% (logged ${formatDateLabel(latestBF.date)})</div>`
+    : '';
+  const crossNote = latestBF ? bmiBodyFatCrossNote(catInfo.label, latestBF.bodyFatPercent, profile.gender) : null;
+
+  // Baseline BMI marker: the first-ever logged weight, run through the SAME
+  // (current) height, so the tick shows "where you started" on today's gauge.
+  const firstWeight = firstLoggedWeight();
+  const baselineBmi = (firstWeight != null) ? computeBMI(firstWeight) : null;
+
   el.innerHTML = `
     <div class="bmi-num">${bmi.toFixed(1)}</div>
-    <div class="bmi-cat">${bmiCategory(bmi)}</div>
+    <div class="bmi-cat ${catInfo.cls}">${catInfo.label}</div>
+    ${rangeLine}
+    ${bfLine}
+    ${crossNote ? `<div class="bmi-cross-note">${crossNote}</div>` : ''}
     <div class="bmi-hint">Based on ${weightLb} lb at ${height.feet || 0}'${height.inches || 0}"${profileText}</div>
   `;
+  renderBmiGauge(bmi, catInfo.label, baselineBmi);
 }
 function renderHeightInputs(){
   document.getElementById('heightFeetInput').value = height.feet ?? '';
@@ -3679,6 +4646,7 @@ function saveHeightFromInputs(){
   saveHeight();
   renderHeightInputs();
   renderWeightList();
+  renderCombinedTrendChart();
 }
 function saveProfileFromInputs(){
   const age = document.getElementById('ageInput').value;
@@ -3785,8 +4753,12 @@ function addBodyComp(){
   statusEl.textContent = 'Saved.';
   statusEl.classList.add('success');
   renderBodyCompSection();
+  renderBmiReadout(); // body fat % may now be available for the BMI/body-fat cross-reference
+  renderCombinedTrendChart();
+  setChallengeBaselineIfMissing();
+  scheduleChallengeSync();
 }
-function deleteBodyComp(id){ bodyComp = bodyComp.filter(b => b.id !== id); saveBodyComp(); renderBodyCompSection(); }
+function deleteBodyComp(id){ bodyComp = bodyComp.filter(b => b.id !== id); saveBodyComp(); renderBodyCompSection(); renderBmiReadout(); renderCombinedTrendChart(); scheduleChallengeSync(); }
 document.getElementById('bodyCompAddBtn').addEventListener('click', addBodyComp);
 
 const BODY_COMP_METRICS = {
@@ -3849,13 +4821,17 @@ function renderBodyCompList(){
 }
 function renderBodyCompSection(){
   if(!document.getElementById('bodyCompDateInput').value) document.getElementById('bodyCompDateInput').value = todayStr();
+  renderBodyCompDonut();
   renderBodyCompChart();
   renderBodyCompSegmental();
   renderBodyCompList();
 }
 
-/* ---------- GPS run tracking (Geolocation API, no external service) ---------- */
-let gpsTrackState = null; // { watchId, tickInterval, points:[{lat,lon}], startedAt, distanceMeters }
+/* ---------- GPS run/walk tracking (Geolocation API, no external service) ---------- */
+// gpsTrackState: { watchId, tickInterval, points:[{lat,lon}], startedAt, distanceMeters,
+//                  elevGainMeters, lastAltitude, splits:[secPerMile...], nextMile, mileStartSec }
+let gpsTrackState = null;
+let gpsActivityType = 'run'; // 'run' | 'walk' — toggled by #gpsActivityToggle
 function haversineDistanceMeters(lat1, lon1, lat2, lon2){
   const R = 6371000;
   const toRad = d => d * Math.PI / 180;
@@ -3863,43 +4839,152 @@ function haversineDistanceMeters(lat1, lon1, lat2, lon2){
   const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon/2)**2;
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
+// ---- route sketch drawing + route math (adapted from the gps-activity reference pack's
+// makeProjector/pathD approach — plain SVG, no map tiles, using this app's own theme colors) ----
+function gpsMakeProjector(points, W, H, pad){
+  let minLat=Infinity, maxLat=-Infinity, minLon=Infinity, maxLon=-Infinity;
+  points.forEach(p => {
+    if(p.lat < minLat) minLat = p.lat; if(p.lat > maxLat) maxLat = p.lat;
+    if(p.lon < minLon) minLon = p.lon; if(p.lon > maxLon) maxLon = p.lon;
+  });
+  const k = Math.cos(((minLat + maxLat) / 2) * Math.PI / 180);
+  const spanX = (maxLon - minLon) * k, spanY = maxLat - minLat;
+  const p0 = pad == null ? 20 : pad;
+  let scale = Math.min(spanX > 0 ? (W - 2*p0) / spanX : Infinity, spanY > 0 ? (H - 2*p0) / spanY : Infinity);
+  if(!isFinite(scale)) scale = 1;
+  const offX = (W - spanX*scale) / 2, offY = (H - spanY*scale) / 2;
+  return p => [offX + (p.lon - minLon) * k * scale, H - (offY + (p.lat - minLat) * scale)];
+}
+function gpsPathD(points, proj){
+  return points.map((p, i) => { const q = proj(p); return (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1); }).join(' ');
+}
+function gpsCumulativeMi(route){
+  const cum = [0];
+  for(let i=1;i<route.length;i++) cum.push(cum[i-1] + haversineDistanceMeters(route[i-1].lat, route[i-1].lon, route[i].lat, route[i].lon) / 1609.34);
+  return cum;
+}
+// Splits the route into a hidden start, a public middle, and a hidden end — used for the
+// privacy-zone option (hides the first/last `mi` miles, e.g. around home).
+function gpsTrimRoute(route, mi){
+  if(route.length < 2) return { hiddenStart: route.slice(), publicPts: [], hiddenEnd: [] };
+  const cum = gpsCumulativeMi(route), total = cum[cum.length - 1];
+  if(total <= mi * 2) return { hiddenStart: route.slice(), publicPts: [], hiddenEnd: [] };
+  let s = 0, e = route.length - 1;
+  while(s < route.length - 1 && cum[s] < mi) s++;
+  while(e > 0 && total - cum[e] < mi) e--;
+  return { hiddenStart: route.slice(0, s+1), publicPts: route.slice(s, e+1), hiddenEnd: route.slice(e) };
+}
+function gpsDownsample(points, max){
+  if(points.length <= max) return points.slice();
+  const step = points.length / max, out = [];
+  for(let i=0;i<max;i++) out.push(points[Math.floor(i*step)]);
+  out.push(points[points.length - 1]);
+  return out;
+}
+function drawGpsRoute(svgEl, route, opts={}){
+  if(!svgEl) return;
+  const W = opts.W || 300, H = opts.H || 220;
+  let html = `<rect width="${W}" height="${H}" fill="var(--surface-2)"/>`;
+  if(route.length > 1){
+    const proj = gpsMakeProjector(route, W, H, opts.pad == null ? 24 : opts.pad);
+    if(opts.trim){
+      const t = gpsTrimRoute(route, 0.2);
+      if(t.hiddenStart.length > 1) html += `<path d="${gpsPathD(t.hiddenStart, proj)}" stroke="var(--chalk-dim)" stroke-width="3" stroke-dasharray="3 5" fill="none" stroke-linecap="round"/>`;
+      if(t.hiddenEnd.length > 1) html += `<path d="${gpsPathD(t.hiddenEnd, proj)}" stroke="var(--chalk-dim)" stroke-width="3" stroke-dasharray="3 5" fill="none" stroke-linecap="round"/>`;
+      if(t.publicPts.length > 1) html += `<path d="${gpsPathD(t.publicPts, proj)}" stroke="var(--plate)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+    } else {
+      html += `<path d="${gpsPathD(route, proj)}" stroke="var(--plate)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+    }
+    const p0 = proj(route[0]);
+    html += `<circle cx="${p0[0].toFixed(1)}" cy="${p0[1].toFixed(1)}" r="5" fill="var(--bg)" stroke="var(--chalk)" stroke-width="2"/>`;
+    const pN = proj(route[route.length - 1]);
+    html += `<circle cx="${pN[0].toFixed(1)}" cy="${pN[1].toFixed(1)}" r="6" fill="var(--rust)" stroke="var(--chalk)" stroke-width="2"/>`;
+  } else {
+    html += `<text x="${W/2}" y="${H/2}" text-anchor="middle" fill="var(--chalk-dim)" font-size="12" font-family="sans-serif">Waiting for your first GPS point…</text>`;
+  }
+  svgEl.innerHTML = html;
+}
+document.querySelectorAll('#gpsActivityToggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    gpsActivityType = btn.getAttribute('data-gpstype');
+    document.querySelectorAll('#gpsActivityToggle button').forEach(b => b.classList.toggle('active', b === btn));
+  });
+});
 function setGpsStatus(msg){ const el = document.getElementById('gpsStatus'); if(el) el.textContent = msg || ''; }
 function startGpsTracking(){
   if(!navigator.geolocation){ setGpsStatus('GPS is not available on this device or browser.'); return; }
-  gpsTrackState = { watchId: null, points: [], startedAt: Date.now(), distanceMeters: 0 };
+  gpsTrackState = {
+    watchId: null, points: [], startedAt: Date.now(), distanceMeters: 0,
+    elevGainMeters: 0, lastAltitude: null, splits: [], nextMile: 1, mileStartSec: 0
+  };
   document.getElementById('gpsIdleView').style.display = 'none';
   document.getElementById('gpsTrackingView').style.display = 'block';
+  const savedCard = document.getElementById('gpsSavedSummaryCard');
+  if(savedCard) savedCard.style.display = 'none'; // hide any previous "Where this went" summary
   setGpsStatus('Getting a GPS fix…');
+  drawGpsRoute(document.getElementById('gpsRouteSvg'), [], { W: 300, H: 220 });
   gpsTrackState.watchId = navigator.geolocation.watchPosition(onGpsPosition, onGpsError, { enableHighAccuracy: true, maximumAge: 1000, timeout: 20000 });
   gpsTrackState.tickInterval = setInterval(renderGpsTrackerDisplay, 1000);
   renderGpsTrackerDisplay();
 }
 function onGpsPosition(pos){
   if(!gpsTrackState) return;
-  const { latitude, longitude, accuracy } = pos.coords;
+  const { latitude, longitude, accuracy, altitude } = pos.coords;
   const last = gpsTrackState.points[gpsTrackState.points.length - 1];
   if(last){
     const d = haversineDistanceMeters(last.lat, last.lon, latitude, longitude);
     if(d > 1 && d < 200) gpsTrackState.distanceMeters += d; // ignore GPS noise and implausible jumps
   }
+  if(altitude != null && gpsTrackState.lastAltitude != null){
+    const gain = altitude - gpsTrackState.lastAltitude;
+    if(gain > 0 && gain < 50) gpsTrackState.elevGainMeters += gain; // only count climbs, ignore wild spikes
+  }
+  if(altitude != null) gpsTrackState.lastAltitude = altitude;
   gpsTrackState.points.push({ lat: latitude, lon: longitude });
+  // mile splits: record elapsed seconds each time a new mile is crossed
+  const distanceMi = gpsTrackState.distanceMeters / 1609.34;
+  const elapsedSec = Math.round((Date.now() - gpsTrackState.startedAt) / 1000);
+  while(distanceMi >= gpsTrackState.nextMile){
+    gpsTrackState.splits.push(elapsedSec - gpsTrackState.mileStartSec);
+    gpsTrackState.mileStartSec = elapsedSec;
+    gpsTrackState.nextMile++;
+  }
   setGpsStatus(accuracy > 30 ? `Weak GPS signal (±${Math.round(accuracy)}m) — try getting a clearer view of the sky.` : 'Tracking…');
+  drawGpsRoute(document.getElementById('gpsRouteSvg'), gpsTrackState.points, { W: 300, H: 220 });
   renderGpsTrackerDisplay();
 }
 function onGpsError(err){
   setGpsStatus('GPS error: ' + (err && err.message ? err.message : 'could not get your location.'));
 }
+// Run/Walk swap the 3rd/4th tiles: a run shows Pace /mi + Elev gain, a walk shows Speed
+// (mph) + Steps (est., ~2200 steps/mile) instead — adapted from the reference pack's
+// renderLive() $('sMidL')/$('sLastL') label swap to this app's innerHTML-rebuild pattern.
+// Called on every GPS fix (onGpsPosition) and every tick, so it stays live during tracking.
 function renderGpsTrackerDisplay(){
   if(!gpsTrackState) return;
   const el = document.getElementById('gpsTrackerStats');
   if(!el) return;
   const elapsedSec = Math.round((Date.now() - gpsTrackState.startedAt) / 1000);
   const distanceMi = gpsTrackState.distanceMeters / 1609.34;
-  const paceSecPerMi = distanceMi > 0.02 ? elapsedSec / distanceMi : 0;
+  const isWalk = gpsActivityType === 'walk';
+  let midLbl, midVal, lastLbl, lastVal;
+  if(isWalk){
+    midLbl = 'Speed';
+    midVal = (distanceMi > 0.02 && elapsedSec > 0) ? `${(distanceMi / (elapsedSec / 3600)).toFixed(1)} mph` : '0.0 mph';
+    lastLbl = 'Steps (est.)';
+    lastVal = Math.round(distanceMi * 2200).toLocaleString();
+  } else {
+    const paceSecPerMi = distanceMi > 0.02 ? elapsedSec / distanceMi : 0;
+    midLbl = 'Pace /mi';
+    midVal = paceSecPerMi ? formatSecondsToTime(Math.round(paceSecPerMi)) : '--:--';
+    lastLbl = 'Elev gain, ft';
+    lastVal = Math.round(gpsTrackState.elevGainMeters * 3.28084);
+  }
   el.innerHTML = `
     <div class="gps-stat"><div class="gps-num">${formatSecondsToTime(elapsedSec)}</div><div class="gps-lbl">Time</div></div>
     <div class="gps-stat"><div class="gps-num">${distanceMi.toFixed(2)}</div><div class="gps-lbl">Miles</div></div>
-    <div class="gps-stat"><div class="gps-num">${paceSecPerMi ? formatSecondsToTime(Math.round(paceSecPerMi)) : '--:--'}</div><div class="gps-lbl">Pace /mi</div></div>
+    <div class="gps-stat"><div class="gps-num">${midVal}</div><div class="gps-lbl">${midLbl}</div></div>
+    <div class="gps-stat"><div class="gps-num">${lastVal}</div><div class="gps-lbl">${lastLbl}</div></div>
   `;
 }
 function stopGpsTracking(save){
@@ -3909,7 +4994,8 @@ function stopGpsTracking(save){
   const elapsedSeconds = Math.round((Date.now() - gpsTrackState.startedAt) / 1000);
   const distanceMi = round2(gpsTrackState.distanceMeters / 1609.34);
   if(save && distanceMi > 0.01){
-    entries.unshift({ id: newId(), date: todayStr(), exercise: 'Run', type: 'cardio', distance: distanceMi, unit: 'mi', timeSeconds: elapsedSeconds });
+    const exName = gpsActivityType === 'walk' ? 'Walk' : 'Run';
+    entries.unshift({ id: newId(), date: todayStr(), exercise: exName, type: 'cardio', distance: distanceMi, unit: 'mi', timeSeconds: elapsedSeconds });
     saveEntries();
     const openToday = cardioPlans.filter(c => !c.completed && c.date === todayStr());
     if(openToday.length === 1){
@@ -3917,7 +5003,22 @@ function stopGpsTracking(save){
       c.completed = true; c.actualDistance = distanceMi; c.actualUnit = 'mi'; c.actualTimeSeconds = elapsedSeconds;
       saveCardioPlans();
     }
+    const savedActivity = {
+      id: newId(),
+      date: todayStr(),
+      type: gpsActivityType,
+      distanceMi,
+      durationSeconds: elapsedSeconds,
+      route: gpsDownsample(gpsTrackState.points, 500),
+      elevGainFt: Math.round(gpsTrackState.elevGainMeters * 3.28084),
+      splits: gpsTrackState.splits.slice(),
+      privacyZone: true,
+      endedAt: new Date().toISOString()
+    };
+    gpsActivities.unshift(savedActivity);
+    saveGpsActivities();
     renderAll();
+    renderGpsSavedSummary(savedActivity);
   }
   gpsTrackState = null;
   document.getElementById('gpsIdleView').style.display = 'block';
@@ -3927,8 +5028,129 @@ function stopGpsTracking(save){
 document.getElementById('gpsStartBtn').addEventListener('click', startGpsTracking);
 document.getElementById('gpsStopSaveBtn').addEventListener('click', () => stopGpsTracking(true));
 document.getElementById('gpsDiscardBtn').addEventListener('click', () => {
-  if(confirm('Discard this GPS run without saving it?')) stopGpsTracking(false);
+  if(confirm('Discard this GPS activity without saving it?')) stopGpsTracking(false);
 });
+
+// This week's total cardio miles + active time (lifting + cardio), trailing-7-day window —
+// same convention renderOverallProgress() already uses for its own weekly stats.
+function computeWeekCardioAndActiveTotals(){
+  const today = todayStr();
+  const weekStart = addDaysStr(today, -6);
+  let mi = 0, activeSec = 0;
+  gpsActivities.forEach(a => {
+    if(a.date >= weekStart && a.date <= today){ mi += a.distanceMi || 0; activeSec += a.durationSeconds || 0; }
+  });
+  completions.forEach(c => { if(c.date >= weekStart && c.date <= today) activeSec += c.durationSeconds || 0; });
+  return { mi, activeSec };
+}
+// "Where this went" confirmation after Finish/Save — adapted from the reference pack's
+// renderSummary() $('dests')/dest() rows (Activity log / Progress, Cardio), with the third
+// row swapped from "Day streak" (shown elsewhere in this app already) to an honest note
+// that there is no browser-side way to sync to Apple Health / Google Fit from here.
+function renderGpsSavedSummary(activity){
+  const card = document.getElementById('gpsSavedSummaryCard');
+  const host = document.getElementById('gpsSavedSummaryList');
+  if(!card || !host) return;
+  const { mi, activeSec } = computeWeekCardioAndActiveTotals();
+  const hasSplits = activity.splits && activity.splits.length > 0;
+  host.innerHTML = `
+    <div class="entry" style="margin-bottom:6px;">
+      <div class="info"><div class="ex-name">✓ Activity log</div><div class="ex-detail">Saved with route map${hasSplits ? ', and splits' : ''}</div></div>
+    </div>
+    <div class="entry" style="margin-bottom:6px;">
+      <div class="info"><div class="ex-name">✓ Progress, Cardio</div><div class="ex-detail">Week is now ${mi.toFixed(1)} mi and ${formatActiveHM(activeSec)} active time</div></div>
+    </div>
+    <div class="entry" style="opacity:.7;">
+      <div class="info"><div class="ex-name">ⓘ Health app sync</div><div class="ex-detail">Not available in the browser version — there's no way for a web app to write to Apple Health or Google Fit without a native bridge.</div></div>
+    </div>
+  `;
+  card.style.display = 'block';
+}
+
+/* ---------- GPS activity log: route sketch, splits, privacy zone, GPX export ---------- */
+function gpsActivityGpx(activity){
+  const pts = activity.privacyZone ? gpsTrimRoute(activity.route, 0.2).publicPts : activity.route;
+  const body = pts.map(p => `<trkpt lat="${p.lat}" lon="${p.lon}"/>`).join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Bring the Pain" xmlns="http://www.topografix.com/GPX/1/1">\n<trk><name>${activity.type === 'walk' ? 'Walk' : 'Run'} ${activity.date}</name><trkseg>\n${body}\n</trkseg></trk></gpx>`;
+}
+function downloadGpsGpx(activity){
+  const pts = activity.privacyZone ? gpsTrimRoute(activity.route, 0.2).publicPts : activity.route;
+  if(!pts.length){ alert('This activity is short enough that the privacy zone hides all of it. Turn the privacy zone off to export.'); return; }
+  const blob = new Blob([gpsActivityGpx(activity)], { type: 'application/gpx+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `btp-${activity.type}-${activity.date}.gpx`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+function renderGpsActivityList(){
+  const host = document.getElementById('gpsActivityList');
+  if(!host) return;
+  if(!gpsActivities.length){
+    host.innerHTML = '<div class="empty">No GPS activities saved yet. Start a GPS run or walk above to log one.</div>';
+    return;
+  }
+  const rev = [...gpsActivities].sort((a,b) => b.endedAt.localeCompare(a.endedAt));
+  host.innerHTML = rev.map(a => {
+    // Each saved activity remembers its own run/walk type, so this renders Pace + Elev
+    // gain for a run but Speed + Steps (est., ~2200 steps/mile) for a walk — matching the
+    // live tracker's label swap in renderGpsTrackerDisplay() above.
+    const isWalk = a.type === 'walk';
+    const paceSecPerMi = a.distanceMi > 0.02 ? a.durationSeconds / a.distanceMi : 0;
+    const speedMph = (a.distanceMi > 0.02 && a.durationSeconds > 0) ? (a.distanceMi / (a.durationSeconds / 3600)).toFixed(1) : '0.0';
+    const stepsEst = Math.round(a.distanceMi * 2200);
+    const midStat = isWalk ? `${speedMph} mph` : (paceSecPerMi ? formatSecondsToTime(Math.round(paceSecPerMi)) + '/mi' : '--:--/mi');
+    const lastStat = isWalk ? `${stepsEst.toLocaleString()} steps (est.)` : (a.elevGainFt ? `${a.elevGainFt} ft gain` : '');
+    const bestSplit = a.splits && a.splits.length ? Math.min(...a.splits) : null;
+    const splitsHTML = a.splits && a.splits.length
+      ? `<div class="totals-grid" style="margin-top:8px;grid-template-columns:repeat(${Math.min(a.splits.length,4)},1fr);">` +
+        a.splits.map((s,i) => `<div class="total-tile"><div class="tnum" style="font-size:15px;${s===bestSplit?'color:var(--plate);':''}">${formatSecondsToTime(s)}</div><div class="tlbl">Mi ${i+1}</div></div>`).join('') +
+        `</div>`
+      : '';
+    return `
+      <div class="entry" style="flex-direction:column;align-items:stretch;gap:8px;margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div class="info">
+            <div class="ex-name">${isWalk ? 'Walk' : 'Run'} · ${formatDateLabel(a.date)}</div>
+            <div class="ex-detail">${a.distanceMi.toFixed(2)} mi · ${formatSecondsToTime(a.durationSeconds)} · ${midStat}${lastStat ? ` · ${lastStat}` : ''}</div>
+          </div>
+          <button class="del" data-gps-delete="${a.id}" title="Delete">×</button>
+        </div>
+        <svg viewBox="0 0 300 180" style="width:100%;height:auto;border-radius:4px;display:block;" data-gps-svg="${a.id}"></svg>
+        ${splitsHTML}
+        <label class="checkbox-row" style="margin:4px 0 0;"><input type="checkbox" data-gps-privacy="${a.id}" ${a.privacyZone ? 'checked' : ''}> Privacy zone — hide first/last 0.2 mi when sharing or exporting</label>
+        <div class="plan-form-actions">
+          <button class="small-btn" data-gps-gpx="${a.id}">Export GPX</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+  rev.forEach(a => drawGpsRoute(host.querySelector(`[data-gps-svg="${a.id}"]`), a.route || [], { W: 300, H: 180, pad: 20, trim: a.privacyZone }));
+  host.querySelectorAll('[data-gps-gpx]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const a = gpsActivities.find(x => x.id === btn.getAttribute('data-gps-gpx'));
+      if(a) downloadGpsGpx(a);
+    });
+  });
+  host.querySelectorAll('[data-gps-privacy]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const a = gpsActivities.find(x => x.id === cb.getAttribute('data-gps-privacy'));
+      if(a){ a.privacyZone = cb.checked; saveGpsActivities(); renderGpsActivityList(); }
+    });
+  });
+  host.querySelectorAll('[data-gps-delete]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if(!confirm('Delete this saved GPS activity?')) return;
+      gpsActivities = gpsActivities.filter(x => x.id !== btn.getAttribute('data-gps-delete'));
+      saveGpsActivities();
+      renderGpsActivityList();
+      renderProgressTab();
+    });
+  });
+}
 
 /* ---------- cardio tab: program run/walk sessions, linked to the calendar ---------- */
 document.getElementById('cardioDateInput').value = todayStr();
@@ -4074,6 +5296,7 @@ function wireCardioItemButtons(containerEl, onChange){
 }
 function renderCardioTab(){
   renderStepsSection();
+  renderGpsActivityList();
   const wrap = document.getElementById('cardioPlanList');
   if(!wrap) return;
   if(!cardioPlans.length){
@@ -4161,9 +5384,182 @@ function renderProgressBody(){
     <div class="entry"><div class="info"><div class="ex-name">${s.weight} lb × ${s.reps}${s.rpe ? ` · RPE ${s.rpe}` : ''}</div><div class="ex-detail">${formatDateLabel(s.date)} · est. 1RM ${estimate1RM(s.weight, s.reps)} lb</div></div></div>
   `).join('');
 }
+function renderOverallProgress(){
+  const grid = document.getElementById('overallProgressGrid');
+  const adherenceWrap = document.getElementById('overallProgressAdherence');
+  if(!grid) return;
+  const today = todayStr();
+  const streak = computeStreak();
+
+  const weekStart = addDaysStr(today, -6);
+  const lastWeekStart = addDaysStr(today, -13);
+  const lastWeekEnd = addDaysStr(today, -7);
+  const setsThisWeek = entries.filter(e => e.date >= weekStart && e.date <= today).length;
+  const setsLastWeek = entries.filter(e => e.date >= lastWeekStart && e.date <= lastWeekEnd).length;
+  let trendText = `${setsThisWeek} this week`;
+  if(setsLastWeek > 0){
+    const diff = setsThisWeek - setsLastWeek;
+    trendText += diff === 0 ? ' · same as last week' : (diff > 0 ? ` · +${diff} vs last week` : ` · ${diff} vs last week`);
+  } else if(setsThisWeek > 0){
+    trendText += ' · none logged last week';
+  }
+
+  const cards = [
+    `<div class="pr-card"><div class="pr-num">${streak}</div><div class="pr-lbl">Day streak</div><div class="pr-sub">any logged activity counts</div></div>`,
+    `<div class="pr-card"><div class="pr-num">${entries.length}</div><div class="pr-lbl">Total sets logged</div><div class="pr-sub">${trendText}</div></div>`
+  ];
+
+  // Active time: lifting (completed-workout session durations) + cardio (GPS run/walk
+  // durations) — counted the moment each is saved, same source-of-truth-from-storage
+  // approach as the streak above, so a just-completed workout shows up immediately.
+  const liftSeconds = completions.reduce((sum, c) => sum + (c.durationSeconds || 0), 0);
+  const cardioSeconds = gpsActivities.reduce((sum, a) => sum + (a.durationSeconds || 0), 0);
+  const activeSeconds = liftSeconds + cardioSeconds;
+  if(activeSeconds > 0){
+    const mins = Math.round(activeSeconds / 60);
+    const h = Math.floor(mins / 60), m = mins % 60;
+    cards.push(`<div class="pr-card"><div class="pr-num">${h ? h + 'h ' + m + 'm' : m + 'm'}</div><div class="pr-lbl">Active time</div><div class="pr-sub">lifting + cardio, all time</div></div>`);
+  }
+
+  if(weights.length >= 2){
+    const sorted = [...weights].sort((a,b) => a.date.localeCompare(b.date));
+    const first = sorted[0], last = sorted[sorted.length - 1];
+    const change = last.weight - first.weight;
+    const dir = change > 0 ? '+' : '';
+    cards.push(`<div class="pr-card"><div class="pr-num">${dir}${change.toFixed(1)} lb</div><div class="pr-lbl">Weight change</div><div class="pr-sub">since ${formatDateLabel(first.date)}</div></div>`);
+  }
+
+  const bfEntries = bodyComp.filter(b => b.bodyFatPercent != null).sort((a,b) => a.date.localeCompare(b.date));
+  if(bfEntries.length >= 2){
+    const first = bfEntries[0], last = bfEntries[bfEntries.length - 1];
+    const change = last.bodyFatPercent - first.bodyFatPercent;
+    const dir = change > 0 ? '+' : '';
+    cards.push(`<div class="pr-card"><div class="pr-num">${dir}${change.toFixed(1)}%</div><div class="pr-lbl">Body fat % change</div><div class="pr-sub">since ${formatDateLabel(first.date)}</div></div>`);
+  }
+  const muscleEntries = bodyComp.filter(b => b.muscleMass != null).sort((a,b) => a.date.localeCompare(b.date));
+  if(muscleEntries.length >= 2){
+    const first = muscleEntries[0], last = muscleEntries[muscleEntries.length - 1];
+    const change = last.muscleMass - first.muscleMass;
+    const dir = change > 0 ? '+' : '';
+    cards.push(`<div class="pr-card"><div class="pr-num">${dir}${change.toFixed(1)} lb</div><div class="pr-lbl">Muscle mass change</div><div class="pr-sub">since ${formatDateLabel(first.date)}</div></div>`);
+  }
+
+  const ratedReviews = reviews.filter(r => r.rating);
+  if(ratedReviews.length){
+    const recent = [...ratedReviews].sort((a,b) => b.date.localeCompare(a.date)).slice(0, 10);
+    const avg = recent.reduce((sum, r) => sum + r.rating, 0) / recent.length;
+    cards.push(`<div class="pr-card"><div class="pr-num">${avg.toFixed(1)}★</div><div class="pr-lbl">Avg. session rating</div><div class="pr-sub">last ${recent.length} rated workout${recent.length===1?'':'s'}</div></div>`);
+  }
+
+  grid.innerHTML = cards.join('');
+
+  // Active-days-in-last-30 adherence bar
+  const windowStart = addDaysStr(today, -29);
+  const activeDates = allActiveDates();
+  const activeInWindow = [...activeDates].filter(d => d >= windowStart && d <= today).length;
+  const pct = Math.round((activeInWindow / 30) * 100);
+  adherenceWrap.innerHTML = activeDates.size ? `
+    <div class="adherence-bar-wrap">
+      <span class="adherence-bar-label">Active days, last 30</span>
+      <span class="adherence-bar-val">${activeInWindow}/30</span>
+    </div>
+    <div class="adherence-bar-track"><div class="adherence-bar-fill" style="width:${pct}%;"></div></div>
+  ` : '';
+}
+/* ---------- Progress tab: Strength/Cardio switch + Week/4-weeks toggle ----------
+   Strength panel: total lifted (elephant/whale comparison) + average load per rep
+   (bowling-ball-to-refrigerator comparison). Cardio panel: run+walk miles (Manhattan
+   comparison). Uses a rolling window (last 7 or last 28 days including today), the same
+   "trailing N days" convention renderOverallProgress() already uses above for its own
+   this-week/last-week trend text, rather than introducing a Monday-start calendar week. */
+let progressPeriod = 'week';
+let progressSection = 'strength';
+function computeProgressPeriodStats(period){
+  const today = todayStr();
+  const days = period === 'month' ? 28 : 7;
+  const start = addDaysStr(today, -(days - 1));
+  let volume = 0, reps = 0, runMi = 0, walkMi = 0;
+  entries.forEach(e => {
+    if(e.date < start || e.date > today) return;
+    if(e.type === 'strength'){
+      volume += (e.weight || 0) * (e.reps || 0);
+      reps += e.reps || 0;
+    } else if(e.type === 'cardio'){
+      const mi = e.unit === 'mi' ? (e.distance || 0) : (e.distance || 0) / 1609.34;
+      if(e.exercise === 'Run') runMi += mi;
+      else if(e.exercise === 'Walk') walkMi += mi;
+    }
+  });
+  const sessions = completions.filter(c => c.date >= start && c.date <= today).length;
+  return { volume, reps, sessions, runMi, walkMi, start, days };
+}
+function renderProgressStrengthPanel(stats){
+  const el = document.getElementById('progressStrengthPanel');
+  if(!el) return;
+  if(!stats.volume){
+    el.innerHTML = '<div class="empty">No lifting logged in this period yet.</div>';
+    return;
+  }
+  const cmp = compareLoadToLadder(stats.volume);
+  const avg = stats.reps ? Math.round(stats.volume / stats.reps) : 0;
+  const periodLabel = progressPeriod === 'week' ? 'This week' : 'Last 4 weeks';
+  el.innerHTML = `
+    <div class="ex-detail" style="margin-bottom:2px;">${periodLabel} · total lifted</div>
+    <div class="bignum">${Math.round(stats.volume).toLocaleString()}<span class="u">lb</span></div>
+    ${cmp ? `${loadUnitsHTML(cmp.ratio, 'var(--plate)')}<div class="cmp-title">${compareLoadText(cmp)}</div><div class="ex-detail">1 ${cmp.item.name} is about ${cmp.item.lb.toLocaleString()} lb</div>` : ''}
+    <div class="totals-grid" style="margin-top:14px;">
+      <div class="total-tile"><div class="tnum">${avg.toLocaleString()} lb</div><div class="tlbl">Avg load per rep</div><div class="ex-detail" style="margin-top:4px;">about ${avgLoadCompare(avg)}</div></div>
+      <div class="total-tile"><div class="tnum">${stats.sessions}</div><div class="tlbl">Sessions</div><div class="ex-detail" style="margin-top:4px;">${stats.reps.toLocaleString()} total reps</div></div>
+    </div>
+  `;
+}
+function renderProgressCardioPanel(stats){
+  const el = document.getElementById('progressCardioPanel');
+  if(!el) return;
+  const total = stats.runMi + stats.walkMi;
+  if(!total){
+    el.innerHTML = '<div class="empty">No runs or walks logged in this period yet.</div>';
+    return;
+  }
+  const m = total / MANHATTAN_MI;
+  const periodLabel = progressPeriod === 'week' ? 'This week' : 'Last 4 weeks';
+  el.innerHTML = `
+    <div class="ex-detail" style="margin-bottom:2px;">${periodLabel} · distance</div>
+    <div class="bignum">${total.toFixed(1)}<span class="u">mi</span></div>
+    <div class="ex-detail" style="margin-bottom:8px;">Running ${stats.runMi.toFixed(1)} mi · Walking ${stats.walkMi.toFixed(1)} mi</div>
+    ${loadUnitsHTML(m, 'var(--chalk-dim)')}
+    <div class="cmp-title">${m.toFixed(1)}x the length of Manhattan</div>
+    <div class="ex-detail">Manhattan is about ${MANHATTAN_MI} mi, tip to tip</div>
+  `;
+}
+function renderProgressStrengthCardio(){
+  const stats = computeProgressPeriodStats(progressPeriod);
+  renderProgressStrengthPanel(stats);
+  renderProgressCardioPanel(stats);
+}
+document.querySelectorAll('#progressPeriodToggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    progressPeriod = btn.getAttribute('data-period');
+    document.querySelectorAll('#progressPeriodToggle button').forEach(b => b.classList.toggle('active', b === btn));
+    renderProgressStrengthCardio();
+  });
+});
+document.querySelectorAll('#progressSectionToggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    progressSection = btn.getAttribute('data-section');
+    document.querySelectorAll('#progressSectionToggle button').forEach(b => b.classList.toggle('active', b === btn));
+    document.getElementById('progressStrengthPanel').style.display = progressSection === 'strength' ? 'block' : 'none';
+    document.getElementById('progressCardioPanel').style.display = progressSection === 'cardio' ? 'block' : 'none';
+  });
+});
 function renderProgressTab(){
+  renderOverallProgress();
+  renderProgressStrengthCardio();
   renderProgressExerciseSelect();
   renderProgressBody();
+  renderStarPicker();
+  renderSuggestions();
+  renderReviewsList();
 }
 
 /* ---------- reviews & suggestions tab ---------- */
@@ -4232,7 +5628,7 @@ document.getElementById('reviewSaveBtn').addEventListener('click', () => {
   reviewRatingSel = 0;
   document.getElementById('reviewNotesInput').value = '';
   renderStarPicker();
-  renderReviewsTab();
+  renderProgressTab();
 });
 function reviewItemHTML(r){
   return `
@@ -4261,7 +5657,7 @@ function renderReviewsList(){
     btn.addEventListener('click', () => {
       reviews = reviews.filter(r => r.id !== btn.getAttribute('data-review-del'));
       saveReviews();
-      renderReviewsTab();
+      renderProgressTab();
     });
   });
   wrap.querySelectorAll('[data-review-edit]').forEach(btn => {
@@ -4342,6 +5738,17 @@ function generateSuggestions(){
     list.push({icon:'💪', text:`It's been ${staleCat.days} days since your last logged ${staleCat.cat} exercise. Worth working back in soon.`});
   }
 
+  const hasMeaningfulData = entries.length || weights.length || bodyComp.length || completions.length || cardioPlans.length;
+  if(hasMeaningfulData){
+    const daysSinceBackup = lastBackupAt ? Math.round((todayDate - new Date(lastBackupAt)) / 86400000) : Infinity;
+    if(daysSinceBackup >= 14){
+      const text = lastBackupAt
+        ? `It's been ${daysSinceBackup} days since your last backup. This app only saves data on this device — "clearing site data" or switching phones wipes it. Export a backup from the Share tab to be safe.`
+        : `You haven't exported a backup yet. This app only saves data on this device — "clearing site data" or switching phones wipes it. Export one from the Share tab to be safe.`;
+      list.push({icon:'💾', text});
+    }
+  }
+
   if(!list.length){
     list.push({icon:'✅', text:'Everything looks on track — nothing needs your attention right now.'});
   }
@@ -4354,7 +5761,6 @@ function renderSuggestions(){
     <div class="suggestion-item"><div class="sugg-icon">${s.icon}</div><div class="sugg-text">${s.text}</div></div>
   `).join('');
 }
-function renderReviewsTab(){ renderStarPicker(); renderSuggestions(); renderReviewsList(); }
 
 /* ---------- share tab ---------- */
 function buildShareText(){
@@ -4461,7 +5867,8 @@ function buildBackupObject(){
     data: {
       entries, plan, planNames, planLinks, planRounds, planTypes, planTimeCap, planWods,
       roundCompletions, cardioPlans, wodSchedule, reviews, weights, bodyComp,
-      stepsLog, caloriesLog, height, profile, completions, nutritionPrefs
+      stepsLog, caloriesLog, height, profile, completions, nutritionPrefs,
+      gpsActivities, cycleSettings, cycleCheckins
     }
   };
 }
@@ -4484,6 +5891,8 @@ document.getElementById('exportBackupBtn').addEventListener('click', () => {
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     setBackupStatus('Backup downloaded. Send that file to your other device to import it there.', true);
+    lastBackupAt = new Date().toISOString();
+    saveLastBackupAt();
   }catch(e){
     setBackupStatus('Could not create a backup file on this device.', false);
   }
@@ -4510,11 +5919,15 @@ function applyImportedData(data, opts={}){
   profile = data.profile || { age: null, gender: '' };
   completions = Array.isArray(data.completions) ? data.completions : [];
   nutritionPrefs = { goal:'maintain', activity:'1.55', ...(data.nutritionPrefs || {}) };
+  gpsActivities = Array.isArray(data.gpsActivities) ? data.gpsActivities : [];
+  cycleSettings = { enabled:false, lastPeriodStart:'', cycleLength:28, pinHash:null, pinSalt:null, ...(data.cycleSettings || {}) };
+  cycleCheckins = data.cycleCheckins || {};
   const p = Promise.all([
     saveEntries(), savePlan(), savePlanNames(), savePlanLinks(), savePlanRounds(),
     savePlanTypes(), savePlanTimeCap(), savePlanWods(), saveRoundCompletions(), saveCardioPlans(),
     saveWodSchedule(), saveReviews(), saveWeights(), saveBodyComp(), saveStepsLog(), saveCaloriesLog(),
-    saveHeight(), saveProfile(), saveCompletions(), saveNutritionPrefs()
+    saveHeight(), saveProfile(), saveCompletions(), saveNutritionPrefs(),
+    saveGpsActivities(), saveCycleSettings(), saveCycleCheckins()
   ]);
   if(!opts.silent) p.then(() => renderAll());
   return p;
@@ -4542,6 +5955,25 @@ document.getElementById('importBackupFile').addEventListener('change', async (ev
 });
 
 /* ---------- firebase: account, cross-device sync, community feed ---------- */
+// If you're the one setting this app up for a group (coworkers, a gym, etc.),
+// paste your Firebase project's firebaseConfig object here ONCE, re-publish the
+// file, and everyone else skips the "Connect Firebase" step entirely — they'll
+// only ever see a plain sign up / log in screen. Leave this null to let each
+// person paste in their own config instead (useful for testing, not for a group).
+const BUILT_IN_FIREBASE_CONFIG = {
+  apiKey: "AIzaSyBzElIutnbZkfyhjNUrqyy5BRis7VVzAfw",
+  authDomain: "bring-the-pain-19578.firebaseapp.com",
+  projectId: "bring-the-pain-19578",
+  storageBucket: "bring-the-pain-19578.firebasestorage.app",
+  messagingSenderId: "657172404618",
+  appId: "1:657172404618:web:700f10f20c710894a41073"
+};
+// Example:
+// const BUILT_IN_FIREBASE_CONFIG = {
+//   apiKey: "AIza...", authDomain: "your-project.firebaseapp.com",
+//   projectId: "your-project", storageBucket: "your-project.appspot.com",
+//   messagingSenderId: "...", appId: "..."
+// };
 let firebaseConfig = null;
 let fbApp = null, fbAuth = null, fbDb = null;
 let currentUser = null;
@@ -4574,9 +6006,11 @@ function onAuthChanged(user){
   if(user){
     startUserDocListener(user.uid);
     startCommunityListener();
+    if(activeChallenge) startChallengeListener();
   } else {
     stopUserDocListener();
     stopCommunityListener();
+    stopChallengeListener();
   }
   renderAccountTab();
   renderCommunityTab();
@@ -4679,11 +6113,19 @@ function startUserDocListener(uid){
 function stopUserDocListener(){ if(unsubUserDoc){ unsubUserDoc(); unsubUserDoc = null; } }
 function renderAccountTab(){
   const setupCard = document.getElementById('firebaseSetupCard');
+  const setupForm = document.getElementById('firebaseSetupForm');
+  const setupBrokenNotice = document.getElementById('firebaseSetupBrokenNotice');
   const loggedOutCard = document.getElementById('accountLoggedOutCard');
   const loggedInCard = document.getElementById('accountLoggedInCard');
   if(!setupCard) return;
   if(!fbAuth){
     setupCard.style.display = 'block'; loggedOutCard.style.display = 'none'; loggedInCard.style.display = 'none';
+    // If the app ships with a built-in config and it still failed to connect, this
+    // isn't something an ordinary person should be asked to fix by pasting JSON —
+    // show a plain notice instead of the technical paste form.
+    const broken = !!BUILT_IN_FIREBASE_CONFIG;
+    if(setupForm) setupForm.style.display = broken ? 'none' : 'block';
+    if(setupBrokenNotice) setupBrokenNotice.style.display = broken ? 'block' : 'none';
     return;
   }
   setupCard.style.display = 'none';
@@ -4695,6 +6137,237 @@ function renderAccountTab(){
   } else {
     loggedOutCard.style.display = 'block'; loggedInCard.style.display = 'none';
   }
+}
+document.getElementById('openPrivateTrainingBtn').addEventListener('click', () => switchToTab('private'));
+
+/* ---------- Private cycle-aware training (reached from the Account tab) ----------
+   Off by default. Syncs through the same Firebase user-doc mechanism as the rest of the
+   app (cycleSettings + cycleCheckins are part of buildBackupObject/applyImportedData),
+   so this is private to the signed-in user's own account the same way everything else
+   is — not a separate localStorage-only island. The PIN below is a screen lock for this
+   device, not encryption (same honest caveat as the reference pack this was adapted from). */
+function cycleDayNumber(c){
+  if(!c.lastPeriodStart) return null;
+  const start = new Date(c.lastPeriodStart + 'T00:00:00');
+  const days = Math.round((new Date(todayStr() + 'T00:00:00') - start) / 86400000);
+  const len = Math.max(21, Math.min(45, Number(c.cycleLength) || 28));
+  return days >= 0 ? (days % len) + 1 : null;
+}
+// A low-ish energy score, or a borderline score early in the cycle, qualifies for the suggestion.
+function shouldSuggestLighterDay(c, energy){
+  const day = cycleDayNumber(c);
+  return energy <= 2 || (energy === 3 && day != null && day <= 2);
+}
+function floor5(n){ return Math.floor(n / 5) * 5; }
+// Adapted from btp-cycle-training.html's scalePlan(): about 10% lighter weight (rounded
+// to the nearest 5 lb), one fewer set flagged on the first and last movement, and any
+// movement explicitly tagged optional (m.optional) swapped for a short mobility flow.
+function scaleCyclePlan(list){
+  const last = list.length - 1;
+  return list.map((m, i) => {
+    if(m.optional) return { id: m.id, name: 'Mobility flow', replaced: true, note: '~5 min, in place of an optional movement' };
+    const e = { ...m };
+    if(e.weight) e.weight = floor5(e.weight * 0.9);
+    if(i === 0 || i === last) e.note = 'Suggestion: one fewer set today';
+    return e;
+  });
+}
+function hashPin(pin, salt){
+  const s = salt + ':' + pin;
+  if(window.crypto && crypto.subtle && window.TextEncoder){
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)).then(buf =>
+      Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('')
+    );
+  }
+  let h = 2166136261;
+  for(let i=0;i<s.length;i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return Promise.resolve('f' + (h >>> 0).toString(16));
+}
+function renderPrivateGate(){
+  document.getElementById('privateSettingsView').innerHTML = `
+    <div class="card">
+      <h2>Settings are locked</h2>
+      <div class="form-row"><input type="password" id="privatePinEntry" inputmode="numeric" autocomplete="off" placeholder="PIN"></div>
+      <div class="parse-status" id="privatePinMsg"></div>
+      <button class="add-btn" id="privatePinUnlockBtn">Unlock</button>
+    </div>
+  `;
+  document.getElementById('privatePinUnlockBtn').addEventListener('click', () => {
+    const pin = document.getElementById('privatePinEntry').value;
+    hashPin(pin, cycleSettings.pinSalt || '').then(h => {
+      if(h === cycleSettings.pinHash){ cycleUnlocked = true; renderPrivateSettingsView(); }
+      else document.getElementById('privatePinMsg').textContent = 'That PIN does not match.';
+    });
+  });
+}
+function renderPrivateTodayView(){
+  const host = document.getElementById('privateTodayView');
+  if(!host) return;
+  const key = todayStr();
+  const ci = cycleCheckins[key] || {};
+  const energy = ci.energy;
+  const suggest = cycleSettings.enabled && energy != null && shouldSuggestLighterDay(cycleSettings, energy);
+  const useScaled = suggest && ci.accepted !== false;
+  const plannedList = planForDate(key).list;
+  const items = useScaled ? scaleCyclePlan(plannedList) : plannedList;
+  let html = '';
+  if(!cycleSettings.enabled){
+    html += `<div class="card"><h2>Cycle-aware suggestions are off</h2><div class="parse-status" style="margin:-4px 0 12px 0;">Turn them on in Settings for an optional daily check-in and lighter-day suggestions. Nothing is tracked while this is off.</div><button class="cancel-edit-btn" id="privateGoSettingsBtn">Open settings</button></div>`;
+  } else {
+    html += `<div class="card">
+      <div class="header" style="margin-bottom:10px;"><h2 style="margin:0;">How's your energy today?</h2></div>
+      <div class="cardio-toggle" id="privateEnergyToggle">
+        ${[1,2,3,4,5].map(n => `<button data-energy="${n}" class="${energy===n?'active':''}">${n}</button>`).join('')}
+      </div>
+      <div class="parse-status" style="margin:0;">1 = drained · 5 = great. Only you see this.</div>
+    </div>`;
+    if(energy == null){
+      html += `<div class="card"><div class="empty">Check in above to see today's suggestion.</div></div>`;
+    } else if(suggest){
+      html += `<div class="card">
+        <h2>Suggested for today</h2>
+        <div class="parse-status" style="margin:-4px 0 12px 0;">Lower loads about 10% and trim a set on the first and last movement, based on your check-in.</div>
+        <div class="plan-form-actions">
+          <button class="add-btn" data-accept="1" style="${useScaled ? '' : 'opacity:.6;'}">Use suggestion</button>
+          <button class="cancel-edit-btn" data-accept="0" style="${!useScaled ? 'border-color:var(--plate);color:var(--plate);' : ''}">Keep my plan</button>
+        </div>
+      </div>`;
+    } else {
+      html += `<div class="card"><div class="empty">No changes suggested — your plan looks good as written.</div></div>`;
+    }
+  }
+  html += `<div class="card">
+    <h2>Today's plan${useScaled ? ' <span style="color:var(--plate);font-size:12px;">(adjusted for today)</span>' : ''}</h2>
+    ${items.length ? items.map(m => `<div class="entry" style="margin-bottom:6px;"><div class="info"><div class="ex-name">${escapeHTML(m.name)}</div>${m.note ? `<div class="ex-detail">${escapeHTML(m.note)}</div>` : (m.weight ? `<div class="ex-detail">${m.weight} lb${m.reps ? ` × ${m.reps}` : ''}</div>` : '')}</div></div>`).join('') : '<div class="empty">No plan assigned for today — set one up in Training Program.</div>'}
+  </div>`;
+  host.innerHTML = html;
+  const goBtn = document.getElementById('privateGoSettingsBtn');
+  if(goBtn) goBtn.addEventListener('click', () => setPrivateView('settings'));
+  host.querySelectorAll('[data-energy]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const prev = cycleCheckins[key] || {};
+      cycleCheckins[key] = { energy: Number(btn.getAttribute('data-energy')), accepted: prev.accepted !== false };
+      saveCycleCheckins();
+      renderPrivateTodayView();
+    });
+  });
+  host.querySelectorAll('[data-accept]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      cycleCheckins[key] = { ...(cycleCheckins[key] || {}), accepted: btn.getAttribute('data-accept') === '1' };
+      saveCycleCheckins();
+      renderPrivateTodayView();
+    });
+  });
+}
+function renderPrivateSettingsView(){
+  const host = document.getElementById('privateSettingsView');
+  if(!host) return;
+  if(cycleSettings.pinHash && !cycleUnlocked){ renderPrivateGate(); return; }
+  let html = `<div class="card">
+    <div class="parse-status" style="margin:-4px 0 12px 0;">Optional suggestions that scale your workouts. Off by default, always your call.</div>
+    <label class="checkbox-row" style="margin:0;"><input type="checkbox" id="privateEnabledToggle" ${cycleSettings.enabled ? 'checked' : ''}> Cycle-aware suggestions ${cycleSettings.enabled ? '(on)' : '(off)'}</label>
+  </div>`;
+  if(cycleSettings.enabled){
+    const day = cycleDayNumber(cycleSettings);
+    html += `<div class="card">
+      <h2>Log your cycle</h2>
+      <div class="form-row"><label class="parse-status" style="margin:0 0 4px;">First day of your last period</label><input type="date" id="privateLastPeriodInput" value="${escapeHTML(cycleSettings.lastPeriodStart || '')}"></div>
+      <div class="form-row"><label class="parse-status" style="margin:0 0 4px;">Typical cycle length (days)</label><input type="number" id="privateCycleLengthInput" min="21" max="45" value="${Number(cycleSettings.cycleLength) || 28}"></div>
+      <div class="parse-status" style="margin:0;">${day ? `Today is day ${day} of your cycle.` : 'Optional — suggestions still work from your daily check-in alone.'}</div>
+    </div>
+    <div class="card">
+      <div class="parse-status" style="margin:-4px 0 12px 0;">Stored on this device and synced only to your own account, the same way the rest of your data is — never shared with coworkers, Community, or anyone you share progress with.</div>
+      <label class="checkbox-row" style="margin:0 0 10px;">PIN for this settings screen ${cycleSettings.pinHash ? '(on — screen lock only, not encryption)' : '(off)'}</label>
+      <button class="cancel-edit-btn" id="privatePinBtn">${cycleSettings.pinHash ? 'Remove PIN' : 'Set a PIN'}</button>
+      <div id="privatePinForm"></div>
+    </div>
+    <div class="card">
+      <div class="plan-form-actions">
+        <button class="cancel-edit-btn" id="privateExportBtn">Export my data</button>
+        <button class="cancel-edit-btn" id="privateDeleteBtn">Delete cycle data</button>
+      </div>
+      <div class="parse-status" style="margin:10px 0 0;">Suggestions are optional and are not medical advice. You can override any of them, any day.</div>
+    </div>`;
+  } else {
+    html += `<div class="card"><div class="empty">Nothing is being tracked while this is off. Turn it on any time.</div></div>`;
+  }
+  host.innerHTML = html;
+  const enabledToggle = document.getElementById('privateEnabledToggle');
+  if(enabledToggle) enabledToggle.addEventListener('change', () => {
+    cycleSettings.enabled = enabledToggle.checked;
+    saveCycleSettings();
+    renderPrivateSettingsView();
+  });
+  const lps = document.getElementById('privateLastPeriodInput');
+  if(lps) lps.addEventListener('change', () => { cycleSettings.lastPeriodStart = lps.value; saveCycleSettings(); renderPrivateSettingsView(); });
+  const cl = document.getElementById('privateCycleLengthInput');
+  if(cl) cl.addEventListener('change', () => { cycleSettings.cycleLength = Math.max(21, Math.min(45, Number(cl.value) || 28)); saveCycleSettings(); renderPrivateSettingsView(); });
+  const pinBtn = document.getElementById('privatePinBtn');
+  if(pinBtn) pinBtn.addEventListener('click', () => {
+    if(cycleSettings.pinHash){
+      cycleSettings.pinHash = null; cycleSettings.pinSalt = null; cycleUnlocked = false;
+      saveCycleSettings(); renderPrivateSettingsView();
+    } else {
+      document.getElementById('privatePinForm').innerHTML = `
+        <div class="form-row" style="margin-top:10px;"><input type="password" id="privateNewPin" inputmode="numeric" autocomplete="off" placeholder="New PIN (4-8 digits)"></div>
+        <div class="parse-status" id="privateNewPinMsg"></div>
+        <button class="add-btn" id="privatePinSaveBtn">Save PIN</button>
+      `;
+      document.getElementById('privatePinSaveBtn').addEventListener('click', () => {
+        const pin = document.getElementById('privateNewPin').value;
+        if(!/^\d{4,8}$/.test(pin)){ document.getElementById('privateNewPinMsg').textContent = 'Use 4 to 8 digits.'; return; }
+        const salt = Math.random().toString(36).slice(2);
+        hashPin(pin, salt).then(h => {
+          cycleSettings.pinHash = h; cycleSettings.pinSalt = salt; cycleUnlocked = true;
+          saveCycleSettings(); renderPrivateSettingsView();
+        });
+      });
+    }
+  });
+  const exportBtn = document.getElementById('privateExportBtn');
+  // Downloads cycle settings + check-ins as a JSON file, same Blob+anchor download pattern
+  // as exportBackupBtn (Account tab) and downloadGpsGpx() elsewhere in this file. Leaves
+  // out pinHash/pinSalt — same privacy reasoning as the reference pack's own exportBtn,
+  // since the PIN is a screen lock for this device, not something that belongs in an
+  // exported file.
+  if(exportBtn) exportBtn.addEventListener('click', () => {
+    const settingsOut = { ...cycleSettings };
+    delete settingsOut.pinHash;
+    delete settingsOut.pinSalt;
+    const out = { settings: settingsOut, checkins: { ...cycleCheckins } };
+    const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'btp-cycle-data.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+  const deleteBtn = document.getElementById('privateDeleteBtn');
+  if(deleteBtn) deleteBtn.addEventListener('click', () => {
+    if(!confirm('Delete all private cycle data (settings and check-ins) from this device and your account? This cannot be undone.')) return;
+    cycleSettings = { enabled: false, lastPeriodStart: '', cycleLength: 28, pinHash: null, pinSalt: null };
+    cycleCheckins = {};
+    cycleUnlocked = false;
+    saveCycleSettings(); saveCycleCheckins();
+    renderPrivateSettingsView();
+  });
+}
+function setPrivateView(v){
+  cycleView = v;
+  document.querySelectorAll('#privateViewToggle button').forEach(b => b.classList.toggle('active', b.getAttribute('data-privateview') === v));
+  document.getElementById('privateTodayView').style.display = v === 'today' ? 'block' : 'none';
+  document.getElementById('privateSettingsView').style.display = v === 'settings' ? 'block' : 'none';
+  if(v === 'today') renderPrivateTodayView(); else renderPrivateSettingsView();
+}
+document.querySelectorAll('#privateViewToggle button').forEach(btn => {
+  btn.addEventListener('click', () => setPrivateView(btn.getAttribute('data-privateview')));
+});
+document.getElementById('privateBackBtn').addEventListener('click', () => switchToTab('account'));
+function renderPrivateTab(){
+  if(cycleView === 'today') renderPrivateTodayView(); else renderPrivateSettingsView();
 }
 
 /* ---- community feed ---- */
@@ -4831,6 +6504,391 @@ function renderCommunityTab(){
   lbPostCard.style.display = loggedIn ? 'block' : 'none';
   lbViewCard.style.display = loggedIn ? 'block' : 'none';
   if(loggedIn) renderLeaderboard();
+  renderChallengeSection();
+}
+
+/* ---- group challenge: private, coworker-scoped body-comp progress sharing ----
+   Design intent: only a *delta* (change since each person's own baseline) is ever
+   written to Firestore. Raw weight, body fat %, BMI, and the baseline itself all
+   stay in localStorage on the person's own device and are never part of the
+   member document the group can read. */
+function latestBodyCompValues(){
+  if(!bodyComp.length) return null;
+  const sorted = [...bodyComp].sort((a,b) => a.date.localeCompare(b.date));
+  const last = sorted[sorted.length - 1];
+  return { bodyFatPercent: last.bodyFatPercent ?? null, fatMass: last.fatMass ?? null, muscleMass: last.muscleMass ?? null, weight: last.weight ?? null, date: last.date };
+}
+// First-ever logged entries — used to draw "where you started" baseline
+// markers on the BMI gauge and body-composition donut, and as the Group
+// Challenge baseline lock-in point.
+function firstLoggedWeight(){
+  if(weights.length === 0) return null;
+  return [...weights].sort((a,b) => a.date.localeCompare(b.date))[0].weight;
+}
+function firstBodyCompValues(){
+  if(!bodyComp.length) return null;
+  const sorted = [...bodyComp].sort((a,b) => a.date.localeCompare(b.date));
+  const first = sorted[0];
+  return { bodyFatPercent: first.bodyFatPercent ?? null, fatMass: first.fatMass ?? null, muscleMass: first.muscleMass ?? null, weight: first.weight ?? null, date: first.date };
+}
+// Lean mass = everything in the body that isn't fat (muscle, bone, water, organs).
+// Prefer weight-minus-fat-mass when both are logged (most complete); fall back
+// to a logged skeletal muscle mass reading when fat mass isn't available.
+function leanMassFor(entry){
+  if(!entry) return null;
+  if(entry.weight != null && entry.fatMass != null) return round2(entry.weight - entry.fatMass);
+  if(entry.muscleMass != null) return entry.muscleMass;
+  return null;
+}
+function setChallengeBaselineIfMissing(){
+  if(!activeChallenge) return;
+  if(activeChallenge.baselineDate != null) return; // baseline already locked
+  const latest = latestBodyCompValues();
+  const weight = latestLoggedWeight();
+  if(!latest && !weight) return;
+  activeChallenge.baselineBodyFatPercent = latest ? latest.bodyFatPercent : null;
+  activeChallenge.baselineFatMass = latest ? latest.fatMass : null;
+  activeChallenge.baselineWeight = weight ?? null;
+  activeChallenge.baselineDate = (latest && latest.date) || todayStr();
+  // Lean mass baseline, for the "Lean mass gained %" fairness metric — prefers
+  // the body-comp entry's own logged weight so fat+lean add back up to the
+  // weight that was actually on the scale that day.
+  activeChallenge.baselineLeanMass = latest ? leanMassFor({ weight: latest.weight ?? weight, fatMass: latest.fatMass, muscleMass: latest.muscleMass }) : null;
+  // Target fat mass = the top of this person's own healthy/athletic body-fat
+  // range (same ACE-style ceiling the BMI tab already uses), applied to their
+  // baseline weight — so "goal-gap closed %" measures against a destination
+  // that is theirs, not a generic number, regardless of how much they started with.
+  const genderForTarget = profile.gender === 'female' ? 'female' : 'male';
+  const ceilingPct = BODY_FAT_ACCEPTABLE_CEILING[genderForTarget];
+  activeChallenge.baselineFatMassTarget = (activeChallenge.baselineWeight != null && ceilingPct != null)
+    ? round2(activeChallenge.baselineWeight * ceilingPct / 100) : null;
+  saveActiveChallenge();
+}
+// Every challenge metric here is a *delta since this person's own baseline* —
+// never a raw/current value — so what gets pushed to Firestore stays private
+// the same way bodyFatPercentChange/fatMassChange always have.
+const CHALLENGE_METRICS = {
+  bodyFatPercentChange: { label: 'Body fat % change', better: 'lower', fmt: v => `${v > 0 ? '+' : ''}${v.toFixed(1)}% fat` },
+  fatMassChange:        { label: 'Fat mass lost',      better: 'lower', fmt: v => `${v > 0 ? '+' : ''}${v.toFixed(1)} lb fat mass` },
+  weightChange:         { label: 'Weight change',      better: 'lower', fmt: v => `${v > 0 ? '+' : ''}${v.toFixed(1)} lb` },
+  activeDaysSinceBaseline: { label: 'Workout consistency', better: 'higher', fmt: v => `${v} active day${v === 1 ? '' : 's'}` },
+  // Fairness metrics: normalized against each person's OWN baseline and OWN
+  // goal, so someone who started with less fat to lose (or less lean mass to
+  // gain) is compared on equal footing with someone who started further away.
+  goalGapClosedPercent: { label: 'Goal-gap closed %', better: 'higher', fmt: v => `${v.toFixed(0)}% of goal closed` },
+  leanMassGainedPercent: { label: 'Lean mass gained %', better: 'higher', fmt: v => `${v > 0 ? '+' : ''}${v.toFixed(1)}% lean mass` }
+};
+const DEFAULT_CHALLENGE_METRICS = ['bodyFatPercentChange', 'fatMassChange'];
+function computeChallengeDeltas(){
+  if(!activeChallenge) return null;
+  const latest = latestBodyCompValues();
+  const weight = latestLoggedWeight();
+  const bf = (activeChallenge.baselineBodyFatPercent != null && latest && latest.bodyFatPercent != null)
+    ? round2(latest.bodyFatPercent - activeChallenge.baselineBodyFatPercent) : null;
+  const fm = (activeChallenge.baselineFatMass != null && latest && latest.fatMass != null)
+    ? round2(latest.fatMass - activeChallenge.baselineFatMass) : null;
+  const wc = (activeChallenge.baselineWeight != null && weight != null)
+    ? round2(weight - activeChallenge.baselineWeight) : null;
+  const activeDays = activeChallenge.baselineDate
+    ? [...allActiveDates()].filter(d => d >= activeChallenge.baselineDate).length
+    : null;
+  // Goal-gap closed %: how much of the distance from baseline fat mass down to
+  // this person's own target has been closed. Only defined when the baseline
+  // was actually above target (otherwise there's no gap to close).
+  let goalGap = null;
+  if(activeChallenge.baselineFatMass != null && activeChallenge.baselineFatMassTarget != null && latest && latest.fatMass != null){
+    const totalGap = activeChallenge.baselineFatMass - activeChallenge.baselineFatMassTarget;
+    if(totalGap > 0) goalGap = round2(((activeChallenge.baselineFatMass - latest.fatMass) / totalGap) * 100);
+  }
+  // Lean mass gained %: current lean mass vs. baseline lean mass, as a percent
+  // of the baseline — so a smaller-framed person's lean gains aren't dwarfed
+  // by a larger person's absolute-lb numbers.
+  let leanGain = null;
+  if(activeChallenge.baselineLeanMass != null && activeChallenge.baselineLeanMass > 0){
+    const currentLean = leanMassFor({ weight: (latest && latest.weight) ?? weight, fatMass: latest ? latest.fatMass : null, muscleMass: latest ? latest.muscleMass : null });
+    if(currentLean != null) leanGain = round2(((currentLean - activeChallenge.baselineLeanMass) / activeChallenge.baselineLeanMass) * 100);
+  }
+  if(bf == null && fm == null && wc == null && activeDays == null && goalGap == null && leanGain == null) return null;
+  return { bodyFatPercentChange: bf, fatMassChange: fm, weightChange: wc, activeDaysSinceBaseline: activeDays, goalGapClosedPercent: goalGap, leanMassGainedPercent: leanGain };
+}
+function newJoinCode(){
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no 0/O or 1/I — easier to read aloud/type
+  return Array.from({ length: 6 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+}
+function scheduleChallengeSync(){
+  if(!activeChallenge || !currentUser || !fbDb) return;
+  clearTimeout(challengeSyncTimer);
+  challengeSyncTimer = setTimeout(pushChallengeProgress, 1200);
+}
+async function pushChallengeProgress(){
+  if(!activeChallenge || !currentUser || !fbDb) return;
+  const deltas = computeChallengeDeltas();
+  if(!deltas) return;
+  try{
+    await fbDb.collection('challenges').doc(activeChallenge.id).collection('members').doc(currentUser.uid).set({
+      displayName: currentUser.displayName || currentUser.email.split('@')[0],
+      bodyFatPercentChange: deltas.bodyFatPercentChange,
+      fatMassChange: deltas.fatMassChange,
+      weightChange: deltas.weightChange,
+      activeDaysSinceBaseline: deltas.activeDaysSinceBaseline,
+      goalGapClosedPercent: deltas.goalGapClosedPercent,
+      leanMassGainedPercent: deltas.leanMassGainedPercent,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+  }catch(e){ console.warn('challenge sync failed', e); }
+}
+function startChallengeListener(){
+  stopChallengeListener();
+  if(!activeChallenge || !fbDb) return;
+  unsubChallenge = fbDb.collection('challenges').doc(activeChallenge.id).collection('members')
+    .onSnapshot((snap) => {
+      challengeMembersCache = [];
+      snap.forEach(d => challengeMembersCache.push({ id: d.id, ...d.data() }));
+      renderChallengeLeaderboard();
+    }, (err) => console.warn('challenge listener error', err));
+  // Separate listener on the challenge doc itself so everyone picks up the
+  // leader's choice of which metric(s) to display, live, without rejoining.
+  unsubChallengeDoc = fbDb.collection('challenges').doc(activeChallenge.id)
+    .onSnapshot((doc) => {
+      if(!doc.exists || !activeChallenge) return;
+      const data = doc.data();
+      activeChallenge.visibleMetrics = Array.isArray(data.visibleMetrics) && data.visibleMetrics.length
+        ? data.visibleMetrics.filter(m => CHALLENGE_METRICS[m])
+        : DEFAULT_CHALLENGE_METRICS;
+      activeChallenge.ownerUid = data.ownerUid || activeChallenge.ownerUid;
+      // Leader-controlled, on by default: red/amber/green progress badges on
+      // the leaderboard. Defaults to true so a challenge gets the encouraging
+      // visual from the start; the leader can switch it off for their group.
+      activeChallenge.showBadges = data.showBadges !== false;
+      renderChallengeSection();
+    }, (err) => console.warn('challenge doc listener error', err));
+  scheduleChallengeSync();
+}
+function stopChallengeListener(){
+  if(unsubChallenge){ unsubChallenge(); unsubChallenge = null; }
+  if(unsubChallengeDoc){ unsubChallengeDoc(); unsubChallengeDoc = null; }
+}
+document.getElementById('challengeCreateBtn').addEventListener('click', async () => {
+  if(!currentUser || !fbDb) return;
+  const statusEl = document.getElementById('challengeSetupStatus');
+  const name = document.getElementById('challengeNameInput').value.trim();
+  if(!name){ statusEl.textContent = 'Name the challenge first.'; statusEl.classList.remove('success'); return; }
+  try{
+    const code = newJoinCode();
+    const ref = await fbDb.collection('challenges').add({
+      name, joinCode: code, ownerUid: currentUser.uid, visibleMetrics: DEFAULT_CHALLENGE_METRICS, showBadges: true, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    activeChallenge = { id: ref.id, name, joinCode: code, ownerUid: currentUser.uid, visibleMetrics: DEFAULT_CHALLENGE_METRICS, showBadges: true, joinedAt: new Date().toISOString(), baselineBodyFatPercent: null, baselineFatMass: null, baselineWeight: null, baselineDate: null, baselineLeanMass: null, baselineFatMassTarget: null };
+    setChallengeBaselineIfMissing();
+    await saveActiveChallenge();
+    const startDeltas = computeChallengeDeltas();
+    await fbDb.collection('challenges').doc(ref.id).collection('members').doc(currentUser.uid).set({
+      displayName: currentUser.displayName || currentUser.email.split('@')[0],
+      joinedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      bodyFatPercentChange: startDeltas?.bodyFatPercentChange ?? null,
+      fatMassChange: startDeltas?.fatMassChange ?? null,
+      weightChange: startDeltas?.weightChange ?? null,
+      activeDaysSinceBaseline: startDeltas?.activeDaysSinceBaseline ?? null,
+      goalGapClosedPercent: startDeltas?.goalGapClosedPercent ?? null,
+      leanMassGainedPercent: startDeltas?.leanMassGainedPercent ?? null,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    document.getElementById('challengeNameInput').value = '';
+    startChallengeListener();
+    renderChallengeSection();
+  }catch(e){
+    console.warn('create challenge failed', e);
+    statusEl.textContent = 'Could not create the challenge — try again.'; statusEl.classList.remove('success');
+  }
+});
+document.getElementById('challengeJoinBtn').addEventListener('click', async () => {
+  if(!currentUser || !fbDb) return;
+  const statusEl = document.getElementById('challengeSetupStatus');
+  const code = document.getElementById('challengeJoinCodeInput').value.trim().toUpperCase();
+  if(!code){ statusEl.textContent = 'Enter a join code.'; statusEl.classList.remove('success'); return; }
+  try{
+    const snap = await fbDb.collection('challenges').where('joinCode', '==', code).limit(1).get();
+    if(snap.empty){ statusEl.textContent = 'No challenge found with that code.'; statusEl.classList.remove('success'); return; }
+    const doc = snap.docs[0];
+    const challengeData = doc.data();
+    const visibleMetrics = Array.isArray(challengeData.visibleMetrics) && challengeData.visibleMetrics.length
+      ? challengeData.visibleMetrics.filter(m => CHALLENGE_METRICS[m])
+      : DEFAULT_CHALLENGE_METRICS;
+    activeChallenge = { id: doc.id, name: challengeData.name, joinCode: code, ownerUid: challengeData.ownerUid, visibleMetrics, showBadges: challengeData.showBadges !== false, joinedAt: new Date().toISOString(), baselineBodyFatPercent: null, baselineFatMass: null, baselineWeight: null, baselineDate: null, baselineLeanMass: null, baselineFatMassTarget: null };
+    setChallengeBaselineIfMissing();
+    await saveActiveChallenge();
+    const startDeltas = computeChallengeDeltas();
+    await fbDb.collection('challenges').doc(doc.id).collection('members').doc(currentUser.uid).set({
+      displayName: currentUser.displayName || currentUser.email.split('@')[0],
+      joinedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      bodyFatPercentChange: startDeltas?.bodyFatPercentChange ?? null,
+      fatMassChange: startDeltas?.fatMassChange ?? null,
+      weightChange: startDeltas?.weightChange ?? null,
+      activeDaysSinceBaseline: startDeltas?.activeDaysSinceBaseline ?? null,
+      goalGapClosedPercent: startDeltas?.goalGapClosedPercent ?? null,
+      leanMassGainedPercent: startDeltas?.leanMassGainedPercent ?? null,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    document.getElementById('challengeJoinCodeInput').value = '';
+    startChallengeListener();
+    renderChallengeSection();
+  }catch(e){
+    console.warn('join challenge failed', e);
+    statusEl.textContent = 'Could not join — check the code and try again.'; statusEl.classList.remove('success');
+  }
+});
+document.getElementById('challengeLeaveBtn').addEventListener('click', async () => {
+  if(!activeChallenge) return;
+  if(!confirm('Leave this challenge? Your progress will be removed from the group dashboard.')) return;
+  try{
+    if(currentUser && fbDb){
+      await fbDb.collection('challenges').doc(activeChallenge.id).collection('members').doc(currentUser.uid).delete();
+    }
+  }catch(e){ console.warn('leave challenge failed', e); }
+  stopChallengeListener();
+  activeChallenge = null;
+  challengeMembersCache = [];
+  await saveActiveChallenge();
+  renderChallengeSection();
+});
+function activeChallengeMetrics(){
+  const m = activeChallenge && Array.isArray(activeChallenge.visibleMetrics) && activeChallenge.visibleMetrics.length
+    ? activeChallenge.visibleMetrics.filter(k => CHALLENGE_METRICS[k])
+    : DEFAULT_CHALLENGE_METRICS;
+  return m.length ? m : DEFAULT_CHALLENGE_METRICS;
+}
+// Percentile-based red/amber/green: top third of the group (by the primary
+// ranking metric) is green, middle third amber, bottom third — and anyone
+// with no data yet — red. Uses the app's existing BMI-gauge palette so it
+// reads as consistent with the rest of the app.
+const RAG_COLORS = { green: '#5ec98c', amber: '#e0a23c', red: '#e0574c' };
+function ragBandFor(rankIdx, totalWithData){
+  if(totalWithData === 0) return 'red';
+  const topCut = Math.ceil(totalWithData / 3);
+  const midCut = Math.ceil((totalWithData * 2) / 3);
+  if(rankIdx < topCut) return 'green';
+  if(rankIdx < midCut) return 'amber';
+  return 'red';
+}
+function renderChallengeLeaderboard(){
+  const wrap = document.getElementById('challengeLeaderboard');
+  if(!wrap) return;
+  if(!challengeMembersCache.length){ wrap.innerHTML = '<div class="empty">No one has joined yet — share the join code above.</div>'; return; }
+  const metrics = activeChallengeMetrics();
+  const primary = metrics[0];
+  const primaryMeta = CHALLENGE_METRICS[primary];
+  const showBadges = activeChallenge && activeChallenge.showBadges !== false;
+  const withData = challengeMembersCache.filter(m => m[primary] != null);
+  const noData = challengeMembersCache.filter(m => m[primary] == null);
+  withData.sort((a,b) => primaryMeta.better === 'higher' ? (b[primary] - a[primary]) : (a[primary] - b[primary]));
+  const rows = [...withData, ...noData];
+  wrap.innerHTML = rows.map((m, i) => {
+    const isMe = currentUser && m.id === currentUser.uid;
+    const texts = metrics.map(k => m[k] != null ? CHALLENGE_METRICS[k].fmt(m[k]) : null).filter(Boolean);
+    const mainText = texts[0] || 'No data yet';
+    const subTexts = texts.slice(1);
+    const inWithData = i < withData.length;
+    const band = ragBandFor(i, withData.length);
+    const ragDot = showBadges
+      ? `<span class="rag-dot" title="${inWithData ? (band === 'green' ? 'Top third of the group' : band === 'amber' ? 'Middle third of the group' : 'Bottom third of the group') : 'No data yet'}" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${RAG_COLORS[band]};margin-right:6px;flex-shrink:0;"></span>`
+      : '';
+    // Recomp badge: fat mass down AND lean mass up over the same window — a
+    // real body-recomposition signal, independent of whichever metric is
+    // currently ranking the board (someone recomping may not be #1 on, say,
+    // weight change, since muscle gain can mask fat loss on the scale).
+    const isRecomp = m.fatMassChange != null && m.fatMassChange < 0 && m.leanMassGainedPercent != null && m.leanMassGainedPercent > 0;
+    const recompBadge = isRecomp
+      ? `<span class="recomp-badge" title="Fat mass down and lean mass up over the same stretch — a genuine recomposition, even if it doesn't show up as the biggest number on the scale." style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:700;background:rgba(94,201,140,0.18);color:#5ec98c;white-space:nowrap;">RECOMP</span>`
+      : '';
+    return `
+      <div class="leaderboard-row ${isMe ? 'me' : ''}">
+        <div class="lb-rank">${i+1}</div>
+        <div class="lb-name">${ragDot}${escapeHTML(m.displayName || 'Someone')}${isMe ? ' (you)' : ''}${recompBadge}</div>
+        <div class="lb-metrics">
+          <div class="lb-metric-main">${mainText}</div>
+          ${subTexts.map(t => `<div class="lb-metric-sub">${t}</div>`).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+function renderChallengeMetricPicker(){
+  const wrap = document.getElementById('challengeMetricPicker');
+  if(!wrap) return;
+  const isOwner = currentUser && activeChallenge && activeChallenge.ownerUid === currentUser.uid;
+  if(!isOwner){ wrap.innerHTML = ''; return; }
+  const selected = activeChallengeMetrics();
+  wrap.innerHTML = `
+    <div class="edit-hint" style="margin-top:0;">Leaderboard settings — you're the challenge leader</div>
+    <div class="parse-status" style="margin:-2px 0 10px 0;">Choose which metric(s) show on the leaderboard for everyone. The first one checked (top to bottom) ranks the board; the rest show as extra context. At least one must stay checked.</div>
+    ${Object.entries(CHALLENGE_METRICS).map(([key, meta]) => `
+      <label class="checkbox-row"><input type="checkbox" data-metric-toggle="${key}" ${selected.includes(key) ? 'checked' : ''}> ${meta.label}</label>
+    `).join('')}
+    <label class="checkbox-row" style="margin-top:10px;"><input type="checkbox" id="challengeBadgesToggle" ${activeChallenge.showBadges !== false ? 'checked' : ''}> Show progress badges (red/amber/green by rank, plus a RECOMP badge for anyone losing fat and gaining lean mass at once)</label>
+    <div class="parse-status" id="challengeMetricStatus"></div>
+  `;
+  document.getElementById('challengeBadgesToggle').addEventListener('change', async (ev) => {
+    const statusEl = document.getElementById('challengeMetricStatus');
+    activeChallenge.showBadges = ev.target.checked;
+    saveActiveChallenge();
+    renderChallengeLeaderboard();
+    if(fbDb){
+      try{
+        await fbDb.collection('challenges').doc(activeChallenge.id).update({ showBadges: ev.target.checked });
+        if(statusEl){ statusEl.textContent = 'Saved — everyone in the challenge will see this.'; statusEl.classList.add('success'); }
+      }catch(e){
+        if(statusEl){ statusEl.textContent = 'Saved locally, but could not sync to the group — try again.'; statusEl.classList.remove('success'); }
+      }
+    }
+  });
+  wrap.querySelectorAll('[data-metric-toggle]').forEach(cb => {
+    cb.addEventListener('change', async () => {
+      const checked = [...wrap.querySelectorAll('[data-metric-toggle]:checked')].map(c => c.getAttribute('data-metric-toggle'));
+      const statusEl = document.getElementById('challengeMetricStatus');
+      if(!checked.length){
+        cb.checked = true; // keep at least one selected
+        statusEl.textContent = 'At least one metric has to stay checked.';
+        statusEl.classList.remove('success');
+        return;
+      }
+      // keep the picker's top-to-bottom order so the first checked box stays the ranking metric
+      const ordered = Object.keys(CHALLENGE_METRICS).filter(k => checked.includes(k));
+      activeChallenge.visibleMetrics = ordered;
+      saveActiveChallenge();
+      renderChallengeSection(); // rebuilds the picker's DOM, so re-fetch the status element after this
+      const refreshedStatus = document.getElementById('challengeMetricStatus');
+      if(fbDb){
+        try{
+          await fbDb.collection('challenges').doc(activeChallenge.id).update({ visibleMetrics: ordered });
+          if(refreshedStatus){ refreshedStatus.textContent = 'Saved — everyone in the challenge will see this.'; refreshedStatus.classList.add('success'); }
+        }catch(e){
+          if(refreshedStatus){ refreshedStatus.textContent = 'Saved locally, but could not sync to the group — try again.'; refreshedStatus.classList.remove('success'); }
+        }
+      }
+    });
+  });
+}
+function renderChallengeSection(){
+  const setupCard = document.getElementById('challengeSetupCard');
+  const activeCard = document.getElementById('challengeActiveCard');
+  if(!setupCard) return;
+  if(!currentUser){ setupCard.style.display = 'none'; activeCard.style.display = 'none'; return; }
+  if(!activeChallenge){ setupCard.style.display = 'block'; activeCard.style.display = 'none'; return; }
+  setupCard.style.display = 'none';
+  activeCard.style.display = 'block';
+  document.getElementById('challengeActiveTitle').textContent = activeChallenge.name || 'Group Challenge';
+  document.getElementById('challengeJoinCodeLabel').textContent = `Join code: ${activeChallenge.joinCode} — share this with coworkers so they can join.`;
+  const baselineSet = activeChallenge.baselineBodyFatPercent != null || activeChallenge.baselineFatMass != null || activeChallenge.baselineWeight != null;
+  document.getElementById('challengeBaselineStatus').textContent = baselineSet
+    ? `Your baseline was locked in on ${formatDateLabel(activeChallenge.baselineDate)}. Only you can see your actual numbers — the group only ever sees your change since then.`
+    : 'Log a weight or Body Composition entry (BMI Tracker tab) to lock in your starting point — your progress will then start showing on the group dashboard.';
+  const metrics = activeChallengeMetrics();
+  const primaryMeta = CHALLENGE_METRICS[metrics[0]];
+  const rankDesc = primaryMeta.better === 'higher' ? 'highest ranks #1' : 'most lost/lowest ranks #1';
+  document.getElementById('challengeRankingNote').textContent =
+    `Ranked by ${primaryMeta.label.toLowerCase()} since each person's baseline — ${rankDesc}. Updates automatically (usually within a couple seconds) as you and others log new data; no manual refresh needed.`;
+  renderChallengeMetricPicker();
+  renderChallengeLeaderboard();
 }
 
 // every local save now also schedules a debounced push to the cloud (no-op until logged in)
@@ -4840,10 +6898,12 @@ appStorage.set = async (key, value) => {
   scheduleCloudSync();
   return result;
 };
-firebaseConfig = loadFirebaseConfig();
+firebaseConfig = BUILT_IN_FIREBASE_CONFIG || loadFirebaseConfig();
 if(firebaseConfig && typeof firebase !== 'undefined'){
   initFirebase(firebaseConfig);
-  document.getElementById('firebaseConfigInput').value = JSON.stringify(firebaseConfig, null, 2);
+  // Only pre-fill the paste box for someone using their own self-pasted config —
+  // never echo the app's built-in config back into a visible textarea.
+  if(!BUILT_IN_FIREBASE_CONFIG) document.getElementById('firebaseConfigInput').value = JSON.stringify(firebaseConfig, null, 2);
 }
 
 /* ---------- boot ---------- */
@@ -4851,11 +6911,11 @@ document.getElementById('addBtn').addEventListener('click', addEntry);
 document.getElementById('repsInput').addEventListener('keydown', ev => { if(ev.key==='Enter') addEntry(); });
 document.getElementById('weightInput').addEventListener('keydown', ev => { if(ev.key==='Enter') addEntry(); });
 
-function renderAll(){ renderLogTab(); renderPlanTab(); renderWeightTab(); renderNutritionTab(); renderCardioTab(); renderProgressTab(); renderReviewsTab(); renderAccountTab(); renderCommunityTab(); renderShareTab(); }
+function renderAll(){ renderLogTab(); renderPlanTab(); renderWeightTab(); renderNutritionTab(); renderCardioTab(); renderProgressTab(); renderAccountTab(); renderCommunityTab(); renderShareTab(); renderPrivateTab(); }
 // Beta flags — flip either to true when ready to expose it to testers.
 // Hides the tab entirely (and its content never becomes reachable); nothing else changes.
-const SHOW_ACCOUNT_TAB = false;
-const SHOW_COMMUNITY_TAB = false;
+const SHOW_ACCOUNT_TAB = true;
+const SHOW_COMMUNITY_TAB = true;
 function applyBetaTabVisibility(){
   if(!SHOW_ACCOUNT_TAB){
     const btn = document.querySelector('[data-tab="account"]');
