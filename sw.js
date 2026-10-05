@@ -1,11 +1,12 @@
 // Bump this version any time you update index.html so phones fetch the new copy.
-const CACHE_NAME = 'btp-cache-v37';
+const CACHE_NAME = 'btp-cache-v38';
 const FILES_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
-  './icon-192.png',
-  './icon-512.png'
+  './icon-btp-180.png',
+  './icon-btp-192.png',
+  './icon-btp-512.png'
 ];
 
 self.addEventListener('install', (event) => {

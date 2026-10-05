@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bring the Pain</title>
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" href="icon-btp-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-btp-180.png">
 <meta name="theme-color" content="#141210">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -581,7 +581,7 @@
 <body>
 <div id="app">
   <div class="header">
-    <h1 style="display:flex;align-items:center;"><img src="icon-192.png" alt="" width="32" height="32" style="border-radius:8px;margin-right:10px;flex:none"><div>BRING THE <span>PAIN</span></div></h1>
+    <h1 style="display:flex;align-items:center;"><img src="icon-btp-192.png" alt="" width="32" height="32" style="border-radius:8px;margin-right:10px;flex:none"><div>BRING THE <span>PAIN</span></div></h1>
     <div class="date-today" id="todayLabel"></div>
   </div>
 
@@ -7603,9 +7603,9 @@ function fireReminderNotice(isTest){
   const body = isTest ? 'Reminders are working.' : 'Open Bring the Pain and start today\'s workout.';
   if(!isTest){ r.lastFired = todayStr(); saveV2Prefs(); }
   if('Notification' in window && Notification.permission === 'granted'){
-    const plain = () => { try{ new Notification(title, { body, icon:'icon-192.png' }); }catch(_){ v2Toast(`${title}. ${body}`, 8000); } };
+    const plain = () => { try{ new Notification(title, { body, icon:'icon-btp-192.png' }); }catch(_){ v2Toast(`${title}. ${body}`, 8000); } };
     if(navigator.serviceWorker && navigator.serviceWorker.getRegistration){
-      navigator.serviceWorker.getRegistration().then(reg => reg ? reg.showNotification(title, { body, icon:'icon-192.png', badge:'icon-192.png' }) : plain()).catch(plain);
+      navigator.serviceWorker.getRegistration().then(reg => reg ? reg.showNotification(title, { body, icon:'icon-btp-192.png', badge:'icon-btp-192.png' }) : plain()).catch(plain);
     } else plain();
   } else {
     v2Toast(`${title}. ${body}`, 8000);
@@ -7742,7 +7742,7 @@ async function finishOnboard(){
    v3: rest-timer automation, plates + warm-ups, exercise help,
    feedback, and merge-based cloud sync
    ================================================================ */
-const APP_VERSION = 'v37';
+const APP_VERSION = 'v38';
 const FEEDBACK_EMAIL = ''; // optional: put an address here and the feedback screen gets a "Send by email" button
 v2prefs = { autoRest:true, restSecs:90, barLb:45, ...v2prefs };
 /* ---------- rest timer: auto-start + floating pill + buzz ---------- */
